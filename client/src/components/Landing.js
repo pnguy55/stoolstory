@@ -15,15 +15,16 @@ class Landing extends Component {
             // if there is no user data
             case false:
                 return [
-                    <li key='2'><a className='log-in-btn' href='/auth/google'>Login with Google</a></li>
+                    <li key='1' class='landing-pitch'><h1>Log</h1><h2>your</h2><h3>logs.</h3></li>,
+                    <li key='2'><a className='log-in-btn' href='/auth/google'><img src='/assets/sign-in-images/btn_google_signin_dark_normal_web@2x.png'/></a></li>
                 ]
             // if there is user data
             default:
                 return [
                     //satify the react key requirement
-                    <li key='1'><Link id='new-list' className='btn dash-btn sidenav-close' to='/'>Just went!</Link></li>,
-                    <li key='2'><Link className='btn dash-btn sidenav-close' to='/tagLists'>Log list</Link></li>,
-                    <li key='3'><a className='btn logout-btn sidenav-close' href='/api/logout'>Calendar</a></li>                    
+                    <li key='1'><Link id='new-list' className='btn dash-btn sidenav-close' to='/add_stool'>Just went!</Link></li>,
+                    <li key='2'><Link className='btn dash-btn sidenav-close' to='/log_list'>Log list</Link></li>,
+                    <li key='3'><Link className='btn dash-btn sidenav-close' href='/log_cal'>Calendar</Link></li>                    
                 ]
         }
     }
@@ -31,8 +32,7 @@ class Landing extends Component {
     
 
     render() {
-        return (
-
+        return (            
                 <ul id="landing-list">
                     {this.renderContent()}
                 </ul>

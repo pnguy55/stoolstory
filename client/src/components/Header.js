@@ -15,7 +15,7 @@ class Header extends Component {
             // if there is no user data
             case false:
                 return [
-                    <li key='2'><a className='log-in-btn' href='/auth/google'>Login with Google</a></li>
+                    <li key='2'><a className='log-in-btn' href='/auth/google'><img src='/assets/sign-in-images/btn_google_signin_dark_normal_web@2x.png'/></a></li>
                 ]
             // if there is user data
             default:

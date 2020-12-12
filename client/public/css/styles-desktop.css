@@ -8,3 +8,7 @@
 .mobile-ad {
     display: none;
 }
+
+#hamburger-menu {
+    float: right;
+}
