@@ -12,19 +12,19 @@
     "server": "env-cmd -f ./config/dev.env nodemon src/index.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=true npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pnguy55/video-tagger.git"
+    "url": "git+https://github.com/pnguy55/stoolstory.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/pnguy55/video-tagger/issues"
+    "url": "https://github.com/pnguy55/stoolstory/issues"
   },
-  "homepage": "https://github.com/pnguy55/video-tagger#readme",
+  "homepage": "https://github.com/pnguy55/stoolstory#readme",
   "dependencies": {
     "@sendgrid/mail": "^6.4.0",
     "axios": "^0.19.0",
