@@ -22,7 +22,7 @@ class App extends Component {
                         <Route path='/' component={Landing} />
                         <Route exact path='/form' component={StoolSquadForm} />
                         {/* <Route exact path='/' component={mainUserView}/> */}
-                        <Route exact path='/tagLists' component={Dashboard} />
+                        <Route exact path='/dashboard' component={Dashboard} />
                         {/* <Route path='/tagLists/new' component={TagListWizard} /> */}
                     </div>
                 </HashRouter>

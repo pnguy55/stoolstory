@@ -12,7 +12,7 @@ module.exports = app => {
 
     // After user approves of google auth, this is where google goes 
     app.get('/auth/google/callback', passport.authenticate('google'), (req, res) => {
-        res.redirect('/#/tagLists');
+        res.redirect('/#/dashboard');
     });
     
     app.get('/api/current_user', (req, res) => {
