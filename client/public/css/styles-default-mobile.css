@@ -98,30 +98,33 @@ li > .logout-btn:hover, .logout-btn:focus {
     align-items: center;
     justify-content: center;
 }
-#landing-list > li > a {
-    height: fit-content;
-    width: 20rem;
+#landing-list > li, #landing-list > li > img {
+    height: auto;
+    width: auto;
     font-size: 2.75rem;
     font-family: var(--main-font);
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 1.5rem;
-    padding: 1rem;
 }
-.landing-pitch {
+#landing-list > li > a > img, #landing-list > li > img {
+    max-width: 100%;
+    max-height: 60vh;
+}
+#landing-list > .landing-pitch >h2 {
     width: fit-content;
     display: flex;
     text-align: center;
-    color: var(--main-light-color);
-    background-color: var(--complementary-color);
-    padding: 1rem 6rem;
+    font-family: var(--secondary-font);
+    color: var(--secondaryDark);
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: 0px 0px 1rem 0px;
 }
-.landing-pitch > h1, .landing-pitch > h2, .landing-pitch > h3 {
-    margin: 3px;
+.landing-pitch > img {
+    max-width: 100%;
+    max-height: 100%;
 }
 /*LANDING PAGE ENDS*/

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import SideNav from './SideNav';
 
 class Landing extends Component {
     
@@ -15,8 +14,9 @@ class Landing extends Component {
             // if there is no user data
             case false:
                 return [
-                    <li key='1' class='landing-pitch'><h1>Log</h1><h2>your</h2><h3>logs.</h3></li>,
-                    <li key='2'><a className='log-in-btn' href='/auth/google'><img src='/assets/sign-in-images/btn_google_signin_dark_normal_web@2x.png'/></a></li>
+                    <li key='1' class='landing-pitch'><img src='./assets/landing-scroll.png'/></li>,
+                    <li key='2' class='landing-pitch'><h2>Log your logs</h2></li>,
+                    <li key='3'><a className='log-in-btn' href='/auth/google'><img src='/assets/sign-in-images/btn_google_signin_dark_normal_web@2x.png'/></a></li>
                 ]
             // if there is user data
             default:

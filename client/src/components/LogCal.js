@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 // import TagListList from './tagLists/TagListList';
 
-const Dashboard = () => {
+const LogList = () => {
     return (
         <div>
             {/* <TagListList/>
@@ -15,4 +15,4 @@ const Dashboard = () => {
     )
 }
 
-export default Dashboard;
+export default LogList;
