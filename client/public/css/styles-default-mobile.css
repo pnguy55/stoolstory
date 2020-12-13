@@ -98,6 +98,19 @@ li > .logout-btn:hover, .logout-btn:focus {
     align-items: center;
     justify-content: center;
 }
+#landing-list > .logged-in-ll {
+    margin-bottom: 1rem;
+    width: 80%;
+}
+#landing-list > .logged-in-ll > .btn{
+    font-size: 2.75rem;
+    font-family: var(--main-font);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem .5rem;
+}
 #landing-list > li, #landing-list > li > img {
     height: auto;
     width: auto;
