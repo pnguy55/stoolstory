@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import _ from 'lodash'
 import PropTypes from 'prop-types'
 import { reduxForm } from 'redux-form';
-import StoolForm1 from './StoolForm2';
+import StoolForm1 from './StoolForm1';
 import StoolForm2 from './StoolForm2';
 import StoolForm3 from './StoolForm3';
 import axios from 'axios';

@@ -23,7 +23,7 @@ class Header extends Component {
                     //satify the react key requirement
                     <li key='1'><Link id='new-list' className='btn dash-btn sidenav-close' to='/add_stool'>Just went!</Link></li>,
                     <li key='2'><Link className='btn dash-btn sidenav-close' to='/log_list'>Log list</Link></li>,
-                    <li key='3'><Link className='btn dash-btn sidenav-close' href='/log_cal'>Calendar</Link></li>,   
+                    <li key='3'><Link className='btn dash-btn sidenav-close' to='/log_cal'>Calendar</Link></li>,   
                     <li key='4'><a className='btn logout-btn sidenav-close' href='/api/logout'>Logout</a></li>                     
                  
                 ]
