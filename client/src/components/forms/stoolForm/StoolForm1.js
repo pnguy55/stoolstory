@@ -11,16 +11,6 @@ import M from "materialize-css";
 
 class StoolForm1 extends Component {    
 
-    componentDidMount(){
-        document.addEventListener('DOMContentLoaded', function() {
-            var date_elems = document.querySelectorAll('.datepicker');
-            M.Datepicker.init(date_elems, {});
-
-            var time_elems = document.querySelectorAll('.timepicker');
-            M.Timepicker.init(time_elems, {
-            });
-        })
-    }
 
     render(){
         return (
