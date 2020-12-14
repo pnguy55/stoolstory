@@ -26,6 +26,8 @@
   },
   "homepage": "https://github.com/pnguy55/stoolstory#readme",
   "dependencies": {
+    "@material-ui/core": "^4.11.2",
+    "@material-ui/pickers": "^3.2.10",
     "@sendgrid/mail": "^6.4.0",
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",
@@ -35,7 +37,7 @@
     "express-sslify": "^1.2.0",
     "http-proxy-middleware": "^0.20.0",
     "lodash": "^4.17.15",
-    "mongoose": "^5.7.12",
+    "mongoose": "^5.11.7",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^2.0.0",
     "path-parser": "^4.2.0",

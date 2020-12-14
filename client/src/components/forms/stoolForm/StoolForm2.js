@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import * as actions from '../../../actions/index';
 import YoutubeModal from 'react-youtube-modal';
 
-let StoolForm2 = ({ onCancel, formValues, handleSubmit, getRelatedVideosHandler, videoList  }) => {
+let StoolForm2 = ({ handleSubmit, formValues, prevPage, nextPage  }) => {
 
 
 
@@ -16,9 +16,9 @@ let StoolForm2 = ({ onCancel, formValues, handleSubmit, getRelatedVideosHandler,
     //     console.log(formValues)
     // }, [formValues['title']]);
 
-    // useEffect(() => {
-    //     console.log(formValues)
-    // }, [formValues]);
+    useEffect(() => {
+        console.log(formValues)
+    }, [formValues]);
 
     // const reviewFields = _.map(formFields, ({ name, label }) => {
     //     return (
@@ -79,33 +79,17 @@ let StoolForm2 = ({ onCancel, formValues, handleSubmit, getRelatedVideosHandler,
     
     
 
-    return (
-        <div>
-            <script src="//cdn.jsdelivr.net/npm/afterglowplayer@1.x"></script>
-                    
-            <div className='soft-outter' style={{marginTop:'1rem'}}>
-                <div className='soft-inner' style={{padding:'1rem'}}>
-                    <h5 className='col s12 m6 offset-m3 l4 offset-l4'>Based on your title</h5>
-                    <div>
-                        <div>
-                            {/* {reviewFields} */}
-                        </div>
-                    </div>
-                    <h5 style={{fontWeight: '800'}}>Which of these <strong style={{fontSize:'2rem',color:'var(--secondaryDark)'}}>12</strong> videos is most related to yours?</h5>
-                </div>
+    return (            
+        <form className='row' onSubmit={handleSubmit(nextPage)}>
+            <div className='row'>
+                <button className="col s4 offset-s1" style={{padding:'1rem', marginBottom: '.5rem'}} onClick={prevPage}>
+                    <i className="material-icons large">arrow_backward</i>
+                </button>
+                <button className="col s4 offset-s2" style={{padding:'1rem', marginBottom: '.5rem'}} type="submit">
+                    <i className="material-icons large">arrow_forward</i>
+                </button>
             </div>
-            <div className='container' style={{marginTop:'1rem'}}>
-                <div className='row max-width'>
-                    <div className='divider'></div>
-                </div>
-            </div>
-            <form className='row' onSubmit={handleSubmit}>
-                {/* {videoList.data!==[''] ? generateChoices : console.log('no videos')} */}
-                
-                {/* <div className='container'>{form_buttons()}</div> */}
-            </form>
-            
-        </div>
+        </form>
     );
 };
 

@@ -1,6 +1,5 @@
 
 
 export default [
-    { label: 'Date', name: 'date', className: 'datepicker' },
-    { label: 'Time', name: 'time', className: 'timepicker'}
+    { label: 'Date & Time', name: 'date_time'},
 ];

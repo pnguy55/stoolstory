@@ -141,3 +141,24 @@ li > .logout-btn:hover, .logout-btn:focus {
     max-height: 100%;
 }
 /*LANDING PAGE ENDS*/
+
+/*Form start*/
+
+.home {
+    color: var(--secondary)
+}
+.form-container {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.stoolform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+/*Form end*/

@@ -25,6 +25,8 @@ class StoolFormWizard extends Component {
         }
 
         // this.getRelatedVideos = this.getRelatedVideos.bind(this);
+        this.nextPage = this.nextPage.bind(this);
+        this.prevPage = this.prevPage.bind(this);
     }
     
 
@@ -43,7 +45,16 @@ class StoolFormWizard extends Component {
     //         console.log(error);
     //     })
     // }
-
+    nextPage() {
+        this.setState({
+            stoolFormWizardProgress: this.state.stoolFormWizardProgress + 1
+        })
+    }
+    prevPage() {
+        this.setState({
+            stoolFormWizardProgress: this.state.stoolFormWizardProgress - 1
+        })
+    }
 
 
     renderContent() {
@@ -51,8 +62,8 @@ class StoolFormWizard extends Component {
             case 1:
                 return (
                     <StoolForm2
-                        onCancel={() => this.setState({ stoolFormWizardProgress: this.state.stoolFormWizardProgress - 1 })}
-                        onSubmit={() => this.setState({ stoolFormWizardProgress: this.state.stoolFormWizardProgress + 1 })}
+                        prevPage={() => this.setState({ stoolFormWizardProgress: this.state.stoolFormWizardProgress - 1 })}
+                        nextPage={() => this.setState({ stoolFormWizardProgress: this.state.stoolFormWizardProgress + 1 })}
                     >
 
                     </StoolForm2>);
@@ -64,8 +75,8 @@ class StoolFormWizard extends Component {
             )
             default:
                 return (
-                    <StoolForm1 onStoolFormSubmit={() => this.setState({ stoolFormWizardProgress: this.state.stoolFormWizardProgress + 1 })}
-                                    
+                    <StoolForm1 
+                        nextPage={() => this.nextPage()}
                     >
 
                     </StoolForm1>);
@@ -74,7 +85,7 @@ class StoolFormWizard extends Component {
     }
     render(){
         return (
-            <div className='container'>
+            <div className='form-container'>                
                 {this.renderContent()}
             </div>
         );
@@ -86,7 +97,6 @@ export default reduxForm({
     // doing this allows the clearing of values when surveyNew is unmounted (default behavior)
     form: 'stoolForm',
     initialValues: {
-        date: Helpers.formatMMDDYY(new Date),
-        time: Helpers.formatAMPM(new Date)
+        date_time: `${Helpers.formatMMDDYY(new Date)} ${Helpers.formatAMPM(new Date)}`
     }
 })(StoolFormWizard);
