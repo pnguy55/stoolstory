@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 
 export default ({input, label, className, meta: { error, touched }}) => {
     return (
-        <div>
+        <div className="stool-form-question">
             <label style={{fontSize: '2rem',
                             color: '#000000',
                             fontWeight: "800"}}>
