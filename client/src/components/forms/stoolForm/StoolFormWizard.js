@@ -7,7 +7,7 @@ import StoolForm1 from './StoolForm1';
 import StoolForm2 from './StoolForm2';
 import StoolForm3 from './StoolForm3';
 import axios from 'axios';
-
+import M from "materialize-css";
 
 
 class StoolFormWizard extends Component {

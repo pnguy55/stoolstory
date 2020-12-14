@@ -11,6 +11,16 @@ import M from "materialize-css";
 
 class StoolForm1 extends Component {    
 
+    componentDidMount(){
+        document.addEventListener('DOMContentLoaded', function() {
+            var date_elems = document.querySelectorAll('.datepicker');
+            M.Datepicker.init(date_elems, {});
+
+            var time_elems = document.querySelectorAll('.timepicker');
+            M.Timepicker.init(time_elems, {});
+        })
+    }
+
     render(){
         return (
             <div className=''>
@@ -18,16 +28,7 @@ class StoolForm1 extends Component {
                 
                 <form onSubmit={this.props.handleSubmit(this.props.onStoolFormSubmit)} style={{height: '100%', width: '100%', padding: '1rem'}}>
                     {renderFields()}
-                    {  document.addEventListener('DOMContentLoaded', function() {
-                        var date_elem = document.querySelectorAll('.datepicker');
-                        var date_options = {}
-                        var datepicker_instance = M.Datepicker.init(date_elem, date_options);
 
-                        var time_elem = document.querySelectorAll('.timepicker');
-                        var time_options = {}
-                        var timepicker_instance = M.Timepicker.init(time_elem, time_options);
-                        
-                    })}
                         <button className="right flex-column btn-soft" style={{padding:'1rem', marginBottom: '.5rem'}} type="submit">
                             <i className="material-icons large">arrow_forward</i>
                         </button>
