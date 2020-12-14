@@ -17,7 +17,8 @@ class StoolForm1 extends Component {
             M.Datepicker.init(date_elems, {});
 
             var time_elems = document.querySelectorAll('.timepicker');
-            M.Timepicker.init(time_elems, {});
+            M.Timepicker.init(time_elems, {
+            });
         })
     }
 

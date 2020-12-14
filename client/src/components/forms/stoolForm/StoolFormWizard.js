@@ -8,6 +8,7 @@ import StoolForm2 from './StoolForm2';
 import StoolForm3 from './StoolForm3';
 import axios from 'axios';
 import M from "materialize-css";
+import Helpers from '../../helpers/helpers';
 
 
 class StoolFormWizard extends Component {
@@ -82,5 +83,9 @@ class StoolFormWizard extends Component {
 
 export default reduxForm({
     // doing this allows the clearing of values when surveyNew is unmounted (default behavior)
-    form: 'stoolForm'
+    form: 'stoolForm',
+    initialValues: {
+        date: Helpers.formatMMDDYY(new Date),
+        time: Helpers.formatAMPM(new Date)
+    }
 })(StoolFormWizard);
