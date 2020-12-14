@@ -9,6 +9,7 @@ import formFields from './formFields1';
 import renderFields from './renderFields1'
 import M from "materialize-css";
 import Helpers from '../../helpers/helpers';
+import TextField from '@material-ui/core/TextField';
 
 class StoolForm1 extends Component {    
 
@@ -30,6 +31,7 @@ class StoolForm1 extends Component {
         return (
             <form className='stoolform' onSubmit={this.props.handleSubmit(this.props.nextPage)} style={{height: '100%', width: '100%', padding: '1rem'}}>
                 {renderFields()}
+
                     <div className='row'>
                         <Link className="col s6 btn-soft" style={{padding:'1rem', marginBottom: '.5rem'}} to="/">
                             <i className="home material-icons large">home</i>

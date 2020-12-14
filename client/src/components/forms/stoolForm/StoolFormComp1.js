@@ -2,6 +2,7 @@ import React from 'react';
 
 import M from "materialize-css";
 import TextField from '@material-ui/core/TextField';
+import Helpers from '../../helpers/helpers';
 
 export default ({input, label, className, meta: { error, touched }}) => {
     return (
@@ -13,8 +14,9 @@ export default ({input, label, className, meta: { error, touched }}) => {
             </label>
             <TextField
                 id="datetime-local"
-                label="Press next if date/time is now."
+                label="When did you do the deed?"
                 type="datetime-local"
+                defaultValue={`${Helpers.formatMMDDYY(new Date)}T${Helpers.formatAMPM(new Date)}`}
                 InputLabelProps={{
                 shrink: true,
                 }}
