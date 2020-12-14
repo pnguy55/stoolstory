@@ -26,16 +26,7 @@ class StoolFormWizard extends Component {
 
         // this.getRelatedVideos = this.getRelatedVideos.bind(this);
     }
-    componentDidMount(){
-        document.addEventListener('DOMContentLoaded', function() {
-            var date_elems = document.querySelectorAll('.datepicker');
-            M.Datepicker.init(date_elems, {});
-
-            var time_elems = document.querySelectorAll('.timepicker');
-            M.Timepicker.init(time_elems, {
-            });
-        })
-    }
+    
 
     // getRelatedVideos(videoTitle){
     //     let currentComponent = this;

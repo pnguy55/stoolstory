@@ -24,7 +24,7 @@ class Landing extends Component {
                     //satify the react key requirement
                     <li key='1' className='logged-in-ll'><Link id='new-list' className='btn sidenav-close' to='/add_stool'>Just went!</Link></li>,
                     <li key='2' className='logged-in-ll'><Link className='btn dash-btn sidenav-close' to='/log_list'>Log list</Link></li>,
-                    <li key='3' className='logged-in-ll'><Link className='btn dash-btn sidenav-close' href='/log_cal'>Calendar</Link></li>                    
+                    <li key='3' className='logged-in-ll'><Link className='btn dash-btn sidenav-close' to='/log_cal'>Calendar</Link></li>                    
                 ]
         }
     }
