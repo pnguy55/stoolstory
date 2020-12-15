@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SideNav from './SideNav';
+import ResponsiveDrawer from './DesktopDrawer';
+import BottomNav from './BottomNav';
 
 class Header extends Component {
     
-
+    
     renderContent() {
+
         // this auth object actually has our user data
         switch (this.props.auth){
             // if the reducer is still loading
@@ -21,42 +24,28 @@ class Header extends Component {
             default:
                 return [
                     //satify the react key requirement
-                    <li key='1'><Link id='new-list' className='btn dash-btn sidenav-close' to='/add_stool'>Just went!</Link></li>,
-                    <li key='2'><Link className='btn dash-btn sidenav-close' to='/log_list'>Log list</Link></li>,
-                    <li key='3'><Link className='btn dash-btn sidenav-close' to='/log_cal'>Calendar</Link></li>,   
-                    <li key='4'><a className='btn logout-btn sidenav-close' href='/api/logout'>Logout</a></li>                     
-                 
+                    // <li key='1'><Link id='new-list' className='btn dash-btn sidenav-close' to='/add_stool'>Just went!</Link></li>,
+                    // <li key='2'><Link className='btn dash-btn sidenav-close' to='/log_list'>Log list</Link></li>,
+                    // <li key='3'><Link className='btn dash-btn sidenav-close' to='/log_cal'>Calendar</Link></li>,   
+                    // <li key='4'><a className='btn logout-btn sidenav-close' href='/api/logout'>Logout</a></li> 
+                    {to: '/add_log', text: 'Just Went!', link: true},
+                    {to: '/log_list', text: 'Log List', link: true},
+                    {to: '/log_cal', text: 'Calendar', link: true},
+                    {to: '/api/logout', text: 'Log out', link: false},     
                 ]
         }
     }
-    
-    
 
     render() {
         return (
-            <div>
-                <nav id='navbar' className=''>
-                    <div className="nav-wrapper">
-                        <div className="brand-logo">
-                            <a href='/'
-                            className="black-text"
-                            style={{height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}
-                            >
-                                <img src='/stool-squad.png' style={{height: '2rem', marginRight: '.5rem', width: 'auto'}}></img> 
-                                <span>Stool Story</span>
-                            </a>
-                        </div>
-                        <SideNav>
-                                {this.renderContent()}
-                        </SideNav>
-                    </div>                    
-                </nav>
-                <div className="hide-on-large-only fixed-action-btn">
-                    <div data-target="slide-out" className="sidenav-trigger btn-floating">
-                        <i className="material-icons">menu</i>
-                    </div>
-                </div>
-            </div>
+            <nav id='navbar'>
+                <ResponsiveDrawer>
+                    {this.renderContent()}
+                </ResponsiveDrawer>      
+                <BottomNav>
+                    {this.renderContent()}
+                </BottomNav>
+            </nav>
         );
     }
 }

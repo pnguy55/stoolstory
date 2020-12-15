@@ -101,13 +101,13 @@ let StoolForm2 = ({ handleSubmit, formValues, prevPage, nextPage  }) => {
                     <Grid container item xs={12} justify="center" alignItems="center">
                         <CardActions>
                             <Grid item xs={6} justify="center" alignItems="center">
-                                <Button onClick={prevPage} className='stool-form-btn'>
-                                    <ArrowBackRoundedIcon className="stool-form-btn-icon" fontSize="large"/>
+                                <Button onClick={prevPage} className='stool-btn'>
+                                    <ArrowBackRoundedIcon className="stool-btn-icon" fontSize="large"/>
                                 </Button>
                             </Grid>
                             <Grid item xs={6} justify="center" alignItems="center">
-                                <Button type="submit" className='stool-form-btn'>
-                                    <ArrowForwardRoundedIcon className="stool-form-btn-icon" fontSize="large" s/>
+                                <Button type="submit" className='stool-btn'>
+                                    <ArrowForwardRoundedIcon className="stool-btn-icon" fontSize="large" s/>
                                 </Button>
                             </Grid>
                         </CardActions>

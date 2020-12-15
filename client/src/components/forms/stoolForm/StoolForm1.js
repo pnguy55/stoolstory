@@ -41,15 +41,15 @@ class StoolForm1 extends Component {
                         </CardContent>
                             <Grid container item xs={12} justify="center" alignItems="center" className="margin-btm-sml">
                                 <Grid item xs={3}/>
-                                <Grid item xs={3} justify="center" alignItems="center" className='stool-form-btn link'>
+                                <Grid item xs={3} justify="center" alignItems="center" className='stool-btn link'>
                                     <Link to="/" className='flex-link'>
-                                        <HomeRoundedIcon className="stool-form-btn-icon link" fontSize="large"/>
+                                        <HomeRoundedIcon className="stool-btn-icon link" fontSize="large"/>
                                     </Link>
                                 </Grid>
 
-                                <Grid item xs={3} justify="center" alignItems="center" className='stool-form-btn flex-link'>
+                                <Grid item xs={3} justify="center" alignItems="center" className='stool-btn flex-link'>
                                     <Button type="submit">
-                                        <ArrowForwardRoundedIcon className="stool-form-btn-icon" fontSize="large"/>
+                                        <ArrowForwardRoundedIcon className="stool-btn-icon" fontSize="large"/>
                                     </Button>
                                 </Grid>
                                 <Grid item xs={3}/>

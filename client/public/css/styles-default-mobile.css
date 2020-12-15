@@ -34,6 +34,14 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
     justify-content: center;
 }
+.stick-to-bottom {
+    width: '100%';
+    position: 'fixed';
+    bottom: 0;
+}
+.black-icon, .dark-text {
+    color: var(--darkText);
+}
 /* End of appwide classes */
 
 #navbar {
@@ -47,9 +55,13 @@ h1, h2, h3, h4, h5, h6 {
 .nav-wrapper {
     width: 100%;
 }
-.brand-logo {
+.stool-story-logo {
     font-family: var(--main-font);
-    white-space: nowrap;
+    font-size: 2rem;
+}
+.stool-story-logo > a > span {
+
+    color: var(--darkText);
 }
 #new-list {
     background: var(--secondary);
@@ -64,6 +76,17 @@ li > .logout-btn:hover, .logout-btn:focus {
     background: var(--main-light-color);
     color: var(--secondaryDark);
 }
+
+
+/*DRAWER STYLES START*/
+.desktop-drawer-text {
+    font-family: var(--main-font)!important;
+}
+.drawer-btn:hover {
+    background-color: lightsteelblue;
+}
+/*DRAWER STYLES END*/
+
 
 /*SIDENAV STYLES START*/
 .sidenav-trigger > i {
@@ -177,22 +200,22 @@ li > .logout-btn:hover, .logout-btn:focus {
 .form-arrow {
     font-size: 5rem;
 }
-.stool-form-btn.link{
+.stool-btn.link{
     background-color: var(--main-light-color);
     border-radius: 50px;
     border: 2px solid var(--secondary);
     padding: .25rem;
     margin-bottom: .5rem;
 }
-.stool-form-btn-icon.link {
+.stool-btn-icon.link {
     color: var(--secondary);
 }
-.stool-form-btn:not(.link){
+.stool-btn:not(.link){
     background-color: var(--secondary);
     border-radius: 50px;    
     margin-bottom: .5rem;
 }
-.stool-form-btn-icon:not(.link){
+.stool-btn-icon:not(.link){
     color: var(--main-light-color);
 }
 input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
