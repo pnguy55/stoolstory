@@ -5,7 +5,17 @@ import { reduxForm, Field } from 'redux-form';
 import formFields from './formFields1';
 import { withRouter } from 'react-router-dom';
 import * as actions from '../../../actions/index';
-import YoutubeModal from 'react-youtube-modal';
+
+
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
+import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
 
 let StoolForm2 = ({ handleSubmit, formValues, prevPage, nextPage  }) => {
 
@@ -80,16 +90,31 @@ let StoolForm2 = ({ handleSubmit, formValues, prevPage, nextPage  }) => {
     
 
     return (            
-        <form className='row' onSubmit={handleSubmit(nextPage)}>
-            <div className='row'>
-                <button className="col s4 offset-s1" style={{padding:'1rem', marginBottom: '.5rem'}} onClick={prevPage}>
-                    <i className="material-icons large">arrow_backward</i>
-                </button>
-                <button className="col s4 offset-s2" style={{padding:'1rem', marginBottom: '.5rem'}} type="submit">
-                    <i className="material-icons large">arrow_forward</i>
-                </button>
-            </div>
-        </form>
+        <Card>
+            <form class="" onSubmit={handleSubmit(nextPage)}>
+                <Grid container spacing={3} justify="center" alignItems="center">
+                    <CardContent>
+                    <Grid item xs={12} justify="center" alignItems="center">
+                            {/* {renderFields()} */}
+                    </Grid>
+                    </CardContent>
+                    <Grid container item xs={12} justify="center" alignItems="center">
+                        <CardActions>
+                            <Grid item xs={6} justify="center" alignItems="center">
+                                <Button onClick={prevPage}>
+                                    <ArrowBackRoundedIcon fontSize="large"/>
+                                </Button>
+                            </Grid>
+                            <Grid item xs={6} justify="center" alignItems="center">
+                                <Button type="submit">
+                                    <ArrowForwardRoundedIcon fontSize="large"/>
+                                </Button>
+                            </Grid>
+                        </CardActions>
+                    </Grid>
+                </Grid>
+            </form>
+        </Card>
     );
 };
 

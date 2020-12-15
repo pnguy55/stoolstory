@@ -12,3 +12,13 @@
 #hamburger-menu {
     float: right;
 }
+
+/*FORM START*/
+.stoolform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 40%;
+}
+/*FORM END*/

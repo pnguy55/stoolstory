@@ -7,40 +7,55 @@ import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
 import formFields from './formFields1';
 import renderFields from './renderFields1'
-import M from "materialize-css";
+
 import Helpers from '../../helpers/helpers';
+
 import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
+import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
 
 class StoolForm1 extends Component {    
 
     componentDidMount(){
-            document.addEventListener('DOMContentLoaded', function() {
-                var date_elems = document.querySelectorAll('.datepicker');
-                console.log(date_elems)
-                M.Datepicker.init(date_elems, {});
 
-                var time_elems = document.querySelectorAll('.timepicker');
-                M.Timepicker.init(time_elems, {
-                });
-            })
 
     }
-    
 
     render(){
         return (
-            <form className='stoolform' onSubmit={this.props.handleSubmit(this.props.nextPage)} style={{height: '100%', width: '100%', padding: '1rem'}}>
-                {renderFields()}
-
-                    <div className='row'>
-                        <Link className="col s6 btn-soft" style={{padding:'1rem', marginBottom: '.5rem'}} to="/">
-                            <i className="home material-icons large">home</i>
-                        </Link>
-                        <button className="col s6" style={{padding:'1rem', marginBottom: '.5rem'}} type="submit">
-                            <i className="material-icons large">arrow_forward</i>
-                        </button>
-                    </div>
+            <form style={{margin: "1rem"}} onSubmit={this.props.handleSubmit(this.props.nextPage)}>
+                <Card>
+                    <Grid container spacing={3} justify="center" alignItems="center">
+                        <CardContent>
+                        <Grid item xs={12} justify="center" alignItems="center">
+                                {renderFields()}
+                        </Grid>
+                        </CardContent>
+                        <Grid container item xs={12} justify="center" alignItems="center">
+                            <CardActions>
+                                <Grid item xs={6} justify="center" alignItems="center">
+                                    <Link to="/">
+                                        <i className="home material-icons large">home</i>
+                                    </Link>
+                                </Grid>
+                                <Grid item xs={6} justify="center" alignItems="center">
+                                    <Button type="submit">
+                                        <ArrowForwardRoundedIcon fontSize="large"></ArrowForwardRoundedIcon>
+                                    </Button>
+                                </Grid>
+                            </CardActions>
+                        </Grid>
+                    </Grid>
+                </Card>
             </form>
+
         );
     }
 }

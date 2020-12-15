@@ -4,12 +4,13 @@ import M from "materialize-css";
 import TextField from '@material-ui/core/TextField';
 import Helpers from '../../helpers/helpers';
 
-export default ({input, label, className, meta: { error, touched }}) => {
+export default ({input, name, label, className, meta: { error, touched }}) => {
     return (
         <div className="stool-form-question">
             <label style={{fontSize: '2rem',
                             color: '#000000',
-                            fontWeight: "800"}}>
+                            fontWeight: "800"}}
+                    to={name}>
                 {label}
             </label>
             <TextField
