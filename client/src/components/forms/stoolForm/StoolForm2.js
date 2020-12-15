@@ -92,25 +92,27 @@ let StoolForm2 = ({ handleSubmit, formValues, prevPage, nextPage  }) => {
     return (            
         <Card>
             <form style={{margin: "1rem"}} onSubmit={handleSubmit(nextPage)}>
-                <Grid container spacing={3} justify="center" alignItems="center">
+                <Grid container spacing={0} justify="center" alignItems="center">
                     <CardContent>
-                    <Grid item xs={12} justify="center" alignItems="center">
-                            {/* {renderFields()} */}
-                    </Grid>
+                        <Grid container item xs={12} justify="center" alignItems="center">
+                                {/* {renderFields()} */}
+                        </Grid>
                     </CardContent>
-                    <Grid container item xs={12} justify="center" alignItems="center">
-                        <CardActions>
-                            <Grid item xs={6} justify="center" alignItems="center">
+                    
+                    <Grid container item xs={12} justify="center" alignItems="center" className="margin-btm-sml">
+                            {/* <Grid item xs={1}/> */}
+                            <Grid item xs={6}>
                                 <Button onClick={prevPage} className='stool-btn'>
                                     <ArrowBackRoundedIcon className="stool-btn-icon" fontSize="large"/>
                                 </Button>
-                            </Grid>
-                            <Grid item xs={6} justify="center" alignItems="center">
+                            </Grid>                            
+                            {/* <Grid item xs={4}/> */}
+                            <Grid item xs={6}>
                                 <Button type="submit" className='stool-btn'>
-                                    <ArrowForwardRoundedIcon className="stool-btn-icon" fontSize="large" s/>
+                                    <ArrowForwardRoundedIcon className="stool-btn-icon" fontSize="large" />
                                 </Button>
                             </Grid>
-                        </CardActions>
+                            {/* <Grid item xs={1}/> */}
                     </Grid>
                 </Grid>
             </form>

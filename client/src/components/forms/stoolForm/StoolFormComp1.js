@@ -31,6 +31,15 @@ export default ({input, name, label, className, meta: { error, touched }}) => {
                 defaultValue={`${Helpers.formatMMDDYY(new Date)}T${Helpers.formatAMPM(new Date)}`}
                 InputLabelProps={{
                 shrink: true,
+                style: {
+                  },
+                }}
+                /* styles the input component */
+                inputProps={{
+                    style: {
+                        height: '5rem',
+                        padding: '0 14px',
+                    },
                 }}
             />
 

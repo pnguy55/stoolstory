@@ -27,14 +27,14 @@ const useStyles = makeStyles({
 
 function SimpleBottomNavigation({children}) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+//   const [value, setValue] = React.useState(0);
 
   return (
     <BottomNavigation
-      value={value}
-      onChange={(event, newValue) => {
-        setValue(newValue);
-      }}
+    //   value={value}
+    //   onChange={(event, newValue) => {
+    //     setValue(newValue);
+    //   }}
       className={`${classes.stickToBottom} ${classes.root}`}
       
       showLabels
@@ -47,7 +47,7 @@ function SimpleBottomNavigation({children}) {
                     <BottomNavigationAction label={text} 
                             component={Link}
                             to={to} 
-                            key = {to + (Math.random() * 10)}
+                            key = {index}
                             icon={
                                     to === '/add_log' ? <AddCircleRoundedIcon /> : 
                                     to === '/log_list' ? <FormatListNumberedRoundedIcon /> :
