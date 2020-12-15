@@ -20,6 +20,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
+import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 
 class StoolForm1 extends Component {    
 
@@ -32,26 +33,27 @@ class StoolForm1 extends Component {
         return (
             <form style={{margin: "1rem"}} onSubmit={this.props.handleSubmit(this.props.nextPage)}>
                 <Card>
-                    <Grid container spacing={3} justify="center" alignItems="center">
+                    <Grid container spacing={12} justify="center" alignItems="center">
                         <CardContent>
                         <Grid item xs={12} justify="center" alignItems="center">
                                 {renderFields()}
                         </Grid>
                         </CardContent>
-                        <Grid container item xs={12} justify="center" alignItems="center">
-                            <CardActions>
-                                <Grid item xs={6} justify="center" alignItems="center">
-                                    <Link to="/">
-                                        <i className="home material-icons large">home</i>
+                            <Grid container item xs={12} justify="center" alignItems="center">
+                                <Grid item xs={3}/>
+                                <Grid item xs={3} justify="center" alignItems="center" className='stool-form-btn link'>
+                                    <Link to="/" className='flex-link'>
+                                        <HomeRoundedIcon className="stool-form-btn-icon link" fontSize="large"/>
                                     </Link>
                                 </Grid>
-                                <Grid item xs={6} justify="center" alignItems="center">
-                                    <Button type="submit">
-                                        <ArrowForwardRoundedIcon fontSize="large"></ArrowForwardRoundedIcon>
+
+                                <Grid item xs={3} justify="center" alignItems="center">
+                                    <Button type="submit" className='stool-form-btn'>
+                                        <ArrowForwardRoundedIcon className="stool-form-btn-icon" fontSize="large"/>
                                     </Button>
                                 </Grid>
-                            </CardActions>
-                        </Grid>
+                                <Grid item xs={3}/>
+                            </Grid>
                     </Grid>
                 </Card>
             </form>
