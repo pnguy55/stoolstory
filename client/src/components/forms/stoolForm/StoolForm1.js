@@ -39,7 +39,7 @@ class StoolForm1 extends Component {
                                 {renderFields()}
                         </Grid>
                         </CardContent>
-                            <Grid container item xs={12} justify="center" alignItems="center">
+                            <Grid container item xs={12} justify="center" alignItems="center" className="margin-btm-sml">
                                 <Grid item xs={3}/>
                                 <Grid item xs={3} justify="center" alignItems="center" className='stool-form-btn link'>
                                     <Link to="/" className='flex-link'>
@@ -47,8 +47,8 @@ class StoolForm1 extends Component {
                                     </Link>
                                 </Grid>
 
-                                <Grid item xs={3} justify="center" alignItems="center">
-                                    <Button type="submit" className='stool-form-btn'>
+                                <Grid item xs={3} justify="center" alignItems="center" className='stool-form-btn flex-link'>
+                                    <Button type="submit">
                                         <ArrowForwardRoundedIcon className="stool-form-btn-icon" fontSize="large"/>
                                     </Button>
                                 </Grid>

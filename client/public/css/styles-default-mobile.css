@@ -182,14 +182,18 @@ li > .logout-btn:hover, .logout-btn:focus {
     border-radius: 50px;
     border: 2px solid var(--secondary);
     padding: .25rem;
+    margin-bottom: .5rem;
 }
 .stool-form-btn-icon.link {
     color: var(--secondary);
 }
-.stool-form-btn:not(.link), .stool-form-btn-icon:not(.link){
+.stool-form-btn:not(.link){
     background-color: var(--secondary);
+    border-radius: 50px;    
+    margin-bottom: .5rem;
+}
+.stool-form-btn-icon:not(.link){
     color: var(--main-light-color);
-    border-radius: 50px;
 }
 input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
     border-bottom: 0px !important;
