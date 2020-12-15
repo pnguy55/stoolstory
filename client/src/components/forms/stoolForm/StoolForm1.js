@@ -33,21 +33,21 @@ class StoolForm1 extends Component {
         return (
             <form style={{margin: "1rem"}} onSubmit={this.props.handleSubmit(this.props.nextPage)}>
                 <Card>
-                    <Grid container spacing={12} justify="center" alignItems="center">
+                    <Grid container spacing={0} justify="center" alignItems="center">
                         <CardContent>
-                        <Grid item xs={12} justify="center" alignItems="center">
+                        <Grid container item xs={12} justify="center" alignItems="center">
                                 {renderFields()}
                         </Grid>
                         </CardContent>
                             <Grid container item xs={12} justify="center" alignItems="center" className="margin-btm-sml">
                                 <Grid item xs={3}/>
-                                <Grid item xs={3} justify="center" alignItems="center" className='stool-btn link'>
+                                <Grid item xs={3} className='stool-btn link'>
                                     <Link to="/" className='flex-link'>
                                         <HomeRoundedIcon className="stool-btn-icon link" fontSize="large"/>
                                     </Link>
                                 </Grid>
 
-                                <Grid item xs={3} justify="center" alignItems="center" className='stool-btn flex-link'>
+                                <Grid item xs={3} className='stool-btn flex-link'>
                                     <Button type="submit">
                                         <ArrowForwardRoundedIcon className="stool-btn-icon" fontSize="large"/>
                                     </Button>

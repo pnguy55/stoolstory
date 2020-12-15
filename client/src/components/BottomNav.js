@@ -14,7 +14,9 @@ import DateRangeRoundedIcon from '@material-ui/icons/DateRangeRounded';
 import MeetingRoomRoundedIcon from '@material-ui/icons/MeetingRoomRounded';
 
 const useStyles = makeStyles({
-
+  root: {
+    height: '7rem',
+  },
   stickToBottom: {
     width: '100%',
     position: 'absolute',
@@ -32,24 +34,28 @@ function SimpleBottomNavigation({children}) {
       onChange={(event, newValue) => {
         setValue(newValue);
       }}
+      className={classes.stickToBottom, classes.root}
+      
       showLabels
-      className={classes.stickToBottom}
     >
         {
-            typeof children !== 'object' ? 'Loading' : children.reverse().map(({to, text}) => {
+            typeof children !== 'object' ? 'Loading' : children.reverse().map(({to, text}, index) => {
 
             if(to === '/api/logout') return '';    
-            return (<Link to={to}>
-                <BottomNavigationAction label={text} 
-                        icon={
-                                to === '/add_log' ? <AddCircleRoundedIcon /> : 
-                                to === '/log_list' ? <FormatListNumberedRoundedIcon /> :
-                                to === '/log_cal' ? <DateRangeRoundedIcon /> : 
-                                <MeetingRoomRoundedIcon />
-                        } />
-            </Link>);
+            return (
+                    <BottomNavigationAction label={text} 
+                            component={Link}
+                            to={to} 
+                            key = {to + (Math.random() * 10)}
+                            icon={
+                                    to === '/add_log' ? <AddCircleRoundedIcon /> : 
+                                    to === '/log_list' ? <FormatListNumberedRoundedIcon /> :
+                                    to === '/log_cal' ? <DateRangeRoundedIcon /> : 
+                                    <MeetingRoomRoundedIcon />
+                            } />
 
-            })
+            )}
+          )
         }
     </BottomNavigation>
   );

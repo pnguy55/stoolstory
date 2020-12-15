@@ -3,7 +3,7 @@ import React from 'react';
 import M from "materialize-css";
 import TextField from '@material-ui/core/TextField';
 import Helpers from '../../helpers/helpers';
-
+console.log(`${Helpers.formatMMDDYY(new Date)}T${Helpers.formatAMPM(new Date)}`)
 export default ({input, name, label, className, meta: { error, touched }}) => {
     return (
         <div className="stool-form-question">

@@ -86,24 +86,47 @@ function ResponsiveDrawer(props) {
                     {to: '/api/logout', text: 'Logout', link: false},   */}
         
             {
-             typeof children !== 'object' ? 'Loading' : children.map(item => (
-                <Link to={item.to}>
-                    <ListItem button key={item.to} className= {classes.drawerBtn}>
+             typeof children !== 'object' ? 'Loading' : children.map(({to, text, link}, index) => {
+              
+              if(link) {
+                return (
+                  <a href={to} key={to + index}>
+                   <ListItem button key={to} className= {classes.drawerBtn}>
                         
                         <ListItemIcon className='stool-btn-icon link '>
                         {
-                        item.to === '/add_log' ? <AddCircleRoundedIcon /> : 
-                        item.to === '/log_list' ? <FormatListNumberedRoundedIcon /> :
-                        item.to === '/log_cal' ? <DateRangeRoundedIcon /> : 
+                        to === '/add_log' ? <AddCircleRoundedIcon /> : 
+                        to === '/log_list' ? <FormatListNumberedRoundedIcon /> :
+                        to === '/log_cal' ? <DateRangeRoundedIcon /> : 
                         <MeetingRoomRoundedIcon />
                         }
                         </ListItemIcon>                    
-                        <ListItemText className='dark-text' primary= {item.text} />
+                        <ListItemText className='dark-text' primary= {text} />
+                    </ListItem>
+                  </a>
+                )
+              }
+              
+              return (
+                  <Link to={to} key={to + index}>
+                   <ListItem button className= {classes.drawerBtn}>
+                        
+                        <ListItemIcon className='stool-btn-icon link '>
+                        {
+                        to === '/add_log' ? <AddCircleRoundedIcon /> : 
+                        to === '/log_list' ? <FormatListNumberedRoundedIcon /> :
+                        to === '/log_cal' ? <DateRangeRoundedIcon /> : 
+                        <MeetingRoomRoundedIcon />
+                        }
+                        </ListItemIcon>                    
+                        <ListItemText className='dark-text' primary= {text} />
                         
                     </ListItem>
-                </Link>
-              ))
-            }
+                  </Link>
+              )
+            })
+          }
+          
         </List>
     </div>
   );
@@ -116,7 +139,6 @@ function ResponsiveDrawer(props) {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <IconButton
-            color="#000"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
