@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import RestoreIcon from '@material-ui/icons/Restore';
@@ -12,6 +11,8 @@ import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
 import FormatListNumberedRoundedIcon from '@material-ui/icons/FormatListNumberedRounded';
 import DateRangeRoundedIcon from '@material-ui/icons/DateRangeRounded';
 import MeetingRoomRoundedIcon from '@material-ui/icons/MeetingRoomRounded';
+
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   root: {
@@ -34,7 +35,7 @@ function SimpleBottomNavigation({children}) {
       onChange={(event, newValue) => {
         setValue(newValue);
       }}
-      className={classes.stickToBottom, classes.root}
+      className={`${classes.stickToBottom} ${classes.root}`}
       
       showLabels
     >
