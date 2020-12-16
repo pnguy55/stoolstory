@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import SideNav from './SideNav';
 import ResponsiveDrawer from './ResponsiveDrawer';
 import BottomNav from './BottomNav';
+import Hidden from '@material-ui/core/Hidden';
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = theme => ({
+    sit_on_top: {
+      zIndex: "9000",
+    }
+  });
+
 
 class Header extends Component {
     
@@ -18,7 +26,8 @@ class Header extends Component {
             // if there is no user data
             case false:
                 return [
-                    <li key='2'><a className='log-in-btn' href='/auth/google'><img src='/assets/sign-in-images/btn_google_signin_dark_normal_web@2x.png'/></a></li>
+                    // <li key='2'><a className='log-in-btn' href='/auth/google'><img src='/assets/sign-in-images/btn_google_signin_dark_normal_web@2x.png'/></a></li>
+                    {to: '/auth/google', text: 'Log in', img:'/assets/sign-in-images/btn_google_signin_dark_normal_web@2x.png'}
                 ]
             // if there is user data
             default:
@@ -37,15 +46,18 @@ class Header extends Component {
     }
 
     render() {
+        const { classes, auth } = this.props;
         return (
-            <nav id='navbar'>
-                <ResponsiveDrawer>
+            <div>
+                <ResponsiveDrawer auth={auth}>
                     {this.renderContent()}
                 </ResponsiveDrawer>      
-                <BottomNav>
-                    {this.renderContent()}
-                </BottomNav>
-            </nav>
+                <Hidden smUp>
+                    <BottomNav>
+                        {this.renderContent()}
+                    </BottomNav>
+                </Hidden>
+            </div>
         );
     }
 }
@@ -53,4 +65,4 @@ class Header extends Component {
 function mapStateToProps({ auth }){
     return { auth };
 };
-export default connect(mapStateToProps)(Header);
+export default withStyles(styles, { withTheme: true })(connect(mapStateToProps)(Header));

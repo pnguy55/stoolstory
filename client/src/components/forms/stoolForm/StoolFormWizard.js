@@ -85,7 +85,7 @@ class StoolFormWizard extends Component {
     }
     render(){
         return (
-            <div className='form-container'>                
+            <div>                
                 {this.renderContent()}
             </div>
         );

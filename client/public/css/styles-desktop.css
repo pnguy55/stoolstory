@@ -2,10 +2,11 @@
     width: 70%;
 }
 
-.desktop-ad {
+.show-on-desktop {
     display: flex;
 }
-.mobile-ad {
+
+.hide-on-mobile {
     display: none;
 }
 

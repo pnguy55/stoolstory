@@ -51,11 +51,14 @@ class App extends Component {
                 <ThemeProvider theme={THEME}>
                     {/* the exact makes sure that it only shows up on that path */}
                     <Header/>
-                    <Route exact path='/' component={Landing} />
-                    <Route exact path='/add_log' component={StoolFormWizard} />
+                    {/* <Route exact path='/' component={Landing} />
+                    <Route exact path='/add_log' component={StoolFormWizard} /> */}
+
                     {/* <Route exact path='/' component={mainUserView}/> */}
-                    <Route exact path='/log_list' component={LogList} />
-                    <Route exact path='/log_cal' component={LogCal} />
+
+                    {/* <Route exact path='/log_list' component={LogList} />
+                    <Route exact path='/log_cal' component={LogCal} /> */}
+
                     {/* <Route path='/tagLists/new' component={TagListWizard} /> */}
                 </ThemeProvider>
 
@@ -65,3 +68,17 @@ class App extends Component {
 };
 
 export default connect(null, actions)(App);
+
+
+
+
+
+
+
+
+
+
+
+
+
+

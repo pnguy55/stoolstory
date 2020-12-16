@@ -21,7 +21,13 @@ import Grid from '@material-ui/core/Grid';
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
+import { withStyles } from "@material-ui/core/styles";
 
+const styles = theme => ({
+    sit_on_top: {
+      zIndex: "9000",
+    }
+  });
 class StoolForm1 extends Component {    
 
     componentDidMount(){
@@ -30,33 +36,49 @@ class StoolForm1 extends Component {
     }
 
     render(){
+        const { classes } = this.props;
+
         return (
-            <form style={{margin: "1rem"}} onSubmit={this.props.handleSubmit(this.props.nextPage)}>
-                <Card>
-                    <Grid container spacing={0} justify="center" alignItems="center">
-                        <CardContent>
-                        <Grid container item xs={12} justify="center" alignItems="center">
-                                {renderFields()}
-                        </Grid>
-                        </CardContent>
-                            <Grid container item xs={12} justify="center" alignItems="center" className="margin-btm-sml">
-                                <Grid item xs={1}/>
-                                <Grid item xs={3} className='stool-btn link'>
-                                    <Link to="/" className='flex-link'>
-                                        <HomeRoundedIcon className="stool-btn-icon link" fontSize="large"/>
-                                    </Link>
+            <Grid   container
+                        spacing={0}
+                        direction="column"
+                        alignItems="center"
+                        justify="center"
+                        style={{ minHeight: '90vh' }}>   
+                <form style={{margin: "1rem"}} onSubmit={this.props.handleSubmit(this.props.nextPage)}>
+                    <Card>        
+                        <Grid   container
+                            spacing={0}
+                            direction="column"
+                            alignItems="center"
+                            justify="center"
+                            style={{ minHeight: '50vh' }}>   
+                            <CardContent>
+                            <Grid container justify="center" alignItems="center">
+                                <Grid item xs={12}>
+                                    {renderFields()}
                                 </Grid>
-                                <Grid item xs={4}/>
-                                <Grid item xs={3} className='stool-btn flex-link'>
-                                    <Button type="submit">
-                                        <ArrowForwardRoundedIcon className="stool-btn-icon" fontSize="large"/>
-                                    </Button>
-                                </Grid>
-                                <Grid item xs={1}/>
                             </Grid>
-                    </Grid>
-                </Card>
-            </form>
+                            </CardContent>
+                                <Grid container xs={12} justify="center" alignItems="center" className="margin-btm-sml">
+                                    <Grid item xs={1}/>
+                                    <Grid item xs={3} className='stool-btn link'>
+                                        <Link to="/" className='flex-link'>
+                                            <HomeRoundedIcon className="stool-btn-icon link" fontSize="large"/>
+                                        </Link>
+                                    </Grid>
+                                    <Grid item xs={4}/>
+                                    <Grid item xs={3} className='stool-btn flex-link'>
+                                        <Button type="submit">
+                                            <ArrowForwardRoundedIcon className="stool-btn-icon" fontSize="large"/>
+                                        </Button>
+                                    </Grid>
+                                    <Grid item xs={1}/>
+                                </Grid>
+                        </Grid>
+                    </Card>
+                </form>
+            </Grid>
 
         );
     }
@@ -75,13 +97,13 @@ function validate(values) {
     return errors;
 }
 
-export default reduxForm({
+export default withStyles(styles, { withTheme: true })(reduxForm({
     // es6 shorthand for validate:validate
     validate,
     form: 'stoolForm',
     // this property persists values
     destroyOnUnmount: false
-})(StoolForm1);
+})(StoolForm1));
 
 
 

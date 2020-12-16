@@ -42,7 +42,18 @@ h1, h2, h3, h4, h5, h6 {
 .black-icon, .dark-text {
     color: var(--darkText);
 }
+
 /* End of appwide classes */
+
+/*Responsive*/
+.show-on-desktop {
+    display: none;
+}
+
+.hide-on-mobile {
+    display: flex;
+}
+
 
 #navbar {
     background: var(--main-light-color);
@@ -120,11 +131,11 @@ li > .logout-btn:hover, .logout-btn:focus {
 /* LANDING PAGE STARTS*/
 #landing-list {
     width: 100%;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 10%;
 }
 #landing-list > .logged-in-ll {
     margin-bottom: 1rem;

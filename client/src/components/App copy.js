@@ -1,36 +1,82 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Route, HashRouter, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 import Header from './Header';
 import Landing from './Landing';
 import LogList from './LogList';
 import LogCal from './LogCal';
 import StoolFormWizard from './forms/stoolForm/StoolFormWizard';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+const THEME = createMuiTheme({
+    typography: {
+     "fontFamily": `"Fredoka One", "Montserrat", "cursive", sans-serif`,
+     "fontSize": 14,
+     "fontWeightLight": 300,
+     "fontWeightRegular": 400,
+     "fontWeightMedium": 500,
+      h1: {
+        fontFamily: "Fredoka One"
+      },
+      h2: {
+        fontFamily: "Fredoka One"
+      },
+      h3: {
+        fontFamily: "Fredoka One"
+      },
+      h4: {
+        fontFamily: "Fredoka One"
+      },
+      button: {
+        fontFamily: "Comic Sans MS"
+      },
+      span: {
+        fontFamily: "Montserrat"
+      } 
+    }
+ });
+
+class App extends Component {
+    componentDidMount() {
+        this.props.fetchUser();
+
+    };
+    render() {
+        return (
+            
+            <HashRouter basename='/'>
+                
+                <ThemeProvider theme={THEME}>
+                    {/* the exact makes sure that it only shows up on that path */}
+                    <Header>
+                    </Header>
+                    <Route exact path='/' component={Landing} />
+                    <Route exact path='/add_log' component={StoolFormWizard} />
+                    {/* <Route exact path='/' component={mainUserView}/> */}
+                    <Route exact path='/log_list' component={LogList} />
+                    <Route exact path='/log_cal' component={LogCal} />
+                    {/* <Route path='/tagLists/new' component={TagListWizard} /> */}
+                </ThemeProvider>
+
+            </HashRouter>
+        );
+    }
+};
+
+export default connect(null, actions)(App);
+
+
+
+
+
+
+
+import React from 'react';
 
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
-import FormatListNumberedRoundedIcon from '@material-ui/icons/FormatListNumberedRounded';
-import DateRangeRoundedIcon from '@material-ui/icons/DateRangeRounded';
-import MeetingRoomRoundedIcon from '@material-ui/icons/MeetingRoomRounded';
-import { Block } from '@material-ui/icons';
-
-
-import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 const drawerWidth = 240;
 
@@ -71,7 +117,8 @@ const useStyles = makeStyles((theme) => ({
      },
   },
   content: {
-    flexGrow: 1,   
+    flexGrow: 1,
+    padding: theme.spacing(3),
   },
   drawer_img: {
     maxWidth: '100%',
@@ -88,7 +135,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ResponsiveDrawer(props) {
-  const { window, children, auth } = props;
+  const { window, children } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -101,12 +148,12 @@ function ResponsiveDrawer(props) {
     <div>
       <div className={classes.toolbar}>
         <div className="stool-story-logo">
-          <Link to='/'
-          style={{height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}
-          >
-              <span>Options</span>
-          </Link>
-        </div>
+            <Link to='/'
+            style={{height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}
+            >
+                <span>Options</span>
+            </Link>
+          </div>
       </div>
         <Divider />
         <List>
@@ -130,20 +177,6 @@ function ResponsiveDrawer(props) {
                   </a>
                 )
               }
-              if(to === '/api/logout') {
-                return (
-                  <a href={to} key={to + index}>
-                   <ListItem button key={to} className= {classes.drawerBtn}>
-                        
-                        <ListItemIcon className='stool-btn-icon link '>
-                          <MeetingRoomRoundedIcon />
-                        </ListItemIcon>    
-                        
-                        <ListItemText className='dark-text' primary= {text} />                                     
-                    </ListItem>
-                  </a>
-                )
-              }
               
               return (
                   <Link to={to} key={to + index}>
@@ -152,9 +185,9 @@ function ResponsiveDrawer(props) {
                         <ListItemIcon className='stool-btn-icon link '>
                         {
                         to === '/add_log' ? <AddCircleRoundedIcon /> : 
-                        to === '/log_list' ? <FormatListNumberedRoundedIcon /> : 
-                        <DateRangeRoundedIcon /> 
-
+                        to === '/log_list' ? <FormatListNumberedRoundedIcon /> :
+                        to === '/log_cal' ? <DateRangeRoundedIcon /> : 
+                        <MeetingRoomRoundedIcon />
                         }
                         </ListItemIcon>                    
                         <ListItemText className='dark-text' primary= {text} />
@@ -184,14 +217,16 @@ function ResponsiveDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          <div className="stool-story-logo">
-            <Link to='/'
-            style={{height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}
-            >
-                <img src='/stool-squad.png' style={{height: '2rem', marginRight: '.5rem', width: 'auto'}}></img> 
-                <span>Stool Story</span>
-            </Link>
-          </div>
+          <Hidden lgUp>
+            <div className="stool-story-logo">
+              <Link to='/'
+              style={{height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}
+              >
+                  <img src='/stool-squad.png' style={{height: '2rem', marginRight: '.5rem', width: 'auto'}}></img> 
+                  <span>Stool Story</span>
+              </Link>
+            </div>
+          </Hidden>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
@@ -226,18 +261,8 @@ function ResponsiveDrawer(props) {
         </Hidden>
       </nav>
       <main className={classes.content}>
-        <div className={classes.toolbar} />  
-        {/* the exact makes sure that it only shows up on that path */}           
-          <Route 
-                exact path='/' 
-                render={(props) => (
-                  <Landing {...props} auth={auth} />
-                )}  />
-        <Route exact path='/add_log' component={StoolFormWizard} />
-        {/* <Route exact path='/' component={mainUserView}/> */}
-        <Route exact path='/log_list' component={LogList} />
-        <Route exact path='/log_cal' component={LogCal} />
-        {/* <Route path='/tagLists/new' component={TagListWizard} /> */}
+        <div className={classes.toolbar} />
+        
       </main>
     </div>
   );
