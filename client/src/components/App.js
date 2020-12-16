@@ -9,34 +9,7 @@ import LogList from './LogList';
 import LogCal from './LogCal';
 import StoolFormWizard from './forms/stoolForm/StoolFormWizard';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-
-const THEME = createMuiTheme({
-    typography: {
-     "fontFamily": `"Fredoka One", "Montserrat", "cursive", sans-serif`,
-     "fontSize": 14,
-     "fontWeightLight": 300,
-     "fontWeightRegular": 400,
-     "fontWeightMedium": 500,
-      h1: {
-        fontFamily: "Fredoka One"
-      },
-      h2: {
-        fontFamily: "Fredoka One"
-      },
-      h3: {
-        fontFamily: "Fredoka One"
-      },
-      h4: {
-        fontFamily: "Fredoka One"
-      },
-      button: {
-        fontFamily: "Comic Sans MS"
-      },
-      span: {
-        fontFamily: "Montserrat"
-      } 
-    }
- });
+import theme from './style/theme'
 
 class App extends Component {
     componentDidMount() {
@@ -48,7 +21,7 @@ class App extends Component {
             
             <HashRouter basename='/'>
                 
-                <ThemeProvider theme={THEME}>
+                <ThemeProvider theme={theme}>
                     {/* the exact makes sure that it only shows up on that path */}
                     <Header/>
                     {/* <Route exact path='/' component={Landing} />

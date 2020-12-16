@@ -8,7 +8,12 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   big_field: {
-    height: '7rem',
+    '&>div>input' : {     
+        display: 'flex',
+        alignItems: 'flex-end',
+        justifyContent: 'center',       
+        height: '7rem',
+    }
   }
 });
 

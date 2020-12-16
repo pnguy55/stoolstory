@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   root: {
-    height: '7rem',
+    height: '4rem',
   },
   stickToBottom: {
     width: '100%',

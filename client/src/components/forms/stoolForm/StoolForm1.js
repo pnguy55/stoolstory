@@ -21,11 +21,25 @@ import Grid from '@material-ui/core/Grid';
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
+
 import { withStyles } from "@material-ui/core/styles";
+const drawerWidth = 240;
 
 const styles = theme => ({
+    root_content: {
+        [theme.breakpoints.down('sm')]: {
+            minHeight: '90vh',
+            minWidth: '100vw',
+        },
+        [theme.breakpoints.up('md')]: {
+            minWidth: `calc(100vw - ${drawerWidth}px)`,
+        },
+    },
     sit_on_top: {
       zIndex: "9000",
+    },
+    input_on_line: {
+
     }
   });
 class StoolForm1 extends Component {    
@@ -37,14 +51,13 @@ class StoolForm1 extends Component {
 
     render(){
         const { classes } = this.props;
-
         return (
-            <Grid   container
-                        spacing={0}
-                        direction="column"
-                        alignItems="center"
-                        justify="center"
-                        style={{ minHeight: '90vh' }}>   
+            <Grid container
+                spacing={0}
+                direction="column"
+                alignItems="center"
+                justify="center"
+                className={classes.root_content}>   
                 <form style={{margin: "1rem"}} onSubmit={this.props.handleSubmit(this.props.nextPage)}>
                     <Card>        
                         <Grid   container
@@ -52,7 +65,7 @@ class StoolForm1 extends Component {
                             direction="column"
                             alignItems="center"
                             justify="center"
-                            style={{ minHeight: '50vh' }}>   
+                            style={{ minHeight: 'fit-content' }}>   
                             <CardContent>
                             <Grid container justify="center" alignItems="center">
                                 <Grid item xs={12}>
@@ -60,7 +73,7 @@ class StoolForm1 extends Component {
                                 </Grid>
                             </Grid>
                             </CardContent>
-                                <Grid container xs={12} justify="center" alignItems="center" className="margin-btm-sml">
+                                <Grid container item xs={12} justify="center" alignItems="center" className="margin-btm-sml">
                                     <Grid item xs={1}/>
                                     <Grid item xs={3} className='stool-btn link'>
                                         <Link to="/" className='flex-link'>

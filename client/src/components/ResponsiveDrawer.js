@@ -31,13 +31,22 @@ import MeetingRoomRoundedIcon from '@material-ui/icons/MeetingRoomRounded';
 import { Block } from '@material-ui/icons';
 
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles, useTheme, ThemeProvider } from '@material-ui/core/styles';
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+  },    
+  root_content: {
+      [theme.breakpoints.down('sm')]: {
+          minHeight: '90vh',
+          minWidth: '100vw',
+      },
+      [theme.breakpoints.up('sm')]: {
+          minWidth: `calc(100vw - ${drawerWidth}px)`,
+      },
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
@@ -93,6 +102,7 @@ function ResponsiveDrawer(props) {
   
   const classes = useStyles();
   const theme = useTheme();
+
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -234,7 +244,7 @@ function ResponsiveDrawer(props) {
           <Route 
                 exact path='/' 
                 render={(props) => (
-                  <Landing {...props} auth={auth} />
+                  <ThemeProvider theme={theme} ><Landing {...props} auth={auth} /></ThemeProvider>
                 )}  />
           <Route exact path='/add_log' component={StoolFormWizard} />
           {/* <Route exact path='/' component={mainUserView}/> */}
