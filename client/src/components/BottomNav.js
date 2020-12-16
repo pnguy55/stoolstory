@@ -8,6 +8,7 @@ import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
 import FormatListNumberedRoundedIcon from '@material-ui/icons/FormatListNumberedRounded';
 import DateRangeRoundedIcon from '@material-ui/icons/DateRangeRounded';
 import MeetingRoomRoundedIcon from '@material-ui/icons/MeetingRoomRounded';
+import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -31,8 +32,9 @@ const useStyles = makeStyles({
   center_link: { 
     '&>span' : {     
       display: 'flex',
-      flexDirection: 'row',
+      flexDirection: 'column',
       alignItems: 'center',
+      justifyContent: 'center'
     }
   },
   loading_msg: {
@@ -41,10 +43,9 @@ const useStyles = makeStyles({
   }
 });
 
-function SimpleBottomNavigation({children}) {
+function SimpleBottomNavigation({children, toggleSide}) {
   const classes = useStyles();
 //   const [value, setValue] = React.useState(0);
-
   return (
     <BottomNavigation
     //   value={value}
@@ -53,10 +54,16 @@ function SimpleBottomNavigation({children}) {
     //   }}
     className={`${classes.stickToBottom} ${classes.root} ${classes.sit_on_top}`}
     
-    showLabel = {children.length > 1 ? true : false}
+    showLabels = {children.length > 1 ? true : false}
     >
+        <BottomNavigationAction
+            label={'Menu'}
+            className={classes.center_link}
+            onClick={toggleSide}
+            key={4}
+            icon={<MenuRoundedIcon/>} />
         {
-            typeof children !== 'object' ? <span className={classes.loading_msg}>{children}</span> : children.reverse().map(({to, text, link, img}, index) => {
+            typeof children !== 'object' ? 'Loading' : children.map(({to, text, link, img}, index) => {
 
             if(to === '/api/logout') return '';  
             
@@ -66,7 +73,7 @@ function SimpleBottomNavigation({children}) {
         
                 <BottomNavigationAction label={text} 
                         component={link ? Link : 'a'}
-                        className={to === '/auth/google' ? classes.center_link : ''}
+                        className={classes.center_link}
                         to={link ? to : ''}
                         href={link ? '' : to}
                         key = {index}
@@ -80,6 +87,7 @@ function SimpleBottomNavigation({children}) {
             )}
         )
         }
+        
     </BottomNavigation>
   );
 }

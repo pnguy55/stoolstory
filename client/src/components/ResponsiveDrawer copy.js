@@ -6,7 +6,6 @@ import Landing from './Landing';
 import LogList from './LogList';
 import LogCal from './LogCal';
 import StoolFormWizard from './forms/stoolForm/StoolFormWizard';
-import BottomNav from './BottomNav';
 
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
@@ -90,7 +89,6 @@ const useStyles = makeStyles((theme) => ({
 
 function ResponsiveDrawer(props) {
   const { window, children, auth } = props;
-  
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -116,13 +114,13 @@ function ResponsiveDrawer(props) {
                     {to: '/log_list', text: 'Log List', link: true},
                     {to: '/log_cal', text: 'Calendar', link: true},
                     {to: '/api/logout', text: 'Logout', link: false},   */}
-        {console.log(children)}
+        
             {
              typeof children !== 'object' ? <span className={classes.loading_msg}>{children}</span> : children.map(({to, text, link, img}, index) => {
               
               if(to === '/auth/google') {
                 return (
-                  <a href={to} key={index}>
+                  <a href={to} key={to + index}>
                    <ListItem button key={to} className= {classes.drawerBtn}>
                         
                         <ListItemIcon className='stool-btn-icon link '>
@@ -132,9 +130,9 @@ function ResponsiveDrawer(props) {
                   </a>
                 )
               }
-              if(!link) {
+              if(to === '/api/logout') {
                 return (
-                  <a href={to} key={index}>
+                  <a href={to} key={to + index}>
                    <ListItem button key={to} className= {classes.drawerBtn}>
                         
                         <ListItemIcon className='stool-btn-icon link '>
@@ -148,7 +146,7 @@ function ResponsiveDrawer(props) {
               }
               
               return (
-                  <Link to={to} key={index}>
+                  <Link to={to} key={to + index}>
                    <ListItem button className= {classes.drawerBtn}>
                         
                         <ListItemIcon className='stool-btn-icon link '>
@@ -229,22 +227,18 @@ function ResponsiveDrawer(props) {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />  
-        {/* the exact makes sure that it only shows up on that path */}      
-    
+        {/* the exact makes sure that it only shows up on that path */}           
           <Route 
                 exact path='/' 
                 render={(props) => (
                   <Landing {...props} auth={auth} />
                 )}  />
-          <Route exact path='/add_log' component={StoolFormWizard} />
-          {/* <Route exact path='/' component={mainUserView}/> */}
-          <Route exact path='/log_list' component={LogList} />
-          <Route exact path='/log_cal' component={LogCal} />
+        <Route exact path='/add_log' component={StoolFormWizard} />
+        {/* <Route exact path='/' component={mainUserView}/> */}
+        <Route exact path='/log_list' component={LogList} />
+        <Route exact path='/log_cal' component={LogCal} />
         {/* <Route path='/tagLists/new' component={TagListWizard} /> */}
       </main>
-      <Hidden smUp>
-          <BottomNav toggleSide={handleDrawerToggle} children={children}/>
-      </Hidden> 
     </div>
   );
 }

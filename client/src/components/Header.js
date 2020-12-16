@@ -52,11 +52,6 @@ class Header extends Component {
                 <ResponsiveDrawer auth={auth}>
                     {this.renderContent()}
                 </ResponsiveDrawer>      
-                <Hidden smUp>
-                    <BottomNav>
-                        {this.renderContent()}
-                    </BottomNav>
-                </Hidden>
             </div>
         );
     }

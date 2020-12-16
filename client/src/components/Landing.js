@@ -38,21 +38,16 @@ function Landing(props) {
              ] :
             (
                 //satify the react key requirement                
-                <Grid   container
-                spacing={0}
-                direction="column"
-                alignItems="center"
-                justify="center"
-                style={{ minHeight: '20vh' }}>
+                <Grid item xs={12}>
                         <ButtonGroup
                         orientation="vertical"
                         color="primary"
                         aria-label="vertical outlined primary button group"
                         >                            
-                            <Grid item xs={12}><Button component={Link} to='/add_log' > Add Log </Button>
-                            <Grid item xs={12}><Button key='2' component={Link} to='/log_list'> Log List </Button></Grid>
-                            <Grid item xs={12}><Button key='3' component={Link} to='/log_cal'> Calendar </Button></Grid>
-                            </Grid>
+                            <Grid item xs={12}><Button component={Link} to='/add_log' > Add Log </Button></Grid>
+                            <Grid item xs={12}><Button component={Link} to='/log_list'> Log List </Button></Grid>
+                            <Grid item xs={12}><Button component={Link} to='/log_cal'> Calendar </Button></Grid>
+                            
                         </ButtonGroup>  
                 </Grid>   
             )
@@ -61,7 +56,7 @@ function Landing(props) {
     )
 
     return (    
-        <Grid   container
+        <Grid  container
         spacing={0}
         direction="column"
         alignItems="center"
