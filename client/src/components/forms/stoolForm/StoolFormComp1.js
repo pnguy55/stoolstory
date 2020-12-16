@@ -30,10 +30,11 @@ export default ({input, name, label, className, meta: { error, touched }}) => {
             </label>
             <TextField
                 className={classes.big_field}
+                {...input}
                 id="datetime-local"
                 label="When did you do the deed?"
                 type="datetime-local"
-                defaultValue={`${Helpers.formatMMDDYY(new Date)}T${Helpers.formatAMPM(new Date)}`}
+                // defaultValue={`${Helpers.formatMMDDYY(new Date)}T${Helpers.formatAMPM(new Date)}`}
                 InputLabelProps={{
                 shrink: true,
                 style: {

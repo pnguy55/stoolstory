@@ -2,12 +2,9 @@ import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import formFields from './formFields1';
 import { withRouter } from 'react-router-dom';
 import * as actions from '../../../actions/index';
 
-
-import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -17,9 +14,34 @@ import Grid from '@material-ui/core/Grid';
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
 
+import renderFields from './renderFields2'
+
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+
+const drawerWidth = 240;
+
+const useStyles = makeStyles(theme => ({
+    root_content: {
+        [theme.breakpoints.down('sm')]: {
+            minHeight: '90vh',
+            minWidth: '100vw',
+        },
+        [theme.breakpoints.up('md')]: {
+            minWidth: `calc(100vw - ${drawerWidth}px)`,
+        },
+    },
+    loading_msg: {
+      textAlign: 'center',
+      display: 'block',
+    },
+    landing_greeting: {
+        textAlign: 'center',
+
+    },
+  }));
+
 let StoolForm2 = ({ handleSubmit, formValues, prevPage, nextPage  }) => {
-
-
+    const classes = useStyles();
 
     // useEffect(() => {
     //     getRelatedVideosHandler(formValues['title'])
@@ -89,34 +111,74 @@ let StoolForm2 = ({ handleSubmit, formValues, prevPage, nextPage  }) => {
     
     
 
-    return (            
-        <Card>
+    return (  
+        <Grid container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justify="center"
+            className={classes.root_content}>   
             <form style={{margin: "1rem"}} onSubmit={handleSubmit(nextPage)}>
-                <Grid container spacing={0} justify="center" alignItems="center">
-                    <CardContent>
-                        <Grid container item xs={12} justify="center" alignItems="center">
-                                {/* {renderFields()} */}
-                        </Grid>
-                    </CardContent>
-                    
-                    <Grid container item xs={12} justify="center" alignItems="center" className="margin-btm-sml">
-                            {/* <Grid item xs={1}/> */}
-                            <Grid item xs={6}>
-                                <Button onClick={prevPage} className='stool-btn'>
-                                    <ArrowBackRoundedIcon className="stool-btn-icon" fontSize="large"/>
-                                </Button>
-                            </Grid>                            
-                            {/* <Grid item xs={4}/> */}
-                            <Grid item xs={6}>
-                                <Button type="submit" className='stool-btn'>
-                                    <ArrowForwardRoundedIcon className="stool-btn-icon" fontSize="large" />
-                                </Button>
+                <Card>        
+                    <Grid   container
+                        spacing={0}
+                        direction="column"
+                        alignItems="center"
+                        justify="center"
+                        style={{ minHeight: 'fit-content' }}>   
+                        <CardContent>
+                        <Grid container justify="center" alignItems="center">
+                            <Grid item xs={12}>
+                                {renderFields()}
                             </Grid>
-                            {/* <Grid item xs={1}/> */}
+                        </Grid>
+                        </CardContent>
+                            <Grid container item xs={12} justify="center" alignItems="center" className="margin-btm-sml">
+                                <Grid item xs={1}/>
+                                <Grid item xs={3} className='stool-btn flex-link'>
+                                    <Button onClick={prevPage}>
+                                        <ArrowBackRoundedIcon className="stool-btn-icon" fontSize="large"/>
+                                    </Button>
+                                </Grid>
+                                <Grid item xs={4}/>
+                                <Grid item xs={3} className='stool-btn flex-link'>
+                                    <Button type="submit">
+                                        <ArrowForwardRoundedIcon className="stool-btn-icon" fontSize="large"/>
+                                    </Button>
+                                </Grid>
+                                <Grid item xs={1}/>
+                            </Grid>
                     </Grid>
-                </Grid>
+                </Card>
             </form>
-        </Card>
+        </Grid>          
+        // <Card>
+        //     <form style={{margin: "1rem"}} onSubmit={handleSubmit(nextPage)}>
+        //         <Grid container spacing={0} justify="center" alignItems="center">
+        //             <CardContent>
+        //                 <Grid container item xs={12} justify="center" alignItems="center">
+        //                         {/* {renderFields()} */}
+        //                 </Grid>
+        //             </CardContent>
+                    
+        //             <Grid container item xs={12} justify="center" alignItems="center" className="margin-btm-sml">
+        //                     {/* <Grid item xs={1}/> */}
+        //                     <Grid item xs={6}>
+        //                         <Button onClick={prevPage} className='stool-btn'>
+        //                             <ArrowBackRoundedIcon className="stool-btn-icon" fontSize="large"/>
+        //                         </Button>
+        //                     </Grid>                            
+        //                     {/* <Grid item xs={4}/> */}
+        //                     <Grid item xs={6}>
+        //                         <Button type="submit" className='stool-btn'>
+        //                             <ArrowForwardRoundedIcon className="stool-btn-icon" fontSize="large" />
+        //                         </Button>
+        //                     </Grid>
+        //                     {/* <Grid item xs={1}/> */}
+        //             </Grid>
+        //         </Grid>
+        //     </form>
+        // </Card>
     );
 };
 

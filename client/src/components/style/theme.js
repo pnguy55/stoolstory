@@ -39,7 +39,20 @@ const theme = createMuiTheme({
       span: {
         fontFamily: "Montserrat"
       } 
-    }
+    },
+    palette: {
+        primary: {
+            light: '#CFB08D',
+            main: '#87654D',
+            contrastText: '#fff',
+        },
+        secondary: {
+            main: '#283045',
+            contrastText: 'fff',
+        },
+        contrastThreshold: 3,
+        tonalOffset: 0.2,
+    },
 })
 
 export default theme

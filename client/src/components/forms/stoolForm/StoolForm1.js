@@ -42,15 +42,20 @@ const styles = theme => ({
 
     }
   });
+
+  const submit = values => {
+    console.log(values);
+  };
 class StoolForm1 extends Component {    
 
     componentDidMount(){
 
-
     }
+    
 
     render(){
-        const { classes } = this.props;
+        
+        const { classes, handleSubmit, nextPage } = this.props;
         return (
             <Grid container
                 spacing={0}
@@ -58,7 +63,7 @@ class StoolForm1 extends Component {
                 alignItems="center"
                 justify="center"
                 className={classes.root_content}>   
-                <form style={{margin: "1rem"}} onSubmit={this.props.handleSubmit(this.props.nextPage)}>
+                <form style={{margin: "1rem"}} onSubmit={handleSubmit(nextPage)}>
                     <Card>        
                         <Grid   container
                             spacing={0}
