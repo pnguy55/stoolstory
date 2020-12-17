@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
-import { Route, HashRouter, withRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 import Header from './Header';
-import Landing from './Landing';
-import LogList from './LogList';
-import LogCal from './LogCal';
-import StoolFormWizard from './forms/stoolForm/StoolFormWizard';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './style/theme'
 import { CssBaseline } from '@material-ui/core';
 

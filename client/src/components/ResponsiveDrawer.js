@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, HashRouter, withRouter } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import Header from './Header';
 import Landing from './Landing';
@@ -122,11 +122,6 @@ function ResponsiveDrawer(props) {
       </div>
         <Divider />
         <List>
-                 {/* {to: '/add_stool', text: 'Just Went!', link: true},
-                    {to: '/log_list', text: 'Log List', link: true},
-                    {to: '/log_cal', text: 'Calendar', link: true},
-                    {to: '/api/logout', text: 'Logout', link: false},   */}
-        {console.log(children)}
             {
              typeof children !== 'object' ? <span className={classes.loading_msg}>{children}</span> : children.map(({to, text, link, img}, index) => {
               
@@ -240,13 +235,21 @@ function ResponsiveDrawer(props) {
       <main className={classes.content}>
         <div className={classes.toolbar} />  
         {/* the exact makes sure that it only shows up on that path */}      
-    
+            
+          
           <Route 
                 exact path='/' 
                 render={(props) => (
-                  <ThemeProvider theme={theme} ><Landing {...props} auth={auth} /></ThemeProvider>
+                  <ThemeProvider theme={theme} ><Landing {...props} children={children} auth={auth} /></ThemeProvider>
                 )}  />
-          <Route exact path='/add_log' component={StoolFormWizard} />
+          <Route 
+                path='/add_log/:page' 
+                render={(props) => (
+                  <ThemeProvider theme={theme} >
+                    <StoolFormWizard {...props} auth={auth} />
+                  </ThemeProvider>
+                )}  />
+          {/* <Route exact path='/add_log' component={StoolFormWizard} /> */}
           {/* <Route exact path='/' component={mainUserView}/> */}
           <Route exact path='/log_list' component={LogList} />
           <Route exact path='/log_cal' component={LogCal} />

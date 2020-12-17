@@ -67,10 +67,7 @@ function SimpleBottomNavigation({children, toggleSide}) {
 
             if(to === '/api/logout') return '';  
             
-
-            
             return (
-        
                 <BottomNavigationAction label={text} 
                         component={link ? Link : 'a'}
                         className={classes.center_link}
@@ -78,7 +75,7 @@ function SimpleBottomNavigation({children, toggleSide}) {
                         href={link ? '' : to}
                         key = {index}
                         icon={
-                                to === '/add_log' ? <AddCircleRoundedIcon /> : 
+                                to === '/add_log/0' ? <AddCircleRoundedIcon /> : 
                                 to === '/log_list' ? <FormatListNumberedRoundedIcon /> :
                                 to === '/log_cal' ? <DateRangeRoundedIcon /> : <img className={classes.bottom_nav_img} src={img} />
                         } > 

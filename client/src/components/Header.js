@@ -37,7 +37,7 @@ class Header extends Component {
                     // <li key='2'><Link className='btn dash-btn sidenav-close' to='/log_list'>Log list</Link></li>,
                     // <li key='3'><Link className='btn dash-btn sidenav-close' to='/log_cal'>Calendar</Link></li>,   
                     // <li key='4'><a className='btn logout-btn sidenav-close' href='/api/logout'>Logout</a></li> 
-                    {to: '/add_log', text: 'Add Log!', link: true},
+                    {to: '/add_log/0', text: 'Add Log!', link: true},
                     {to: '/log_list', text: 'Log List', link: true},
                     {to: '/log_cal', text: 'Calendar', link: true},
                     {to: '/api/logout', text: 'Log out', link: false},     

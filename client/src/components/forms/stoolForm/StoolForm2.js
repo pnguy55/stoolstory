@@ -48,9 +48,9 @@ let StoolForm2 = ({ handleSubmit, formValues, prevPage, nextPage  }) => {
     //     console.log(formValues)
     // }, [formValues['title']]);
 
-    useEffect(() => {
-        console.log(formValues)
-    }, [formValues]);
+    // useEffect(() => {
+    //     console.log(formValues)
+    // }, [formValues]);
 
     // const reviewFields = _.map(formFields, ({ name, label }) => {
     //     return (

@@ -1,14 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Grid from '@material-ui/core/Grid';
-
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
@@ -32,14 +27,16 @@ const useStyles = makeStyles(theme => ({
         textAlign: 'center',
 
     },
+    btn_font: {
+        fontSize: '2rem',
+    }
   }));
 
 function Landing(props) {
     const classes = useStyles();
     const theme = useTheme();
 
-    const { auth } = props;
-    {console.log(auth)}
+    const { auth, children } = props;
 
     const list = (
         // this auth object actually has our user data
@@ -59,12 +56,12 @@ function Landing(props) {
                         orientation="vertical"
                         color="primary"
                         variant="contained" 
-                        aria-label="vertical contained primary button group"
+                        aria-label="vertical outline primary button group"
                         >                               
-                            <Button component={Link} to='/add_log' > Add Log </Button>
-                            <Button component={Link} to='/log_list'> Log List </Button>
-                            <Button component={Link} to='/log_cal'> Calendar </Button>
-                            
+                            {children.map(({to, text, link}, index) => {
+                               return <Button key={index} component={link ? Link : 'a'} to={to} className={classes.btn_font}> {text} </Button> 
+                            })}
+
                         </ButtonGroup>  
                 </Grid>   
             ]

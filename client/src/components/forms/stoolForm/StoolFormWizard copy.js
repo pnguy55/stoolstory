@@ -1,5 +1,6 @@
 // SurveyNew show SurveyForm compnent and SurveyFormReviewComponent
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import _ from 'lodash'
 import PropTypes from 'prop-types'
 import { reduxForm } from 'redux-form';
@@ -8,7 +9,6 @@ import StoolForm2 from './StoolForm2';
 import StoolForm3 from './StoolForm3';
 import axios from 'axios';
 import Helpers from '../../helpers/helpers';
-
 import theme from '../../style/theme';
 import { ThemeProvider, useTheme, withStyles } from '@material-ui/core/styles';
 
@@ -34,11 +34,7 @@ const styles = theme => ({
 class StoolFormWizard extends Component {
     constructor(props){
         super(props);
-        this.state = 
-        {
-            formPath: this.props.match.path.split(':')[0],
-            formPage: parseInt(this.props.match.params.page, 10),
-            formHistory: [], 
+        this.state = {
             stoolFormWizardProgress: 0,
             videoList: [],
             videoTitle: '',
@@ -47,72 +43,77 @@ class StoolFormWizard extends Component {
             listOfChosenTagBubbles: '',
             letterCount: 0
         }
+
         // this.getRelatedVideos = this.getRelatedVideos.bind(this);
         this.nextPage = this.nextPage.bind(this);
         this.prevPage = this.prevPage.bind(this);
-
     }
-
     
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (parseInt(this.props.match.params.page, 10) !== parseInt(prevProps.match.params.page, 10)) { 
-            this.setState({ 
-                formPage: parseInt(this.props.match.params.page, 10),
-                formHistory: [...prevState.formHistory, prevState.formPage],
-            }); 
-           // or any other logic..
-         }
+    componentDidMount() {
+        
     }
+    // getRelatedVideos(videoTitle){
+    //     let currentComponent = this;
 
+    //     axios.get(`/api/taglists/gatherVideoList/${videoTitle}`)
+    //     .then(function (videoList) {
 
+    //         currentComponent.setState({
+    //             videoList
+    //         })
+
+    //     })
+    //     .catch(function (error) {
+    //         console.log(error);
+    //     })
+    // }
     nextPage() {
-        this.setState((prevState) => ({
-            formPage: prevState.formPage + 1
-        }), () => {
-            
-            console.log(`${this.state.formPath}${( this.state.formPage)}`);
-            this.props.history.push(`${this.state.formPath}${( this.state.formPage)}`)
+        this.setState({
+            stoolFormWizardProgress: this.state.stoolFormWizardProgress + 1
         })
     }
     prevPage() {
-        this.setState((prevState) => ({
-            formPage: prevState.formPage - 1
-        }), () => {
-            console.log(`${this.state.formPath}${( this.state.formPage)}`);
-            this.props.history.push(`${this.state.formPath}${( this.state.formPage)}`)
+        this.setState({
+            stoolFormWizardProgress: this.state.stoolFormWizardProgress - 1
         })
     }
 
-
     renderContent() {
-        console.log(this.state);
-        console.log(this.props);
-        switch(this.state.formPage){
+
+        switch(this.state.stoolFormWizardProgress){
             case 1:
                 return (
-                    <StoolForm2
-                        prevPage = {() => this.prevPage()}
-                        nextPage = {() => this.nextPage()}
-                        goBack = {() => this.props.history.goBack()}
-                        />
-                )
-            case 2: 
-                return (
+                    <Route 
+                    exact path='/add_log/log_urgency' 
+                    render={(props) => (
+                      <ThemeProvider theme={theme} >
+                          <StoolForm2 
+                            {...props} 
+                            prevPage={() => this.prevPage()}
+                            nextPage={() => this.nextPage()} 
+                            />
+                      </ThemeProvider>
+                    )}  />
+                );
+            case 2: return (
                     <StoolForm3
-                    prevPage = {() => this.prevPage()}
-                    nextPage = {() => this.nextPage()}
-                    />
-                )
+                        onCancel={() => this.setState({ stoolFormWizardProgress: this.state.stoolFormWizardProgress - 1 })}                    >
+
+                    </StoolForm3>
+            )
             default:
                 return (
-                    
-                        <StoolForm1 
-                            nextPage={() => this.nextPage()}
-                            goBack = {() => this.props.history.goBack()}
-                            formHistory={this.state.formHistory}
-                        />
+                    <Route 
+                    exact path='/add_log/log_time' 
+                    render={(props) => (
+                      <ThemeProvider theme={theme} >
+                          <StoolForm1 
+                            {...props} 
+                            nextPage={() => this.nextPage()} 
+                            />
+                      </ThemeProvider>
+                    )}  />
                 )
-
         }
     }
     render(){
