@@ -27,7 +27,8 @@ const styles = theme => ({
             minWidth: '100vw',
         },
         [theme.breakpoints.up('md')]: {
-            minWidth: `calc(100vw - ${drawerWidth}px)`,
+            minWidth: `calc(100vw - ${drawerWidth}px)`,            
+            minHeight: '90vh',
         },
     },
     sit_on_top: {
@@ -105,6 +106,7 @@ class StoolForm1 extends Component {
 function validate(values) {
 
 
+    console.log(values)
     const errors = {};
     _.each(formFields, ({ date_time }) => {
         if(values[date_time] === `${Helpers.formatMMDDYY(new Date)} ${Helpers.formatAMPM(new Date)}`) {

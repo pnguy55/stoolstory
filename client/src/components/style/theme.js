@@ -1,23 +1,24 @@
 import createBreakpoints from '@material-ui/core/styles/createBreakpoints'
 import { createMuiTheme } from '@material-ui/core/styles'
+import responsiveFontSizes from '@material-ui/core/styles/responsiveFontSizes';
 
 
 const breakpoints = createBreakpoints({})
 const drawerWidth = 240;
 
-const theme = createMuiTheme({
+let theme = createMuiTheme({
     root_content: {
         [breakpoints.down('sm')]: {
             minHeight: '90vh',
             minWidth: '100vw',
         },
         [breakpoints.up('md')]: {
-            minWidth: `calc(100vw - ${drawerWidth}px)`,
+            minWidth: `calc(100vw - ${drawerWidth}px)`,            
+            minHeight: '90vh',
         },
     },
     typography: {
      "fontFamily": `"Fredoka One", "Montserrat", "cursive", sans-serif`,
-     "fontSize": 14,
      "fontWeightLight": 300,
      "fontWeightRegular": 400,
      "fontWeightMedium": 500,
@@ -54,5 +55,5 @@ const theme = createMuiTheme({
         tonalOffset: 0.2,
     },
 })
-
+theme = responsiveFontSizes(theme);
 export default theme

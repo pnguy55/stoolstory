@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
-
-import M from "materialize-css";
+import React, { useEffect, useState } from 'react';
+import { formValueSelector } from 'redux-form';
+import { connect } from 'react-redux'
 import TextField from '@material-ui/core/TextField';
 import Helpers from '../../helpers/helpers';
 import Grid from '@material-ui/core/Grid';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
-
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 import { makeStyles } from '@material-ui/core/styles';
+import theme from '../../style/theme';
+import { rest } from 'lodash';
+
+
+const selector = formValueSelector('stoolForm');
 
 const useStyles = makeStyles({
   big_field: {
@@ -18,56 +27,82 @@ const useStyles = makeStyles({
         justifyContent: 'center',       
         height: '7rem',
     }
+  },
+  form_question: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'start',
+    justifyContent: 'center',
+  },
+  form_label: {
+    fontSize: '2rem',
+    color: '#000000',
+    fontWeight: "800",
+    '&focused': {
+        color: '#000000'
+    }
+  },
+  radios: {
+      '&>*':{
+
+        margin: '0px'
+      }
   }
 });
 
-export default ({input, name, label, className, meta: { error, touched }}) => {
+function StoolFormComp2 ({input, name, urgency, label, className, options, default_val, meta: { error, touched }}) {
     const classes = useStyles();
 
-    const [yes, setYes] = useState(false);
-    const [no, setNo] = useState(input);
+    // const [value, setValue] = React.useState(input.checked);
 
-    function toggleButtons(yes_or_no) {
-        switch(yes_or_no) {
-            case 1:
-                setYes(!yes);
-                setNo(!no);
-                input = true;
-                touched = true;
-                break;
-            default:
-                setYes(!yes);
-                setNo(!no);                
-                input = false;
-                touched = true;
-                break;
-        }
+    console.log(urgency)
+    // const handleChange = (event) => {
+    //   input.check = event.target.value;
+    // };
 
-    }
+    // useEffect(() => {
+    //     input.checked = value
+    //     console.log(input)
+    // }, [input.checked]);
+
     return (
-            <Grid container item xs={12} direction='column' justify='center' alignItems='center'>
-                    <label style={{fontSize: '2rem',
-                                    color: '#000000',
-                                    fontWeight: "800",
-                                    textAlign: 'center',
-                                    marginBottom: '1rem'}}
-                            to={name}>
-                        <Grid item xs={12} >
+            <Grid className={classes.form_question} container item xs={12} direction='column' justify='center' alignItems='center'>
+                <FormControl component="fieldset">
+                    <FormLabel 
+                        component="label" 
+                        style={{
+                            fontSize: '2rem',
+                            color: '#000000',
+                            fontWeight: "800",
+                            marginBottom: '2rem',
+                            '&focused': {
+                                color: '#000000'
+                            }
+                        }}>
                         {label}
-                        </Grid>
-                    </label>
-                <Grid item xs={12}>
-                    <ButtonGroup type='button' size="large" color="primary" aria-label="large default button group">
-                        
-                        <Button {...input} variant={yes ? 'contained' : 'outlined'} onClick={() => toggleButtons(1) }>Yes</Button>
-                        
-                        <Button {...input} variant={no ? 'contained' : 'outlined'} onClick={() => toggleButtons(2) }>No</Button>
-                    
-                    </ButtonGroup>
-                </Grid>
-                <Grid item xs={12}>                
-                    <div className="red-text" style={{marginBottom:'1em'}}>{touched && error}</div>
-                </Grid>
+                    </FormLabel>
+                    <RadioGroup aria-label="urgency" {...input} defaultValue={urgency ? urgency : '1'}>
+                    <Grid className={classes.radios} container item xs={12} direction='row' justify='center' alignItems='center'>
+                        {
+                            options.map(({value, r_label}, index) => {
+                                return (
+                                    <FormControlLabel key={index} value={value} control={<Radio />} label={r_label} labelPlacement='bottom' />
+                                )
+                            })
+                        }
+                    </Grid>
+                    </RadioGroup>
+                </FormControl>
         </Grid>
     );
 }
+
+
+
+StoolFormComp2 = connect(
+    (state, props) => ({
+      urgency: selector(state, 'urgency')
+    })
+  )(StoolFormComp2)
+
+export default StoolFormComp2;

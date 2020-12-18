@@ -5,7 +5,7 @@ import formFields from './formFields1';
 import { withRouter, Link } from 'react-router-dom';
 import * as actions from '../../../actions/index';
 import { reduxForm } from 'redux-form';
-import renderFieldStoolFormName from './renderFields2';
+import renderFieldStoolFormName from './renderFieldsRadio';
 
 
 let StoolForm2 = ({ 

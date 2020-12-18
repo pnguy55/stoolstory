@@ -11,6 +11,7 @@ import Helpers from '../../helpers/helpers';
 
 import theme from '../../style/theme';
 import { ThemeProvider, useTheme, withStyles } from '@material-ui/core/styles';
+import { useStyles } from '@material-ui/pickers/views/Calendar/SlideTransition';
 
 let drawerWidth = 240;
 const styles = theme => ({
@@ -70,7 +71,7 @@ class StoolFormWizard extends Component {
             formPage: prevState.formPage + 1
         }), () => {
             
-            console.log(`${this.state.formPath}${( this.state.formPage)}`);
+            // console.log(`${this.state.formPath}${( this.state.formPage)}`);
             this.props.history.push(`${this.state.formPath}${( this.state.formPage)}`)
         })
     }
@@ -78,21 +79,21 @@ class StoolFormWizard extends Component {
         this.setState((prevState) => ({
             formPage: prevState.formPage - 1
         }), () => {
-            console.log(`${this.state.formPath}${( this.state.formPage)}`);
+            // console.log(`${this.state.formPath}${( this.state.formPage)}`);
             this.props.history.push(`${this.state.formPath}${( this.state.formPage)}`)
         })
     }
 
 
     renderContent() {
-        console.log(this.state);
-        console.log(this.props);
+        // console.log(this.state);
+        // console.log(this.props);
         switch(this.state.formPage){
             case 1:
                 return (
                     <StoolForm2
+                        onSubmit = {() => this.prevPage()}
                         prevPage = {() => this.prevPage()}
-                        nextPage = {() => this.nextPage()}
                         goBack = {() => this.props.history.goBack()}
                         />
                 )
@@ -117,7 +118,7 @@ class StoolFormWizard extends Component {
     }
     render(){
         return (
-            <div>                
+            <div className={this.props.classes.root_content}>                
                 {this.renderContent()}
             </div>
         );
@@ -130,6 +131,6 @@ export default withStyles(styles, { withTheme: true })(reduxForm({
     form: 'stoolForm',
     initialValues: {
         date_time: `${Helpers.formatMMDDYY(new Date)}T${Helpers.formatAMPM(new Date)}`,
-        urgency: false
+        urgency: '1'
     }
 })(StoolFormWizard));

@@ -1,3 +1,29 @@
 export default [
-    { label: 'Was it urgent?', name: 'urgency'},
+    { 
+        label: 'How urgent was it?', 
+        name: 'urgency', 
+        default_val: '1',
+        options: [
+            {
+                value: '1', 
+                r_label: 'Not',
+            },
+            {
+                value: '2',
+                r_label: '2',
+            },
+            {
+                value: '3',
+                r_label: '3',
+            },
+            {
+                value: '4',
+                r_label: '4',
+            },
+            {
+                value: '5',
+                r_label: 'Super',
+            },
+        ],
+    }
 ];

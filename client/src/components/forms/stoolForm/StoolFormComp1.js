@@ -20,6 +20,14 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     alignItems: 'start',
     justifyContent: 'center',
+  },
+  form_label: {
+    fontSize: '3rem',
+    color: '#000000',
+    fontWeight: "800"
+  },
+  label:{
+    fontSize: '1.5rem'
   }
 });
 
@@ -28,9 +36,7 @@ export default ({input, name, label, className, meta: { error, touched }}) => {
 
     return (
         <div className={classes.form_question}>
-            <label style={{fontSize: '2rem',
-                            color: '#000000',
-                            fontWeight: "800"}}
+            <label className={classes.form_label}
                     to={name}>
                 {label}
             </label>
@@ -40,12 +46,13 @@ export default ({input, name, label, className, meta: { error, touched }}) => {
                 id="datetime-local"
                 label="When did you do the deed?"
                 type="datetime-local"
+                size="medium"
+                variant='standard'
                 // defaultValue={`${Helpers.formatMMDDYY(new Date)}T${Helpers.formatAMPM(new Date)}`}
                 InputLabelProps={{
-                shrink: true,
-                style: {
-                  },
-                }}
+                className: classes.label
+                  }
+                }
                 /* styles the input component */
                 inputProps={{
                     style: {
