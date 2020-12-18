@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { formValueSelector } from 'redux-form';
-import { connect } from 'react-redux'
-import TextField from '@material-ui/core/TextField';
-import Helpers from '../../helpers/helpers';
+import { connect } from 'react-redux';
+
 import Grid from '@material-ui/core/Grid';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import Button from '@material-ui/core/Button';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -13,8 +10,6 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
 import { makeStyles } from '@material-ui/core/styles';
-import theme from '../../style/theme';
-import { rest } from 'lodash';
 
 
 const selector = formValueSelector('stoolForm');
