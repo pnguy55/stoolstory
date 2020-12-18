@@ -21,6 +21,16 @@ const useStyles = makeStyles(theme => ({
             minHeight: '90vh',
         },
     },
+    landing_img: {
+        [theme.breakpoints.down('sm')]: {
+            maxHeight: '70vh',
+            maxWidth: '90vw',
+        },
+        [theme.breakpoints.up('md')]: {
+            maxWidth: `calc(60vw - ${drawerWidth}px)`,            
+            maxHeight: '50vh',
+        },
+    },
     loading_msg: {
       textAlign: 'center',
       display: 'block',
@@ -45,7 +55,7 @@ function Landing(props) {
             auth === null ? <span className={classes.loading_msg}> 'Loading'</span>:
             !auth ? [    
                 <Grid className={theme.root_content} container spacing={0} direction="column" alignItems="center" justify="center">          
-                    <Grid item xs={12} key='1'><img style={{height: '100%',width:'100%'}}src='./assets/landing-scroll.png'/></Grid>
+                    <Grid item xs={12} key='1'><img className={classes.landing_img}src='./assets/landing-scroll.png'/></Grid>
                     <Grid item xs={12} key='2'><Typography variant='h3' style={{textAlign: 'center'}}>Log your logs</Typography></Grid>
                     <Grid item xs={12} key='3'><Hidden mdDown><a className='log-in-btn' href='/auth/google'><img src='/assets/sign-in-images/btn_google_signin_dark_normal_web@2x.png'/></a></Hidden></Grid>
                 </Grid>  
@@ -61,7 +71,7 @@ function Landing(props) {
                         aria-label="vertical outline primary button group"
                         >                               
                             {children.map(({to, text, link}, index) => {
-                               return <Button key={index} component={link ? Link : 'a'} to={to} className={classes.btn_font}> {text} </Button> 
+                               return <Button key={index} component={link ? Link : 'a'} to={to} href={to} className={classes.btn_font}> {text} </Button> 
                             })}
 
                         </ButtonGroup>  
