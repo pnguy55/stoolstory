@@ -129,6 +129,7 @@ export default withStyles(styles, { withTheme: true })(reduxForm({
     // doing this allows the clearing of values when surveyNew is unmounted (default behavior)
     form: 'stoolForm',
     initialValues: {
-        date_time: `${Helpers.formatMMDDYY(new Date)}T${Helpers.formatAMPM(new Date)}`
+        date_time: `${Helpers.formatMMDDYY(new Date)}T${Helpers.formatAMPM(new Date)}`,
+        urgency: false
     }
 })(StoolFormWizard));

@@ -14,6 +14,7 @@ import Grid from '@material-ui/core/Grid';
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
 
+import formFields from './formFields2';
 import renderFields from './renderFields2'
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -109,8 +110,6 @@ let StoolForm2 = ({ handleSubmit, formValues, prevPage, nextPage  }) => {
     //     );
     // })
     
-    
-
     return (  
         <Grid container
             spacing={0}
@@ -118,20 +117,16 @@ let StoolForm2 = ({ handleSubmit, formValues, prevPage, nextPage  }) => {
             alignItems="center"
             justify="center"
             className={classes.root_content}>   
-            <form style={{margin: "1rem"}} onSubmit={handleSubmit(nextPage)}>
+            <form id='stool-form-2' style={{margin: "1rem"}} onSubmit={handleSubmit(prevPage)}>
                 <Card>        
                     <Grid   container
-                        spacing={0}
+                        spacing={1}
                         direction="column"
                         alignItems="center"
                         justify="center"
                         style={{ minHeight: 'fit-content' }}>   
                         <CardContent>
-                        <Grid container justify="center" alignItems="center">
-                            <Grid item xs={12}>
                                 {renderFields()}
-                            </Grid>
-                        </Grid>
                         </CardContent>
                             <Grid container item xs={12} justify="center" alignItems="center" className="margin-btm-sml">
                                 <Grid item xs={1}/>
@@ -189,6 +184,17 @@ function mapStateToProps(state) {
         formValues: state.form.stoolForm
     };
 }
+
+function validate(values) {
+
+    console.log(values)
+    const errors = {};
+    _.each(formFields, ({ urgency }) => {
+        console.log(values)
+    });
+    // if errors object is empty, it will allow the form to go through
+    return errors;
+}
 // we are using withRouter to redirect
 StoolForm2 = connect(
     mapStateToProps,
@@ -196,6 +202,7 @@ StoolForm2 = connect(
 )(StoolForm2);
 
 export default reduxForm({
+    validate,
     form: 'stoolForm', // a unique name for this form
     destroyOnUnmount: false
 })(StoolForm2);

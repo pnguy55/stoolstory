@@ -7,6 +7,6 @@ import StoolFormComp from './StoolFormComp2';
 export default function renderFields() {
 
     return _.map(formFields, ({ label, name, className }) => {
-        return <Field className={className} key={name} label={label} name={name} component={StoolFormComp} type='text' /> 
+        return <Field className={className} key={name} label={label} name={name} component={StoolFormComp} type='checkbox' /> 
     });
 }

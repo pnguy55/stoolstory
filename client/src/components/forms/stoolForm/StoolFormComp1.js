@@ -13,7 +13,13 @@ const useStyles = makeStyles({
         alignItems: 'flex-end',
         justifyContent: 'center',       
         height: '7rem',
-    }
+    },
+  },
+  form_question: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'start',
+    justifyContent: 'center',
   }
 });
 
@@ -21,7 +27,7 @@ export default ({input, name, label, className, meta: { error, touched }}) => {
     const classes = useStyles();
 
     return (
-        <div className="stool-form-question">
+        <div className={classes.form_question}>
             <label style={{fontSize: '2rem',
                             color: '#000000',
                             fontWeight: "800"}}

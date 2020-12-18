@@ -41,9 +41,11 @@ const styles = theme => ({
   const submit = values => {
     console.log(values);
   };
+
 class StoolForm1 extends Component {    
 
     componentDidMount(){
+
     }
     
 
@@ -57,7 +59,7 @@ class StoolForm1 extends Component {
                 alignItems="center"
                 justify="center"
                 className={classes.root_content}>   
-                <form style={{margin: "1rem"}} onSubmit={handleSubmit(nextPage)}>
+                <form id='stool_form_1' style={{margin: "1rem"}} onSubmit={handleSubmit(nextPage)}>
                     <Card>        
                         <Grid   container
                             spacing={0}
