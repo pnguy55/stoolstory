@@ -8,12 +8,31 @@ import StoolForm2 from './StoolForm2';
 import StoolForm3 from './StoolForm3';
 import axios from 'axios';
 
-import Utils from '../../../helpers/Helpers'
+// import Utils from '../../../helpers/Helpers'
 import theme from '../../../style/theme';
 import { ThemeProvider, useTheme, withStyles } from '@material-ui/core/styles';
 import { useStyles } from '@material-ui/pickers/views/Calendar/SlideTransition';
 
 let drawerWidth = 240;
+
+function formatAMPM(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    // var ampm = hours >= 12 ? 'pm' : 'am';
+    // hours = hours % 12;
+    // hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    hours = hours < 10 ? '0'+hours : hours;
+    // var strTime = hours + ':' + minutes + ' ' + ampm;
+    var strTime = hours + ':' + minutes;
+    return strTime;
+}
+
+function formatMMDDYY(date) {
+    // return (((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '-' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '-' + date.getFullYear());
+    return (date.getFullYear() + '-' + ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '-' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())));
+}
+
 const styles = theme => ({
     root_content: {
         [theme.breakpoints.down('sm')]: {
@@ -130,7 +149,7 @@ export default withStyles(styles, { withTheme: true })(reduxForm({
     // doing this allows the clearing of values when surveyNew is unmounted (default behavior)
     form: 'stoolForm',
     initialValues: {
-        date_time: `${Utils.formatMMDDYY(new Date)}T${Utils.formatAMPM(new Date)}`,
+        date_time: `${formatMMDDYY(new Date)}T${formatAMPM(new Date)}`,
         urgency: '1'
     }
 })(StoolFormWizard));
