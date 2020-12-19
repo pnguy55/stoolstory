@@ -12,7 +12,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import { makeStyles } from '@material-ui/core/styles';
 
 
-const selector = formValueSelector('stoolForm');
+const selector = formValueSelector('Full_Log_Form');
 
 const useStyles = makeStyles({
   big_field: {
@@ -45,7 +45,7 @@ const useStyles = makeStyles({
   }
 });
 
-function StoolFormComp2 ({input, name, urgency, label, className, options, default_val, meta: { error, touched }}) {
+function Full_Comp_2 ({input, name, urgency, label, className, options, default_val, meta: { error, touched }}) {
     const classes = useStyles();
 
     // const [value, setValue] = React.useState(input.checked);
@@ -94,10 +94,10 @@ function StoolFormComp2 ({input, name, urgency, label, className, options, defau
 
 
 
-StoolFormComp2 = connect(
+Full_Comp_2 = connect(
     (state, props) => ({
       urgency: selector(state, 'urgency')
     })
-  )(StoolFormComp2)
+  )(Full_Comp_2)
 
-export default StoolFormComp2;
+export default Full_Comp_2;

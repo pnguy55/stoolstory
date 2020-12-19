@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
 
-import renderFields from '../dl_renders/renderFieldsRadio'
+import full_render_Radio from '../full_renders/full_render_Radio'
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-let StoolForm2 = ({ handleSubmit, formValues, prevPage, nextPage  }) => {
+function Full_form_2({ handleSubmit, formValues, prevPage, nextPage  }){
     const classes = useStyles();
 
     // useEffect(() => {
@@ -64,7 +64,7 @@ let StoolForm2 = ({ handleSubmit, formValues, prevPage, nextPage  }) => {
                         justify="center"
                         style={{ minHeight: 'fit-content' }}>   
                         <CardContent className={classes.card_content}>
-                                {renderFields()}
+                                {full_render_Radio()}
                         </CardContent>
                             <Grid container item xs={12} justify="center" alignItems="center" className="margin-btm-sml">
                                 <Grid item xs={1}/>
@@ -84,34 +84,7 @@ let StoolForm2 = ({ handleSubmit, formValues, prevPage, nextPage  }) => {
                     </Grid>
                 </Card>
             </form>
-        </Grid>          
-        // <Card>
-        //     <form style={{margin: "1rem"}} onSubmit={handleSubmit(nextPage)}>
-        //         <Grid container spacing={0} justify="center" alignItems="center">
-        //             <CardContent>
-        //                 <Grid container item xs={12} justify="center" alignItems="center">
-        //                         {/* {renderFields()} */}
-        //                 </Grid>
-        //             </CardContent>
-                    
-        //             <Grid container item xs={12} justify="center" alignItems="center" className="margin-btm-sml">
-        //                     {/* <Grid item xs={1}/> */}
-        //                     <Grid item xs={6}>
-        //                         <Button onClick={prevPage} className='stool-btn'>
-        //                             <ArrowBackRoundedIcon className="stool-btn-icon" fontSize="large"/>
-        //                         </Button>
-        //                     </Grid>                            
-        //                     {/* <Grid item xs={4}/> */}
-        //                     <Grid item xs={6}>
-        //                         <Button type="submit" className='stool-btn'>
-        //                             <ArrowForwardRoundedIcon className="stool-btn-icon" fontSize="large" />
-        //                         </Button>
-        //                     </Grid>
-        //                     {/* <Grid item xs={1}/> */}
-        //             </Grid>
-        //         </Grid>
-        //     </form>
-        // </Card>
+        </Grid>    
     );
 };
 
@@ -119,17 +92,17 @@ let StoolForm2 = ({ handleSubmit, formValues, prevPage, nextPage  }) => {
 
 function mapStateToProps(state) {
     return {
-        formValues: state.form.stoolForm.values
+        formValues: state.form.Full_Log_Form.values
     };
 }
 
 // we are using withRouter to redirect
-StoolForm2 = connect(
+Full_form_2 = connect(
     mapStateToProps,
     actions
-)(StoolForm2);
+)(Full_form_2);
 
 export default reduxForm({
-    form: 'stoolForm', // a unique name for this form
+    form: 'Full_Log_Form', // a unique name for this form
     destroyOnUnmount: false
-})(StoolForm2);
+})(Full_form_2);

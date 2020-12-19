@@ -1,8 +1,8 @@
 import React from 'react'
 import { Field } from 'redux-form';
-import date_comp from '../iL_components/iL_date_comp'
-import slider_comp from '../iL_components/iL_slider_comp'
-import form_fields from '../iL_fields/iL_fields'
+import insta_date_comp from '../insta_components/insta_date_comp'
+import insta_slider_comp from '../insta_components/insta_slider_comp'
+import insta_fields from '../insta_fields/insta_fields'
 
 function render_iL_fields(props) {
 
@@ -13,12 +13,12 @@ function render_iL_fields(props) {
                 key={name} 
                 label={label} 
                 type={type} 
-                component={comp === 'slider' ? slider_comp : date_comp}
+                component={comp === 'slider' ? insta_slider_comp : insta_date_comp}
                 />
         )
     }
 
-    let rendered_fields = form_fields.map((field) => gen_fields(field));
+    let rendered_fields = insta_fields.map((field) => gen_fields(field));
 
     return rendered_fields;
 }

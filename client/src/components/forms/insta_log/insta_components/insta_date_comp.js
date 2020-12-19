@@ -18,6 +18,7 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     alignItems: 'start',
     justifyContent: 'center',
+    marginBottom: '1rem',
   },
   form_label: {
     fontSize: '3rem',

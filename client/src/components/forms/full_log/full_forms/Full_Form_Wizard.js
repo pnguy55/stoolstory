@@ -1,17 +1,13 @@
-// SurveyNew show SurveyForm compnent and SurveyFormReviewComponent
+// SurveyNew show SurveyForm component and SurveyFormReviewComponent
 import React, { Component } from 'react';
-import _ from 'lodash'
 import PropTypes from 'prop-types'
 import { reduxForm } from 'redux-form';
-import StoolForm1 from './StoolForm1';
-import StoolForm2 from './StoolForm2';
-import StoolForm3 from './StoolForm3';
+import Full_form_1 from './Full_form_1';
+import Full_form_2 from './Full_form_2';
 import axios from 'axios';
 
 // import Utils from '../../../helpers/Helpers'
-import theme from '../../../style/theme';
-import { ThemeProvider, useTheme, withStyles } from '@material-ui/core/styles';
-import { useStyles } from '@material-ui/pickers/views/Calendar/SlideTransition';
+import { withStyles } from '@material-ui/core/styles';
 
 let drawerWidth = 240;
 
@@ -51,7 +47,7 @@ const styles = theme => ({
     }
   });
 
-class StoolFormWizard extends Component {
+class Full_Form_Wizard extends Component {
     constructor(props){
         super(props);
         this.state = 
@@ -59,15 +55,7 @@ class StoolFormWizard extends Component {
             formPath: this.props.match.path.split(':')[0],
             formPage: parseInt(this.props.match.params.page, 10),
             formHistory: [], 
-            stoolFormWizardProgress: 0,
-            videoList: [],
-            videoTitle: '',
-            wholeListOfTags: [],
-            listOfChosenTags: [],
-            listOfChosenTagBubbles: '',
-            letterCount: 0
         }
-        // this.getRelatedVideos = this.getRelatedVideos.bind(this);
         this.nextPage = this.nextPage.bind(this);
         this.prevPage = this.prevPage.bind(this);
 
@@ -110,23 +98,16 @@ class StoolFormWizard extends Component {
         switch(this.state.formPage){
             case 1:
                 return (
-                    <StoolForm2
+                    <Full_form_2
                         onSubmit = {() => this.prevPage()}
                         prevPage = {() => this.prevPage()}
                         goBack = {() => this.props.history.goBack()}
                         />
                 )
-            case 2: 
-                return (
-                    <StoolForm3
-                    prevPage = {() => this.prevPage()}
-                    nextPage = {() => this.nextPage()}
-                    />
-                )
             default:
                 return (
                     
-                        <StoolForm1 
+                        <Full_form_1 
                             nextPage={() => this.nextPage()}
                             goBack = {() => this.props.history.goBack()}
                             formHistory={this.state.formHistory}
@@ -147,9 +128,9 @@ class StoolFormWizard extends Component {
 
 export default withStyles(styles, { withTheme: true })(reduxForm({
     // doing this allows the clearing of values when surveyNew is unmounted (default behavior)
-    form: 'stoolForm',
+    form: 'Full_Log_Form',
     initialValues: {
         date_time: `${formatMMDDYY(new Date)}T${formatAMPM(new Date)}`,
         urgency: '1'
     }
-})(StoolFormWizard));
+})(Full_Form_Wizard));

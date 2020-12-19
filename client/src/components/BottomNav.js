@@ -74,7 +74,7 @@ function SimpleBottomNavigation({children, toggleSide}) {
                         href={link ? '' : to}
                         key = {index}
                         icon={
-                                to.includes('add_log') ? <AddCircleRoundedIcon /> : 
+                                to.includes('full_log') ? <AddCircleRoundedIcon /> : 
                                 to.includes('log_list') ? <FormatListNumberedRoundedIcon /> :
                                 to.includes('insta_log') ? <PlusOneRoundedIcon /> : <img className={classes.bottom_nav_img} src={img} />
                         } > 

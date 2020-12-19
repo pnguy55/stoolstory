@@ -5,8 +5,8 @@ import React, { Component } from 'react';
 // the Field class can represent any input field
 import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
-import formFields from '../dl_fields/formFields1';
-import renderFields from '../dl_renders/renderFieldsDatePicker'
+import full_fields_1 from '../full_fields/full_fields_1';
+import full_render_DatePicker from '../full_renders/full_render_DatePicker'
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -69,7 +69,7 @@ class StoolForm1 extends Component {
                             <CardContent>
                             <Grid container justify="center" alignItems="center">
                                 <Grid item xs={12}>
-                                    {renderFields()}
+                                    {full_render_DatePicker()}
                                 </Grid>
                             </Grid>
                             </CardContent>
@@ -104,7 +104,7 @@ class StoolForm1 extends Component {
 function validate(values) {
 
     const errors = {};
-    _.each(formFields, ({ date_time }) => {
+    _.each(full_fields_1, ({ date_time }) => {
     });
     // if errors object is empty, it will allow the form to go through
     return errors;
@@ -113,7 +113,7 @@ function validate(values) {
 export default withStyles(styles, { withTheme: true })(reduxForm({
     // es6 shorthand for validate:validate
     validate,
-    form: 'stoolForm',
+    form: 'Full_Log_Form',
     // this property persists values
     destroyOnUnmount: false
 })(StoolForm1));

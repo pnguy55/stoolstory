@@ -4,8 +4,8 @@ import { Route } from 'react-router-dom';
 import Landing from './Landing';
 import LogList from './LogList';
 import LogCal from './LogCal';
-import StoolFormWizard from './forms/full_log/dl_forms/StoolFormWizard';
-import Insta_log_from from './forms/insta_log/iL_forms/insta_log_form';
+import Full_Form from './forms/full_log/full_forms/Full_Form_Wizard';
+import Insta_Form from './forms/insta_log/insta_forms/Insta_Form';
 import BottomNav from './BottomNav';
 
 import { Link } from 'react-router-dom';
@@ -159,7 +159,7 @@ function ResponsiveDrawer(props) {
                         
                         <ListItemIcon className='stool-btn-icon link '>
                         {
-                        to.includes('add_log') ? <AddCircleRoundedIcon /> : 
+                        to.includes('full_log') ? <AddCircleRoundedIcon /> : 
                         to.includes('log_list') ? <FormatListNumberedRoundedIcon /> : 
                         to.includes('insta_log') ? <PlusOneRoundedIcon /> :
                         <DateRangeRoundedIcon /> 
@@ -249,19 +249,17 @@ function ResponsiveDrawer(props) {
                   <ThemeProvider theme={theme} ><Landing {...props} children={children} auth={auth} /></ThemeProvider>
                 )}  />
           <Route 
-                path='/add_log/:page' 
+                path='/full_log/:page' 
                 render={(props) => (
                   <ThemeProvider theme={theme} >
-                    <StoolFormWizard {...props} auth={auth} />
+                    <Full_Form {...props} auth={auth} />
                   </ThemeProvider>
                 )}  />
-          {/* <Route exact path='/add_log' component={StoolFormWizard} /> */}
-          {/* <Route exact path='/' component={mainUserView}/> */}
           <Route 
                 exact path='/insta_log/' 
                 render={(props) => (
                   <ThemeProvider theme={theme} >
-                    <Insta_log_from {...props} auth={auth} />
+                    <Insta_Form {...props} auth={auth} />
                   </ThemeProvider>
                 )}  />
           <Route exact path='/log_list' component={LogList} />
