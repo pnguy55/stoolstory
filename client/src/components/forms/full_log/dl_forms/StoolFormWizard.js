@@ -7,9 +7,9 @@ import StoolForm1 from './StoolForm1';
 import StoolForm2 from './StoolForm2';
 import StoolForm3 from './StoolForm3';
 import axios from 'axios';
-import Helpers from '../../helpers/helpers';
+import Helpers from '../../../helpers/Helpers';
 
-import theme from '../../style/theme';
+import theme from '../../../style/theme';
 import { ThemeProvider, useTheme, withStyles } from '@material-ui/core/styles';
 import { useStyles } from '@material-ui/pickers/views/Calendar/SlideTransition';
 

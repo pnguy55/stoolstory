@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import formFields from './formFields1';
+import formFields from '../dl_fields/formFields1';
 import { withRouter, Link } from 'react-router-dom';
-import * as actions from '../../../actions/index';
+import * as actions from '../../../../actions';
 import { reduxForm } from 'redux-form';
-import renderFieldStoolFormName from './renderFieldsRadio';
+import renderFieldStoolFormName from '../dl_renders/renderFieldsRadio';
 
 
 let StoolForm2 = ({ 

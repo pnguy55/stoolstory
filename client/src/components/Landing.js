@@ -4,6 +4,11 @@ import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Grid from '@material-ui/core/Grid';
+import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
+import FormatListNumberedRoundedIcon from '@material-ui/icons/FormatListNumberedRounded';
+import PlusOneRoundedIcon from '@material-ui/icons/PlusOneRounded';
+import DateRangeRoundedIcon from '@material-ui/icons/DateRangeRounded';
+
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
@@ -65,15 +70,34 @@ function Landing(props) {
                 <Grid key={1} item xs={12}><h3 className={classes.landing_greeting}>Welcome back, {auth.firstName}</h3></Grid>,            
                 <Grid key={2} item xs={12}>
                         <ButtonGroup
-                        orientation="vertical"
-                        color="primary"
-                        variant="contained" 
-                        aria-label="vertical outline primary button group"
-                        >                               
-                            {children.map(({to, text, link}, index) => {
-                               return <Button key={index} component={link ? Link : 'a'} to={to} href={to} className={classes.btn_font}> {text} </Button> 
-                            })}
+                            orientation='vertical'
+                            color="primary"
+                            variant="contained" 
+                            size="large"
+                            full-width='true'
+                            aria-label="vertical outline primary button group"
+                            >                               
+                            {
+                                children.map(({to, text, link}, index) => {
+                                    if(!link) {return ''}
 
+                                    return (                                                                    
+                                        <Button 
+                                            key={index} 
+                                            component={link ? Link : 'a'} 
+                                            to={to} href={to} 
+                                            className={classes.btn_font}
+                                            startIcon={
+                                                    to.includes('add_log') ? <AddCircleRoundedIcon /> : 
+                                                    to.includes('log_list') ? <FormatListNumberedRoundedIcon /> :
+                                                    to.includes('insta_log') ? <PlusOneRoundedIcon /> : <DateRangeRoundedIcon />                                          
+                                            }
+                                            >                                       
+                                            {text}                                             
+                                        </Button> 
+                                    )
+                                })
+                            }
                         </ButtonGroup>  
                 </Grid>   
             ]

@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import ResponsiveDrawer from './ResponsiveDrawer';
-import BottomNav from './BottomNav';
-import Hidden from '@material-ui/core/Hidden';
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
@@ -27,7 +24,7 @@ class Header extends Component {
             case false:
                 return [
                     // <li key='2'><a className='log-in-btn' href='/auth/google'><img src='/assets/sign-in-images/btn_google_signin_dark_normal_web@2x.png'/></a></li>
-                    {to: '/auth/google', text: 'Log in', img:'/assets/sign-in-images/btn_google_signin_dark_normal_web@2x.png'}
+                    {to: '/auth/google', text: 'Log in', img:'/assets/sign-in-images/btn_google_signin_dark_normal_web@2x.png', bottom: 'true'}
                 ]
             // if there is user data
             default:
@@ -37,16 +34,18 @@ class Header extends Component {
                     // <li key='2'><Link className='btn dash-btn sidenav-close' to='/log_list'>Log list</Link></li>,
                     // <li key='3'><Link className='btn dash-btn sidenav-close' to='/log_cal'>Calendar</Link></li>,   
                     // <li key='4'><a className='btn logout-btn sidenav-close' href='/api/logout'>Logout</a></li> 
-                    {to: '/add_log/0', text: 'Add Log!', link: true},
-                    {to: '/log_list', text: 'Log List', link: true},
-                    {to: '/log_cal', text: 'Calendar', link: true},
-                    {to: '/api/logout', text: 'Log out', link: false},     
+                    {to: '/add_log/0', text: 'Full Log', link: true, type: 'log', bottom: true},
+                    {to: '/insta_log/', text: 'Insta-Log', link: true, type: 'log', bottom: true},
+                    {to: '/log_list', text: 'Log List', link: true, type: 'show', bottom: true},
+                    {to: '/log_cal', text: 'Calendar', link: true, type: 'show', bottom: false},
+                    {to: '/api/logout', text: 'Log out', link: false, bottom: false}
+                    ,     
                 ]
         }
     }
 
     render() {
-        const { classes, auth } = this.props;
+        const { auth } = this.props;
         return (
             <div>
                 <ResponsiveDrawer auth={auth}>

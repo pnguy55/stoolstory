@@ -1,23 +1,18 @@
-import _ from 'lodash';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form';
-import { withRouter } from 'react-router-dom';
-import * as actions from '../../../actions/index';
+import { reduxForm } from 'redux-form';
+import * as actions from '../../../../actions';
 
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
 
-import formFields from './formFields2';
-import renderFields from './renderFieldsRadio'
+import renderFields from '../dl_renders/renderFieldsRadio'
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const drawerWidth = 240;
 
@@ -48,9 +43,9 @@ const useStyles = makeStyles(theme => ({
 let StoolForm2 = ({ handleSubmit, formValues, prevPage, nextPage  }) => {
     const classes = useStyles();
 
-    useEffect(() => {
-        console.log(formValues)
-    }, []);
+    // useEffect(() => {
+    //     console.log(formValues)
+    // }, []);
 
 
     return (  

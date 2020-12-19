@@ -1,8 +1,8 @@
 import React from 'react';
 import { Field } from 'redux-form';
 import _ from 'lodash';
-import formFields from './formFields2';
-import StoolFormComp from './StoolFormComp2';
+import formFields from '../dl_fields/formFields2';
+import StoolFormComp from '../dl_components/StoolFormComp2';
 
 export default function renderFields() {
 

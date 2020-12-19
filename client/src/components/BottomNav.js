@@ -6,8 +6,7 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
 import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
 import FormatListNumberedRoundedIcon from '@material-ui/icons/FormatListNumberedRounded';
-import DateRangeRoundedIcon from '@material-ui/icons/DateRangeRounded';
-import MeetingRoomRoundedIcon from '@material-ui/icons/MeetingRoomRounded';
+import PlusOneRoundedIcon from '@material-ui/icons/PlusOneRounded';
 import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -63,10 +62,10 @@ function SimpleBottomNavigation({children, toggleSide}) {
             key={4}
             icon={<MenuRoundedIcon/>} />
         {
-            typeof children !== 'object' ? 'Loading' : children.map(({to, text, link, img}, index) => {
+            typeof children !== 'object' ? 'Loading' : children.map(({to, text, link, img, bottom}, index) => {
 
-            if(to === '/api/logout') return '';  
-            
+            if(!bottom) return '';
+
             return (
                 <BottomNavigationAction label={text} 
                         component={link ? Link : 'a'}
@@ -75,9 +74,9 @@ function SimpleBottomNavigation({children, toggleSide}) {
                         href={link ? '' : to}
                         key = {index}
                         icon={
-                                to === '/add_log/0' ? <AddCircleRoundedIcon /> : 
-                                to === '/log_list' ? <FormatListNumberedRoundedIcon /> :
-                                to === '/log_cal' ? <DateRangeRoundedIcon /> : <img className={classes.bottom_nav_img} src={img} />
+                                to.includes('add_log') ? <AddCircleRoundedIcon /> : 
+                                to.includes('log_list') ? <FormatListNumberedRoundedIcon /> :
+                                to.includes('insta_log') ? <PlusOneRoundedIcon /> : <img className={classes.bottom_nav_img} src={img} />
                         } > 
                                             
                 </BottomNavigationAction>

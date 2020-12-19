@@ -5,10 +5,10 @@ import React, { Component } from 'react';
 // the Field class can represent any input field
 import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
-import formFields from './formFields1';
-import renderFields from './renderFields1'
+import formFields from '../dl_fields/formFields1';
+import renderFields from '../dl_renders/renderFieldsDatePicker'
 
-import Helpers from '../../helpers/helpers';
+import Helpers from '../../../helpers/Helpers';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -62,7 +62,7 @@ class StoolForm1 extends Component {
                 className={classes.root_content}>   
                 <form id='stool_form_1' style={{margin: "1rem"}} onSubmit={handleSubmit(nextPage)}>
                     <Card>        
-                        <Grid   container
+                        <Grid   container item
                             spacing={0}
                             direction="column"
                             alignItems="center"
@@ -105,13 +105,8 @@ class StoolForm1 extends Component {
 
 function validate(values) {
 
-
-    console.log(values)
     const errors = {};
     _.each(formFields, ({ date_time }) => {
-        if(values[date_time] === `${Helpers.formatMMDDYY(new Date)} ${Helpers.formatAMPM(new Date)}`) {
-            errors[date_time] = `You must provide a date/time`;
-        }
     });
     // if errors object is empty, it will allow the form to go through
     return errors;

@@ -1,8 +1,6 @@
 import React from 'react';
 
-import M from "materialize-css";
 import TextField from '@material-ui/core/TextField';
-import Helpers from '../../helpers/helpers';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -50,7 +48,7 @@ export default ({input, name, label, className, meta: { error, touched }}) => {
                 variant='standard'
                 // defaultValue={`${Helpers.formatMMDDYY(new Date)}T${Helpers.formatAMPM(new Date)}`}
                 InputLabelProps={{
-                className: classes.label
+                  className: classes.label
                   }
                 }
                 /* styles the input component */

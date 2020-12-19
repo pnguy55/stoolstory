@@ -2,7 +2,6 @@ export default [
     { 
         label: 'How urgent was it?', 
         name: 'urgency', 
-        default_val: '1',
         options: [
             {
                 value: '1', 

@@ -1,22 +1,20 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import Header from './Header';
 import Landing from './Landing';
 import LogList from './LogList';
 import LogCal from './LogCal';
-import StoolFormWizard from './forms/stoolForm/StoolFormWizard';
+import StoolFormWizard from './forms/full_log/dl_forms/StoolFormWizard';
+import Insta_log_from from './forms/insta_log/iL_forms/insta_log_form';
 import BottomNav from './BottomNav';
 
 import { Link } from 'react-router-dom';
-import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
 import IconButton from '@material-ui/core/IconButton';
@@ -28,7 +26,7 @@ import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
 import FormatListNumberedRoundedIcon from '@material-ui/icons/FormatListNumberedRounded';
 import DateRangeRoundedIcon from '@material-ui/icons/DateRangeRounded';
 import MeetingRoomRoundedIcon from '@material-ui/icons/MeetingRoomRounded';
-import { Block } from '@material-ui/icons';
+import PlusOneRoundedIcon from '@material-ui/icons/PlusOneRounded';
 
 
 import { makeStyles, useTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -94,6 +92,9 @@ const useStyles = makeStyles((theme) => ({
   loading_msg: {
     textAlign: 'center',
     display: 'block',
+  },
+  anchor_tag: {
+    textDecoration: 'none',
   }
 }));
 
@@ -127,11 +128,13 @@ function ResponsiveDrawer(props) {
               
               if(to === '/auth/google') {
                 return (
-                  <a href={to} key={index}>
+                  <a className={classes.anchor_tag} href={to} key={index}>
                    <ListItem button key={to} className= {classes.drawerBtn}>
                         
                         <ListItemIcon className='stool-btn-icon link '>
-                          <img className={classes.ResponsiveDrawer_img} src={img} />
+                          <img className={classes.ResponsiveDrawer_img} 
+                               alt='Google sign-in button.' 
+                               src={img} />
                         </ListItemIcon>                                         
                     </ListItem>
                   </a>
@@ -139,16 +142,14 @@ function ResponsiveDrawer(props) {
               }
               if(!link) {
                 return (
-                  <a href={to} key={index}>
-                   <ListItem button key={to} className= {classes.drawerBtn}>
+                   <ListItem className={`${classes.anchor_tag} ${classes.drawerBtn}`} component={'a'} button key={to} href={to} >
                         
                         <ListItemIcon className='stool-btn-icon link '>
                           <MeetingRoomRoundedIcon />
                         </ListItemIcon>    
                         
-                        <ListItemText className='dark-text' primary= {text} />                                     
+                        <ListItemText color='primary' primary= {text} />                                     
                     </ListItem>
-                  </a>
                 )
               }
               
@@ -158,8 +159,9 @@ function ResponsiveDrawer(props) {
                         
                         <ListItemIcon className='stool-btn-icon link '>
                         {
-                        to === '/add_log' ? <AddCircleRoundedIcon /> : 
-                        to === '/log_list' ? <FormatListNumberedRoundedIcon /> : 
+                        to.includes('add_log') ? <AddCircleRoundedIcon /> : 
+                        to.includes('log_list') ? <FormatListNumberedRoundedIcon /> : 
+                        to.includes('insta_log') ? <PlusOneRoundedIcon /> :
                         <DateRangeRoundedIcon /> 
 
                         }
@@ -195,7 +197,11 @@ function ResponsiveDrawer(props) {
             <Link to='/'
             style={{height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}
             >
-                <img src='/stool-squad.png' style={{height: '2rem', marginRight: '.5rem', width: 'auto'}}></img> 
+                <img src='/stool-squad.png' 
+                     style={{height: '2rem', marginRight: '.5rem', width: 'auto'}}
+                     alt='Google sign-in button.'
+                     >
+                </img> 
                 <span>Stool Story</span>
             </Link>
           </div>
@@ -251,6 +257,13 @@ function ResponsiveDrawer(props) {
                 )}  />
           {/* <Route exact path='/add_log' component={StoolFormWizard} /> */}
           {/* <Route exact path='/' component={mainUserView}/> */}
+          <Route 
+                exact path='/insta_log/' 
+                render={(props) => (
+                  <ThemeProvider theme={theme} >
+                    <Insta_log_from {...props} auth={auth} />
+                  </ThemeProvider>
+                )}  />
           <Route exact path='/log_list' component={LogList} />
           <Route exact path='/log_cal' component={LogCal} />
         {/* <Route path='/tagLists/new' component={TagListWizard} /> */}

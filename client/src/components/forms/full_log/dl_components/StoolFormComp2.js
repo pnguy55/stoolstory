@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 
@@ -50,7 +50,7 @@ function StoolFormComp2 ({input, name, urgency, label, className, options, defau
 
     // const [value, setValue] = React.useState(input.checked);
 
-    console.log(urgency)
+    // console.log(urgency)
     // const handleChange = (event) => {
     //   input.check = event.target.value;
     // };
@@ -76,12 +76,12 @@ function StoolFormComp2 ({input, name, urgency, label, className, options, defau
                         }}>
                         {label}
                     </FormLabel>
-                    <RadioGroup aria-label="urgency" {...input} defaultValue={urgency ? urgency : '1'}>
+                    <RadioGroup aria-label="urgency" {...input}>
                     <Grid className={classes.radios} container item xs={12} direction='row' justify='center' alignItems='center'>
                         {
                             options.map(({value, r_label}, index) => {
                                 return (
-                                    <FormControlLabel key={index} value={value} control={<Radio />} label={r_label} labelPlacement='bottom' />
+                                    <FormControlLabel key={index} value={value} control={<Radio checked={value === urgency ? true : false}/>} label={r_label} labelPlacement='bottom' />
                                 )
                             })
                         }
