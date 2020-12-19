@@ -7,7 +7,7 @@ import StoolForm1 from './StoolForm1';
 import StoolForm2 from './StoolForm2';
 import StoolForm3 from './StoolForm3';
 import axios from 'axios';
-import Helpers from '../../../helpers/Helpers';
+import Utils from '../../../helpers/Helpers'
 import theme from '../../../style/theme';
 import { ThemeProvider, useTheme, withStyles } from '@material-ui/core/styles';
 import { useStyles } from '@material-ui/pickers/views/Calendar/SlideTransition';
@@ -129,7 +129,7 @@ export default withStyles(styles, { withTheme: true })(reduxForm({
     // doing this allows the clearing of values when surveyNew is unmounted (default behavior)
     form: 'stoolForm',
     initialValues: {
-        date_time: `${Helpers.formatMMDDYY(new Date)}T${Helpers.formatAMPM(new Date)}`,
+        date_time: `${Utils.formatMMDDYY(new Date)}T${Utils.formatAMPM(new Date)}`,
         urgency: '1'
     }
 })(StoolFormWizard));
