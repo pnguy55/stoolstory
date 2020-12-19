@@ -1,5 +1,5 @@
 
-export default class Utils {
+export default class Helpers {
     static formatAMPM = (date) => {
         var hours = date.getHours();
         var minutes = date.getMinutes();
