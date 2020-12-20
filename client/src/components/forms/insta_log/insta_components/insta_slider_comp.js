@@ -90,13 +90,13 @@ export default ({input, name, label, meta: { error, touched }}) => {
     function valueLabelBloodiness(value){
         
         if(value === 1) {
-            return (<img className={classes.slider_img} src='/assets/poop-types/Wet.png' />)
+            return (<img className={classes.slider_img} src='/assets/bloodiness/NoBlood.png' />)
         }
         else if(value === 3) {
-            return (<img className={classes.slider_img} src='/assets/poop-types/Dry.png' />)
+            return (<img className={classes.slider_img} src='/assets/bloodiness/Bloody.png' />)
         }
         else {
-            return (<img className={classes.slider_img} src='/assets/poop-types/Normal.png' />)
+            return (<img className={classes.slider_img} src='/assets/bloodiness/SuperBloody.png' />)
         }
     }
     function valueLabelStoolType(value){
