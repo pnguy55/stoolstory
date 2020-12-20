@@ -28,6 +28,7 @@ import DateRangeRoundedIcon from '@material-ui/icons/DateRangeRounded';
 import MeetingRoomRoundedIcon from '@material-ui/icons/MeetingRoomRounded';
 import PlusOneRoundedIcon from '@material-ui/icons/PlusOneRounded';
 
+import MenuDrawerContext from '../components/contexts/menuDrawerContext';
 
 import { makeStyles, useTheme, ThemeProvider } from '@material-ui/core/styles';
 
@@ -99,16 +100,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ResponsiveDrawer(props) {
-  const { window, children, auth, match } = props;
+  const { window, children, auth } = props;
   
   const classes = useStyles();
   const theme = useTheme();
 
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
 
   // function hasBottomNav(){
   //   switch()
@@ -251,7 +254,9 @@ function ResponsiveDrawer(props) {
                 exact path='/' 
                 render={(props) => (
                   <ThemeProvider theme={theme} >
-                    <Landing {...props} toggleSide={handleDrawerToggle} children={children} auth={auth} />
+                    <MenuDrawerContext.Provider value={{ mobileOpen, handleDrawerToggle }} >
+                      <Landing {...props} toggleSide={handleDrawerToggle} children={children} auth={auth} />
+                    </MenuDrawerContext.Provider>
                   </ThemeProvider>
                 )}  />
           {/* <Route 

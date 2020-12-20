@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
@@ -10,9 +10,10 @@ import FormatListNumberedRoundedIcon from '@material-ui/icons/FormatListNumbered
 import PlusOneRoundedIcon from '@material-ui/icons/PlusOneRounded';
 import DateRangeRoundedIcon from '@material-ui/icons/DateRangeRounded';
 
-
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
+
+import MenuDrawerContext from './contexts/menuDrawerContext';
 
 const drawerWidth = 240;
 
@@ -53,6 +54,8 @@ const useStyles = makeStyles(theme => ({
 function Landing(props) {
     const classes = useStyles();
     const theme = useTheme();
+
+    const menuDrawer = useContext(MenuDrawerContext);
 
     const { auth, children, toggleSide } = props;
 
@@ -118,7 +121,7 @@ function Landing(props) {
             {list}
                 
             <Hidden smUp>
-                    <BottomNav  toggleSide={toggleSide} children={children}/>
+                    <BottomNav toggleSide={menuDrawer.handleDrawerToggle} children={children}/>
             </Hidden> 
 
         </Grid>
