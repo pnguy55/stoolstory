@@ -33,21 +33,21 @@ const useStyles = makeStyles({
       marginBottom: '3rem',
   },
   'slider_img': {
-    maxWidth: '100%',
-    maxHeight: 'auto',
+    width: '2rem',
+    height: 'auto',
 }
 });
 
 
-let Insta_Slider = withStyles({
+let Insta_Slider = withStyles(theme => ({
     root: {
-      color: "#8ED4B3",
+      color: "#CFB08D",
       height: 8
     },
     thumb: {
       height: 24,
       width: 24,
-      backgroundColor: "#fff",
+      backgroundColor: "#87654D",
       border: "4px solid currentColor",
       marginTop: -8,
       marginLeft: -12,
@@ -68,8 +68,16 @@ let Insta_Slider = withStyles({
     valueLabel: {
         width: 10,
         height: 10,
+    },
+    mark: {
+        color: '#8ACDB3',
+        width: 4,
+        height: 8,
+    },
+    markActive: {
+        backgroundColor: '#8ED4B3'
     }
-  })(Slider);
+  }))(Slider);
 
   let Insta_label = withStyles({
     gutterBottom: {
@@ -112,13 +120,14 @@ export default ({input, name, label, meta: { error, touched }}) => {
     }
     function valueLabelPainLvl(value){
         if(value === 1) {
-            return (<img className={classes.slider_img} src='/assets/pain-lvls/Sad.png' />)
+            return <span style={{fontSize:'2rem'}}>&#128557;</span>
         }
         else if(value === 2) {
-            return (<img className={classes.slider_img} src='/assets/pain-lvls/Uncomfort.png' />)
+            return <span style={{fontSize:'2rem'}}>&#128577;</span>
+
         }
         else {
-            return (<img className={classes.slider_img} src='/assets/pain-lvls/Happy.png' />)
+            return <span style={{fontSize:'2rem'}}>&#128522;</span>
         }
     }
 
