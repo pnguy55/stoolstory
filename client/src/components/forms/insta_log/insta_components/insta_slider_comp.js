@@ -66,8 +66,8 @@ let Insta_Slider = withStyles({
       opacity: 1
     },
     valueLabel: {
-        width: 1000,
-        height: 1000,
+        width: 10,
+        height: 10,
     }
   })(Slider);
 
