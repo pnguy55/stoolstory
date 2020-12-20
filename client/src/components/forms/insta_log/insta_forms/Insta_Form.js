@@ -108,10 +108,9 @@ export default reduxForm({
     form: 'Insta_Log_Form',
     initialValues: {
         date_time: `${formatMMDDYY(new Date)}T${formatAMPM(new Date)}`,
-        urgency: 0,
-        pain_lvl: 0,
-        stool_type: 0,
-        bloodiness: 0,
+        pain_lvl: 1,
+        stool_type: 2,
+        bloodiness: 1,
     }
   })(Insta_Form)
   

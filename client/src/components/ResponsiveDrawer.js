@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ResponsiveDrawer(props) {
-  const { window, children, auth } = props;
+  const { window, children, auth, match } = props;
   
   const classes = useStyles();
   const theme = useTheme();
@@ -109,6 +109,10 @@ function ResponsiveDrawer(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  // function hasBottomNav(){
+  //   switch()
+  // }
 
   const drawer = (
     <div>
@@ -246,7 +250,9 @@ function ResponsiveDrawer(props) {
           <Route 
                 exact path='/' 
                 render={(props) => (
-                  <ThemeProvider theme={theme} ><Landing {...props} children={children} auth={auth} /></ThemeProvider>
+                  <ThemeProvider theme={theme} >
+                    <Landing {...props} toggleSide={handleDrawerToggle} children={children} auth={auth} />
+                  </ThemeProvider>
                 )}  />
           <Route 
                 path='/full_log/:page' 
@@ -266,9 +272,6 @@ function ResponsiveDrawer(props) {
           <Route exact path='/log_cal' component={LogCal} />
         {/* <Route path='/tagLists/new' component={TagListWizard} /> */}
       </main>
-      <Hidden smUp>
-          <BottomNav toggleSide={handleDrawerToggle} children={children}/>
-      </Hidden> 
     </div>
   );
 }

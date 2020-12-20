@@ -4,6 +4,7 @@ import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Grid from '@material-ui/core/Grid';
+import BottomNav from './BottomNav'
 import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
 import FormatListNumberedRoundedIcon from '@material-ui/icons/FormatListNumberedRounded';
 import PlusOneRoundedIcon from '@material-ui/icons/PlusOneRounded';
@@ -53,7 +54,7 @@ function Landing(props) {
     const classes = useStyles();
     const theme = useTheme();
 
-    const { auth, children } = props;
+    const { auth, children, handleDrawerToggle } = props;
 
     const list = (
         // this auth object actually has our user data
@@ -107,12 +108,19 @@ function Landing(props) {
 
     return (    
         <Grid  container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justify="center"
-        className={classes.root_content}>               
-                {list}
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justify="center"
+            className={classes.root_content}
+            >               
+            
+            {list}
+                
+            <Hidden smUp>
+                    <BottomNav  toggleSide={handleDrawerToggle} children={children}/>
+            </Hidden> 
+
         </Grid>
     )
     

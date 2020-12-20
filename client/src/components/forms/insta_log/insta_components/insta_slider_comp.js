@@ -28,7 +28,14 @@ const useStyles = makeStyles({
   },
   label:{
     fontSize: '1.5rem'
-  }
+  },
+  form_typography: {
+      marginBottom: '3rem',
+  },
+  'slider_img': {
+    maxWidth: '100%',
+    maxHeight: 'auto',
+}
 });
 
 
@@ -57,8 +64,18 @@ let Insta_Slider = withStyles({
       height: 8,
       borderRadius: 0,
       opacity: 1
+    },
+    valueLabel: {
+        width: 1000,
+        height: 1000,
     }
   })(Slider);
+
+  let Insta_label = withStyles({
+    gutterBottom: {
+        marginBottom: '3rem'
+    }
+  })(Typography)
 
 export default ({input, name, label, meta: { error, touched }}) => {
     const classes = useStyles();
@@ -70,24 +87,68 @@ export default ({input, name, label, meta: { error, touched }}) => {
 
         let curr_val = input.value;
     }
+    function valueLabelBloodiness(value){
+        
+        if(value === 1) {
+            return (<img className={classes.slider_img} src='/assets/poop-types/Wet.png' />)
+        }
+        else if(value === 3) {
+            return (<img className={classes.slider_img} src='/assets/poop-types/Dry.png' />)
+        }
+        else {
+            return (<img className={classes.slider_img} src='/assets/poop-types/Normal.png' />)
+        }
+    }
+    function valueLabelStoolType(value){
+        if(value === 1) {
+            return (<img className={classes.slider_img} src='/assets/poop-types/Wet.png' />)
+        }
+        else if(value === 3) {
+            return (<img className={classes.slider_img} src='/assets/poop-types/Dry.png' />)
+        }
+        else {
+            return (<img className={classes.slider_img} src='/assets/poop-types/Normal.png' />)
+        }
+    }
+    function valueLabelPainLvl(value){
+        if(value === 1) {
+            return (<img className={classes.slider_img} src='/assets/pain-lvls/Sad.png' />)
+        }
+        else if(value === 3) {
+            return (<img className={classes.slider_img} src='/assets/pain-lvls/Uncomfort.png' />)
+        }
+        else {
+            return (<img className={classes.slider_img} src='/assets/pain-lvls/Happy.png' />)
+        }
+    }
 
     return (
         <div className={classes.form_question}>
-            <Typography id="discrete-slider" gutterBottom>
+            <Insta_label id="discrete-slider" gutterBottom className="classes.form_typography">
                 {label}
-            </Typography>
+            </Insta_label>
             <Insta_Slider
                 
                 defaultValue={input.value}
                 onChangeCommitted={(e, val) => handleChange(val)}                
                 // getAriaValueText=
-                aria-valuetext={`${input.value}`}
+                valueLabelFormat={(e) => {
+                    if(label === 'Bloody?') {
+                        return valueLabelBloodiness(e)
+                    }
+                    else if(label === 'Did it hurt?'){
+                        return valueLabelPainLvl(e)
+                    }
+                    else {
+                        return valueLabelStoolType(e)
+                    }
+                }}
                 aria-labelledby="discrete-slider"
-                valueLabelDisplay="auto"
-                step={10}
+                valueLabelDisplay="on"
+                step={1}
                 marks
-                min={0}
-                max={100}
+                min={1}
+                max={3}
             />
 
             <div className="red-text" style={{marginBottom:'1em'}}>{touched && error}</div>
