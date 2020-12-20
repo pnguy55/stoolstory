@@ -4,7 +4,7 @@ const requireLogin = require('../middlewares/requireLogin');
 const axios = require('axios');
 const decode = require('unescape');
 
-const TagList = mongoose.model('tagLists');
+const LogList = mongoose.model('logLists');
 
 
 module.exports = app => {

@@ -54,7 +54,7 @@ function Landing(props) {
     const classes = useStyles();
     const theme = useTheme();
 
-    const { auth, children, handleDrawerToggle } = props;
+    const { auth, children, toggleSide } = props;
 
     const list = (
         // this auth object actually has our user data
@@ -118,7 +118,7 @@ function Landing(props) {
             {list}
                 
             <Hidden smUp>
-                    <BottomNav  toggleSide={handleDrawerToggle} children={children}/>
+                    <BottomNav  toggleSide={toggleSide} children={children}/>
             </Hidden> 
 
         </Grid>
