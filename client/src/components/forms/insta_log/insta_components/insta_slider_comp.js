@@ -92,7 +92,7 @@ export default ({input, name, label, meta: { error, touched }}) => {
         if(value === 1) {
             return (<img className={classes.slider_img} src='/assets/bloodiness/NoBlood.png' />)
         }
-        else if(value === 3) {
+        else if(value === 2) {
             return (<img className={classes.slider_img} src='/assets/bloodiness/Bloody.png' />)
         }
         else {
