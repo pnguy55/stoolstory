@@ -34,7 +34,7 @@ class Header extends Component {
                     // <li key='2'><Link className='btn dash-btn sidenav-close' to='/log_list'>Log list</Link></li>,
                     // <li key='3'><Link className='btn dash-btn sidenav-close' to='/log_cal'>Calendar</Link></li>,   
                     // <li key='4'><a className='btn logout-btn sidenav-close' href='/api/logout'>Logout</a></li> 
-                    // {to: '/full_log/0', text: 'Full Log', link: true, type: 'log', bottom: true},
+                    {to: '/full_log/0', text: 'Full Log', link: true, type: 'log', bottom: true},
                     {to: '/insta_log/', text: 'Insta-Log', link: true, type: 'log', bottom: true},
                     {to: '/log_list', text: 'Log List', link: true, type: 'show', bottom: true},
                     {to: '/log_cal', text: 'Calendar', link: true, type: 'show', bottom: false},
