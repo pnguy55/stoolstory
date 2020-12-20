@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     width: '100%',
   },
   form_label: {
-    fontSize: '3rem',
+    fontSize: '5rem',
     color: '#000000',
     fontWeight: "800"
   },
@@ -31,11 +31,39 @@ const useStyles = makeStyles({
   },
   form_typography: {
       marginBottom: '3rem',
+      fontSize: '5rem',
   },
   'slider_img': {
-    width: '2rem',
+    width: '2rem',    
     height: 'auto',
-}
+  },
+  valueLabelPain: {
+    color: '#000',
+    width: '14rem',
+    display: 'flex',
+    fontSize: '1.5rem',
+    left: '6rem',
+    position: 'relative',
+  },
+  valueLabelStool: {
+    color: '#000',
+    width: '10rem',
+    display: 'flex',
+    fontSize: '1.5rem',
+    left: '4rem',
+    position: 'relative',
+  },
+  valueLabelBlood: {
+    color: '#000',
+    width: '10rem',
+    display: 'flex',
+    fontSize: '1.5rem',
+    left: '4rem',
+    position: 'relative',
+    '&>span': {
+
+    }
+  }
 });
 
 
@@ -70,12 +98,12 @@ let Insta_Slider = withStyles(theme => ({
         height: 10,
     },
     mark: {
-        color: '#8ACDB3',
+        color: '#CFB08D',
         width: 4,
         height: 8,
     },
     markActive: {
-        backgroundColor: '#8ED4B3'
+        backgroundColor: '#87654D'
     }
   }))(Slider);
 
@@ -98,36 +126,48 @@ export default ({input, name, label, meta: { error, touched }}) => {
     function valueLabelBloodiness(value){
         
         if(value === 1) {
-            return (<img className={classes.slider_img} src='/assets/bloodiness/NoBlood.png' />)
+            return (
+                <div className={classes.valueLabelBlood}>
+                    <img className={classes.slider_img} src='/assets/bloodiness/NoBlood.png'/>
+                    <span>&nbsp;None</span>
+                </div>)
         }
         else if(value === 2) {
-            return (<img className={classes.slider_img} src='/assets/bloodiness/Bloody.png' />)
+            return (
+                <div className={classes.valueLabelBlood}>
+                    <img className={classes.slider_img} src='/assets/bloodiness/Bloody.png' />
+                    <span>&nbsp;A Little</span>
+                </div>)
         }
         else {
-            return (<img className={classes.slider_img} src='/assets/bloodiness/SuperBloody.png' />)
+            return (
+                <div className={classes.valueLabelBlood}>
+                    <img className={classes.slider_img} src='/assets/bloodiness/SuperBloody.png' />
+                    <span>&nbsp;Lots</span>
+                </div>)
         }
     }
     function valueLabelStoolType(value){
         if(value === 1) {
-            return (<img className={classes.slider_img} src='/assets/poop-types/Wet.png' />)
+            return <span className={classes.valueLabelStool} >&#128166; Wet</span>
         }
         else if(value === 3) {
-            return (<img className={classes.slider_img} src='/assets/poop-types/Dry.png' />)
+            return <span className={classes.valueLabelStool} >&#127761; Dry</span>
         }
         else {
-            return (<img className={classes.slider_img} src='/assets/poop-types/Normal.png' />)
+            return <span className={classes.valueLabelStool} >&#128169; Normal</span>
         }
     }
     function valueLabelPainLvl(value){
         if(value === 1) {
-            return <span style={{fontSize:'2rem'}}>&#128557;</span>
+            return <span className={classes.valueLabelPain} >&#128557; Painful</span>
         }
         else if(value === 2) {
-            return <span style={{fontSize:'2rem'}}>&#128577;</span>
+            return <span className={classes.valueLabelPain} >&#128577; A little</span>
 
         }
         else {
-            return <span style={{fontSize:'2rem'}}>&#128522;</span>
+            return <span className={classes.valueLabelPain} >&#128522; No</span>
         }
     }
 
