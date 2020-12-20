@@ -18,7 +18,7 @@ let theme = createMuiTheme({
         },
     },
     typography: {
-     "fontFamily": `"Fredoka One", "Montserrat", "cursive", sans-serif`,
+     "fontFamily": `"Fredoka One", "Raleway", "cursive", sans-serif`,
      "fontWeightLight": 300,
      "fontWeightRegular": 400,
      "fontWeightMedium": 500,
@@ -35,10 +35,10 @@ let theme = createMuiTheme({
         fontFamily: "Fredoka One"
       },
       button: {
-        fontFamily: "Comic Sans MS"
+        fontFamily: "Fredoka One"
       },
       span: {
-        fontFamily: "Montserrat"
+        fontFamily: "Raleway"
       } 
     },
     palette: {

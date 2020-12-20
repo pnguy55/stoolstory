@@ -3,9 +3,10 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider'
+import theme from '../../../style/theme'
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   big_field: {
     '&>div>input' : {     
         display: 'flex',
@@ -44,6 +45,7 @@ const useStyles = makeStyles({
     fontSize: '1.5rem',
     left: '6rem',
     position: 'relative',
+    fontWeight: '200',
   },
   valueLabelStool: {
     color: '#000',
@@ -52,6 +54,7 @@ const useStyles = makeStyles({
     fontSize: '1.5rem',
     left: '4rem',
     position: 'relative',
+    fontWeight: '200',
   },
   valueLabelBlood: {
     color: '#000',
@@ -62,15 +65,16 @@ const useStyles = makeStyles({
     position: 'relative',
     '&>span': {
 
+        fontWeight: '200',
     }
   }
-});
+}));
 
 
 let Insta_Slider = withStyles(theme => ({
     root: {
       color: "#CFB08D",
-      height: 8
+      height: 8,
     },
     thumb: {
       height: 24,
@@ -96,6 +100,7 @@ let Insta_Slider = withStyles(theme => ({
     valueLabel: {
         width: 10,
         height: 10,
+        fontFamily: 'Raleway'
     },
     mark: {
         color: '#CFB08D',
@@ -108,9 +113,13 @@ let Insta_Slider = withStyles(theme => ({
   }))(Slider);
 
   let Insta_label = withStyles({
+    root: {
+        fontSize: '2rem',
+    },
     gutterBottom: {
         marginBottom: '3rem'
-    }
+    },
+    
   })(Typography)
 
 export default ({input, name, label, meta: { error, touched }}) => {
@@ -129,7 +138,7 @@ export default ({input, name, label, meta: { error, touched }}) => {
             return (
                 <div className={classes.valueLabelBlood}>
                     <img className={classes.slider_img} src='/assets/bloodiness/NoBlood.png'/>
-                    <span>&nbsp;None</span>
+                    <span>&nbsp;No</span>
                 </div>)
         }
         else if(value === 2) {
@@ -173,7 +182,7 @@ export default ({input, name, label, meta: { error, touched }}) => {
 
     return (
         <div className={classes.form_question}>
-            <Insta_label id="discrete-slider" gutterBottom className="classes.form_typography">
+            <Insta_label id="discrete-slider" gutterBottom>
                 {label}
             </Insta_label>
             <Insta_Slider
