@@ -254,13 +254,13 @@ function ResponsiveDrawer(props) {
                     <Landing {...props} toggleSide={handleDrawerToggle} children={children} auth={auth} />
                   </ThemeProvider>
                 )}  />
-          <Route 
+          {/* <Route 
                 path='/full_log/:page' 
                 render={(props) => (
                   <ThemeProvider theme={theme} >
                     <Full_Form {...props} auth={auth} />
                   </ThemeProvider>
-                )}  />
+                )}  /> */}
           <Route 
                 exact path='/insta_log/' 
                 render={(props) => (
