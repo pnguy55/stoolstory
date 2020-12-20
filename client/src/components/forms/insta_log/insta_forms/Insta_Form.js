@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -93,7 +93,7 @@ const Insta_Form = props => {
                     <Grid item xs={4}/>
                     <Grid item xs={3} className='stool-btn flex-link'>
                         <Button type="submit" disabled={pristine || submitting}>
-                            <ArrowForwardRoundedIcon className="stool-btn-icon" fontSize="large"/>
+                            <CheckCircleIcon className="stool-btn-icon" fontSize="large"/>
                         </Button>
                     </Grid>
                     <Grid item xs={1}/>
