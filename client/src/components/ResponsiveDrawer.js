@@ -1,5 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actions from '../actions/index'
 
 import Landing from './Landing';
 import LogList from './LogList';
@@ -100,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ResponsiveDrawer(props) {
-  const { window, children, auth } = props;
+  const { window, children, auth, submit } = props;
   
   const classes = useStyles();
   const theme = useTheme();
@@ -270,7 +272,7 @@ function ResponsiveDrawer(props) {
                 exact path='/insta_log/' 
                 render={(props) => (
                   <ThemeProvider theme={theme} >
-                    <Insta_Form {...props} auth={auth} />
+                    <Insta_Form {...props} auth={auth} onSubmit={values => submit(values)} />
                   </ThemeProvider>
                 )}  />
           <Route exact path='/log_list' component={LogList} />
@@ -280,6 +282,5 @@ function ResponsiveDrawer(props) {
     </div>
   );
 }
-
 
 export default ResponsiveDrawer;

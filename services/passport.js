@@ -38,8 +38,22 @@ passport.use(
 
       sendWelcomeEmail(emailAddress, firstName);
 
-      const addToEmailList = await new Email( {firstName, lastName, email: emailAddress }).save();
-      const user = await new User({ googleId: profile.id, firstName, lastName, email: emailAddress }).save();
+      const addToEmailList = await new Email( {
+        firstName, 
+        lastName, 
+        email: emailAddress,
+        email_notifications: true
+      }).save();
+      const user = await new User({ 
+        googleId: profile.id, 
+        firstName, 
+        lastName, 
+        email: emailAddress, 
+        notifications_enabled: true,
+        owned_affiliated_prods: false,
+        meds_taken: ['a', 'b', 'c'],
+        regular: false,
+      }).save();
 
       done(null, user, addToEmailList);
     }

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import renderFields from '../insta_renders/insta_render_fields';
-import { reduxForm } from 'redux-form';
+import { reduxForm, initialize } from 'redux-form';
 import { Link } from 'react-router-dom';
 import * as actions from '../../../../actions/index';
 
@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 
   
@@ -36,7 +36,7 @@ function formatMMDDYY(date) {
     return (date.getFullYear() + '-' + ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '-' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())));
 }
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
     root_content: {
         [theme.breakpoints.down('sm')]: {
             minHeight: '90vh',
@@ -58,61 +58,75 @@ const useStyles = makeStyles(theme => ({
     card_content: {
         marginBottom: '2rem',
     }
-  }));
+  });
 
-let Insta_Form = props => {
+  function submitthis(values)
+ {
+     console.log(values)
+ }
+class Insta_Form extends Component {
+    constructor(props){
+        super(props);
+        this.state = 
+        {
 
-    const classes = useStyles();
-    const { onSubmit, handleSubmit, pristine, reset, submit, submitLog } = props;
+        }
+
+    }
+    // const classes = useStyles();
+    // const { onSubmit, handleSubmit, pristine, reset, submit, submitLog } = props;
 
     console.log(props)
 
 
-    return (
-        <Grid className={classes.root_content} 
-            container 
-            justify='center' 
-            alignItems='center'
-            direction='column'
-            >
-            <form onSubmit={handleSubmit(submit)}>
-                <Grid container item
-                    xs={12}
-                    direction='column'
-                    justify='center'
-                    alignItems='center'
-                    >
-                    
-                    {renderFields()}
-
-                </Grid>
-                <Grid container item xs={12} justify="center" alignItems="center" className="margin-btm-sml">
-                    <Grid item xs={1}/>
-                    <Grid item xs={3} className='stool-btn flex-link'>
-
-                        <Button component={Link} to='/'>
-                            <KeyboardReturnIcon className="stool-btn-icon" fontSize="large"/>
-                        </Button>
-
+    render() {
+        return (
+            <Grid className={classes.root_content} 
+                container 
+                justify='center' 
+                alignItems='center'
+                direction='column'
+                >
+                <form onSubmit={handleSubmit(submitthis)}>
+                    <Grid container item
+                        xs={12}
+                        direction='column'
+                        justify='center'
+                        alignItems='center'
+                        >
                         
+                        {renderFields()}
+
                     </Grid>
-                    <Grid item xs={4}/>
-                    <Grid item xs={3} className='stool-btn flex-link'>
-                        <Button type='submit' >
-                            <CheckCircleIcon className="stool-btn-icon" fontSize="large"/>
-                        </Button>
+                    <Grid container item xs={12} justify="center" alignItems="center" className="margin-btm-sml">
+                        <Grid item xs={1}/>
+                        <Grid item xs={3} className='stool-btn flex-link'>
+
+                            <Button component={Link} to='/'>
+                                <KeyboardReturnIcon className="stool-btn-icon" fontSize="large"/>
+                            </Button>
+
+                            
+                        </Grid>
+                        <Grid item xs={4}/>
+                        <Grid item xs={3} className='stool-btn flex-link'>
+                            <Button type='submit' >
+                                <CheckCircleIcon className="stool-btn-icon" fontSize="large"/>
+                            </Button>
+                        </Grid>
+                        <Grid item xs={1}/>
                     </Grid>
-                    <Grid item xs={1}/>
-                </Grid>
-            </form>
-        </Grid>
-    )
+                </form>
+            </Grid>
+        )
+    }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         submit: (values, dispatch) => {
             return new Promise((resolve, reject) => {
+                console.log(values);
                 dispatch(actions.submitLog(values, 1))
                 resolve();  
             })

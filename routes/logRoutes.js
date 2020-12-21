@@ -3,25 +3,26 @@ const mongoose = require('mongoose');
 const requireLogin = require('../middlewares/requireLogin');
 const axios = require('axios');
 const decode = require('unescape');
+// const { default: LogList } = require('../client/src/components/LogList');
 
-const LogList = mongoose.model('logLists');
+const Log = mongoose.model('Logs');
 
 
 module.exports = app => {
 
     // user is included on cookie
 
-    app.get('/api/tagLists', requireLogin, async (req, res) => {
+    app.get('/api/log', requireLogin, async (req, res) => {
         // the select recipients removes that from the get request
-        const tagList = await TagList.find({ _user: req.user.id });
+        const log = await Log.find({ _user: req.user.id });
 
-        res.send(tagList);
+        res.send(log);
     });
 
-    app.get('/api/tagLists/all', async (req, res) => {
-        const tagList = await TagList.find({})
+    app.get('/api/logs', async (req, res) => {
+        const logs = await Log.find({})
         
-        res.send(tagList);
+        res.send(logs);
     })
 
     app.delete('/api/tagLists/:tagListId', requireLogin, async (req, res) => {
@@ -31,23 +32,54 @@ module.exports = app => {
         res.status(200).send()
     })
 
-    app.post('/api/tagLists', requireLogin, async (req, res) => {
-        console.log(req.body)
-        const { title, tags } = req.body;
+    app.post('/api/log', requireLogin, async (req, res) => {
 
-        const tagList = new TagList({
-            title,
-            tags: tags,
-            _user: req.user.id,
-            dateCreated: Date.now()
-        });
+        let {date_time, stool_type, pain_lvl, bloodiness, log_type } = req.body;
+
+        let log_date = date_time.split('T')[0].replace(/-/g,'');
+        let log_time = date_time.split('T')[1].replace(':','');
+        date_time = `${log_date}${log_time}`;
+
+        
 
         try {
-            await tagList.save();
-            res.status(200)
+            
+            const log = await new Log({
+                _user: req.user.id,
+                //consistency: 'one of 3 types',
+                stool_type,
+                form_type,
+                //color:  'select from color list',
+                color: 'Blue',
+                // datetime: 'mmddyyyy',
+                log_date_time: date_time,
+                log_date,
+                // time_on_toilet: '00:00:00',
+                time_on_toilet: 000000,
+                // time: '00:00:00',
+                log_time,
+                //time_since_last: Date,
+                pain_lvl,
+                // bloodiness: 'none or 1-5',
+                bloodiness,
+                // note: "",
+                note: 'String',
+                business_analysis: {
+                    // stool_array: ['last 48 times on the loo'],
+                    stool_array: ['A', 'B'],
+                    // stool_average_freq: 'average_days_between'
+                    stool_average_freq: 3,
+                    // recommendations: ['recommended products'],
+                    recommendations: ['a', 'b'],
+                }
+            }).save();
+            // console.log(200)
+            // await log.save();
+
+            res.status(200).send(log);
 
         } catch (err) {
-            res.status(504);
+            res.status(504).send({error: err});
         }
     });
 

@@ -5,7 +5,7 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 var enforce = require('express-sslify');
 require('../models/User');
-require('../models/LogList');
+require('../models/Log');
 require('../models/Email');
 require('../services/passport');
 
@@ -15,7 +15,7 @@ mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopolo
 
 const app = express();
 //uncomment HTTPS for production
-app.use(enforce.HTTPS({ trustProtoHeader: true }));
+// app.use(enforce.HTTPS({ trustProtoHeader: true }));
 
 // this line will ensure that any kind of request body is parsed and assigned to req.body
 app.use(bodyParser.json());
@@ -34,7 +34,7 @@ app.use(passport.session());
 
 require('../routes/authRoutes')(app);
 // because the route files return functions, they are immediately called by app
-require('../routes/logListRoutes')(app);
+require('../routes/logRoutes')(app);
 
 
 if (process.env.NODE_ENV === 'production') {

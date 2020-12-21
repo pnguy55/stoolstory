@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
@@ -122,15 +122,15 @@ let Insta_Slider = withStyles(theme => ({
     
   })(Typography)
 
-export default ({input, name, label, meta: { error, touched }}) => {
+export default ({input, name, label, input: { onChange }, meta: { error, touched }}) => {
     const classes = useStyles();
     const insta_slider = Insta_Slider;
-    console.log(insta_slider)
+
+    const [slider_val, set_slider_val] = useState(input.value);
 
     function handleChange(val) {
-        input.value = val;
-
-        let curr_val = input.value;
+        onChange(val)
+        set_slider_val(val);
     }
     function valueLabelBloodiness(value){
         
@@ -186,8 +186,8 @@ export default ({input, name, label, meta: { error, touched }}) => {
                 {label}
             </Insta_label>
             <Insta_Slider
-                
-                defaultValue={input.value}
+                {...input}
+                value={slider_val}
                 onChangeCommitted={(e, val) => handleChange(val)}                
                 // getAriaValueText=
                 valueLabelFormat={(e) => {

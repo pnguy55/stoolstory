@@ -97,7 +97,7 @@ function mapStateToProps(state) {
 }
 
 // we are using withRouter to redirect
-Full_form_2 = connect(
+connect(
     mapStateToProps,
     actions
 )(Full_form_2);

@@ -1,26 +1,26 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const logListSchema = new Schema({
-
-    logList: {
+const LogSchema = new Schema({
         _user: { 
             type: Schema.Types.ObjectId, ref: 'User' 
         },
         //consistency: 'one of 3 types',
-        consistency: Number,
+        stool_type: Number,
+        form_type: Number,
         //color:  'select from color list',
         color: String,
         // datetime: 'mmddyyyy',
-        datetime: String,
+        log_date_time: String,
+        log_date: String,
         // time_on_toilet: '00:00:00',
         time_on_toilet: String,
         // time: '00:00:00',
-        time: String,
+        log_time: String,
         // time_since_last: '00:00:00',
-        time_since_last: String,
+        time_since_last: Date,
         // pain_level: 'none or 1-10',
-        pain_level: Number,
+        pain_lvl: Number,
         // bloodiness: 'none or 1-5',
         bloodiness: Number,
         // note: "",
@@ -31,20 +31,13 @@ const logListSchema = new Schema({
             // stool_average_freq: 'average_days_between'
             stool_average_freq: Number,
             // recommendations: ['recommended products'],
-            recommdendations: Array,
+            recommendations: Array,
         }
-    }
-    // title: {
-    //     type: String,
-    //     required: true
-    // },
-    // tags: {
-    //     type: [String]
-    // },
+    }, {
 
-    // dateCreated: Date
+    timestamps: true
 });
 
 
-mongoose.model('logLists', logListSchema);
+mongoose.model('Logs', LogSchema);
 
