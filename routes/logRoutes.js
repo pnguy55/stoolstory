@@ -76,7 +76,11 @@ module.exports = app => {
                     // recommendations: ['recommended products'],
                     recommendations: ['a', 'b'],
                 }
-            }).save();
+            }).save(function(err){
+                if(err){
+                     console.log(err);
+                     return;
+                }});
             // console.log(200)
             // await log.save();
 
