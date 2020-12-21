@@ -44,10 +44,6 @@ module.exports = app => {
             log_time = date_time.split('T')[1].replace(':','');
             date_time = `${log_date}${log_time}`;
         }
-
-
-        try {
-            
             const log = await new Log({
                 _user: req.user.id,
                 //consistency: 'one of 3 types',
@@ -79,16 +75,17 @@ module.exports = app => {
             }).save(function(err){
                 if(err){
                      console.log(err);
+                     res.send(err)
                      return;
-                }});
+                }
+                else {
+                    res.status(200).send(log);
+                }
+            });
             // console.log(200)
             // await log.save();
 
-            res.status(200).send(log);
-
-        } catch (err) {
-            res.status(504).send({error: err});
-        }
+  
     });
 
     app.get('/api/tagLists/gatherVideoList/:videoTitle', async (req, res) => {
