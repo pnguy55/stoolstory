@@ -34,7 +34,7 @@ module.exports = app => {
 
     app.post('/api/log', requireLogin, async (req, res) => {
 
-        let {date_time, stool_type, pain_lvl, bloodiness, log_type } = req.body;
+        let {date_time, stool_type, pain_lvl, bloodiness, form_type } = req.body;
 
         let log_date = '0'
         let log_time = '0'
