@@ -12,14 +12,14 @@ module.exports = app => {
 
     // user is included on cookie
 
-    app.get('/api/log', requireLogin, async (req, res) => {
+    app.get('/api/s_log', requireLogin, async (req, res) => {
         // the select recipients removes that from the get request
         const log = await Log.find({ _user: req.user.id });
 
         res.send(log);
     });
 
-    app.get('/api/logs', async (req, res) => {
+    app.get('/api/s_logs', async (req, res) => {
         const logs = await Log.find({})
         
         res.send(logs);
@@ -32,7 +32,7 @@ module.exports = app => {
         res.status(200).send()
     })
 
-    app.post('/api/log', requireLogin, async (req, res) => {
+    app.post('/api/s_log', requireLogin, async (req, res) => {
 
         let {date_time, stool_type, pain_lvl, bloodiness, form_type } = req.body;
 
@@ -75,7 +75,7 @@ module.exports = app => {
             }).save(function(err){
                 if(err){
                      console.log(err);
-                     res.send(err)
+                     res.status(504).send(err)
                      return;
                 }
                 else {
