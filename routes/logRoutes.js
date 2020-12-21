@@ -12,14 +12,14 @@ module.exports = app => {
 
     // user is included on cookie
 
-    app.get('/api/s_log', requireLogin, async (req, res) => {
+    app.get('/api/stool/log', requireLogin, async (req, res) => {
         // the select recipients removes that from the get request
         const log = await Log.find({ _user: req.user.id });
 
         res.send(log);
     });
 
-    app.get('/api/s_logs', async (req, res) => {
+    app.get('/api/stool/logs', async (req, res) => {
         const logs = await Log.find({})
         
         res.send(logs);
@@ -32,7 +32,7 @@ module.exports = app => {
         res.status(200).send()
     })
 
-    app.post('/api/s_log', requireLogin, async (req, res) => {
+    app.post('/api/stool/log', requireLogin, async (req, res) => {
 
         let {date_time, stool_type, pain_lvl, bloodiness, form_type } = req.body;
 
@@ -44,44 +44,49 @@ module.exports = app => {
             log_time = date_time.split('T')[1].replace(':','');
             date_time = `${log_date}${log_time}`;
         }
-            const log = await new Log({
-                _user: req.user.id,
-                //consistency: 'one of 3 types',
-                stool_type,
-                form_type,
-                //color:  'select from color list',
-                color: 'Blue',
-                // datetime: 'mmddyyyy',
-                log_date_time: date_time,
-                log_date,
-                // time_on_toilet: '00:00:00',
-                time_on_toilet: 000000,
-                // time: '00:00:00',
-                log_time,
-                //time_since_last: Date,
-                pain_lvl,
-                // bloodiness: 'none or 1-5',
-                bloodiness,
-                // note: "",
-                note: 'String',
-                business_analysis: {
-                    // stool_array: ['last 48 times on the loo'],
-                    stool_array: ['A', 'B'],
-                    // stool_average_freq: 'average_days_between'
-                    stool_average_freq: 3,
-                    // recommendations: ['recommended products'],
-                    recommendations: ['a', 'b'],
-                }
-            }).save(function(err){
-                if(err){
-                     console.log(err);
-                     res.status(504).send(err)
-                     return;
-                }
-                else {
-                    res.status(200).send(log);
-                }
-            });
+
+        let _this = this;
+
+        const log = await new Log({
+            _user: req.user.id,
+            //consistency: 'one of 3 types',
+            stool_type,
+            form_type,
+            //color:  'select from color list',
+            color: 'Blue',
+            // datetime: 'mmddyyyy',
+            log_date_time: date_time,
+            log_date,
+            // time_on_toilet: '00:00:00',
+            time_on_toilet: 000000,
+            // time: '00:00:00',
+            log_time,
+            //time_since_last: Date,
+            pain_lvl,
+            // bloodiness: 'none or 1-5',
+            bloodiness,
+            // note: "",
+            note: 'String',
+            business_analysis: {
+                // stool_array: ['last 48 times on the loo'],
+                stool_array: ['A', 'B'],
+                // stool_average_freq: 'average_days_between'
+                stool_average_freq: 3,
+                // recommendations: ['recommended products'],
+                recommendations: ['a', 'b'],
+            }
+        }).save(function(err){
+            if(err){
+                console.log(err);
+                res.status(504).send(err)
+                return;
+            } 
+            else {
+                
+                console.log(_this.log)
+                res.status(200).send(log)
+            }
+        });
             // console.log(200)
             // await log.save();
 

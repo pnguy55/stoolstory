@@ -12,31 +12,33 @@ export const submitLog = (formValues, log_type) => async dispatch => {
 
     let { date_time, stool_type, pain_lvl, bloodiness } = formValues;
 
-    const res = await axios.post('/api/s_log', { 
+    const res = await axios.post('/api/stool/log', { 
         date_time,
         stool_type,
         pain_lvl,
         bloodiness,
         log_type,
     });
+
+    console.log(res)
     // pushing to history for redirect purposes
-    dispatch({ type: FETCH_USER, payload: res.data });
+    dispatch({ type: FETCH_USER, payload: res.config.data });
 };
 
 export const fetchLog = () => async dispatch => {
-    const res = await axios.get('/api/s_log');
-
+    const res = await axios.get('/api/stool/log');
+    
     dispatch({ type: FETCH_LOG, payload: res.data});
 }
 
 export const fetchLogs = () => async dispatch => {
-    const res = await axios.get('/api/s_logs');
+    const res = await axios.get('/api/stool/logs');
 
     dispatch({ type: FETCH_LOGS, payload: res.data});
 }
 
 export const deleteLog = (logId, history) => async dispatch => {
-    const res = await axios.delete(`/api/s_logs/${logId}`);
+    const res = await axios.delete(`/api/stool/logs/${logId}`);
 
     dispatch({ type: DELETE_LOG, payload: res.data});
 }
