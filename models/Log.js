@@ -39,5 +39,5 @@ const LogSchema = new Schema({
 });
 
 
-mongoose.model('Logs', LogSchema);
+mongoose.model('logs', LogSchema);
 

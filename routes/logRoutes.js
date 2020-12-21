@@ -5,7 +5,7 @@ const axios = require('axios');
 const decode = require('unescape');
 // const { default: LogList } = require('../client/src/components/LogList');
 
-const Log = mongoose.model('Logs');
+const Log = mongoose.model('logs');
 
 
 module.exports = app => {
@@ -45,9 +45,7 @@ module.exports = app => {
             date_time = `${log_date}${log_time}`;
         }
 
-        let _this = this;
-
-        const log = await new Log({
+        const log = new Log({
             _user: req.user.id,
             //consistency: 'one of 3 types',
             stool_type,
@@ -75,18 +73,20 @@ module.exports = app => {
                 // recommendations: ['recommended products'],
                 recommendations: ['a', 'b'],
             }
-        }).save(function(err){
-            if(err){
-                console.log(err);
-                res.status(504).send(err)
-                return;
-            } 
-            else {
-                
-                console.log(_this.log)
-                res.status(200).send(log)
-            }
         });
+
+        try {            
+            
+            await log.save(function(err){
+                if(err){
+                    throw new Error(err);
+                } 
+            })               
+            res.status(200).send(log);
+
+        } catch(error) {
+            res.status(500).send(error)
+        }
             // console.log(200)
             // await log.save();
 
