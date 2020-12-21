@@ -36,11 +36,15 @@ module.exports = app => {
 
         let {date_time, stool_type, pain_lvl, bloodiness, log_type } = req.body;
 
-        let log_date = date_time.split('T')[0].replace(/-/g,'');
-        let log_time = date_time.split('T')[1].replace(':','');
-        date_time = `${log_date}${log_time}`;
-
+        let log_date = '0'
+        let log_time = '0'
         
+        if(log_date){
+            log_date = date_time.split('T')[0].replace(/-/g,'');
+            log_time = date_time.split('T')[1].replace(':','');
+            date_time = `${log_date}${log_time}`;
+        }
+
 
         try {
             
