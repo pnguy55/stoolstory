@@ -98,6 +98,15 @@ const useStyles = makeStyles((theme) => ({
   },
   anchor_tag: {
     textDecoration: 'none',
+    padding: '0px 31px'
+  },
+  drawerIcon: {    
+    display: 'flex',
+    justifyContent: 'flex-start',
+  },
+  drawerText: {    
+    display: 'flex',
+    justifyContent: 'flex-start'
   }
 }));
 
@@ -153,11 +162,11 @@ function ResponsiveDrawer(props) {
                 return (
                    <ListItem className={`${classes.anchor_tag} ${classes.drawerBtn}`} component={'a'} button key={to} href={to} >
                         
-                        <ListItemIcon className='stool-btn-icon link '>
+                        <ListItemIcon className={`stool-btn-icon link ${classes.drawerIcon}`}>
                           <MeetingRoomRoundedIcon />
                         </ListItemIcon>    
                         
-                        <ListItemText color='primary' primary= {text} />                                     
+                        <ListItemText className={classes.drawerText} color='primary' primary= {text} />                                     
                     </ListItem>
                 )
               }

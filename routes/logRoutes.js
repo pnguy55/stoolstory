@@ -14,7 +14,7 @@ module.exports = app => {
 
     app.get('/api/stool/log', requireLogin, async (req, res) => {
         // the select recipients removes that from the get request
-        const log = await Log.find({ _user: req.user.id });
+        const log = await Log.find({ _user: req.user.id }).find({}).sort({log_date: 'desc'});;
 
         res.send(log);
     });
