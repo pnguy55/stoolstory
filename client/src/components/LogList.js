@@ -70,18 +70,20 @@ function createWeekDayMap(){
 function createMonthMap(year) {
     let map = new Map();
 
+    let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+
     for(let i = 1; i < 13; i++) {
         if((i === 2) && (year % 4 === 0) ) {
-            map.set(i, 29);
+            map.set(i, [months[i], 29]);
         }
         else if( i === 2 ) {
-            map.set(i, 28);
+            map.set(i, [months[i], 28]);
         }
         else if( ((i % 2) !== 0) || (i === 8) ){
-            map.set(i, 31);
+            map.set(i, [months[i], 31]);
         }
         else {
-            map.set(i, 30);
+            map.set(i, [months[i], 30]);
         }
     }
 
@@ -163,6 +165,7 @@ class LogList extends Component {
             dense: false,
             secondary: false,
             logs: this.props.logs,
+            number_of_days_listed: 45,
         }
         this.setDense = this.setDense.bind(this);
         this.setSecondary = this.setSecondary.bind(this);
@@ -220,44 +223,48 @@ class LogList extends Component {
         for(let curr_log = logs_count - 1; curr_log >= 0; curr_log--) {
             console.log('NEXT DAY')
             let log = logs_list[curr_log];
+            let curr_log_time = parseInt(log.log_date, 10);
             let curr_log_year = parseInt(log.log_date.substring(0, 4));
             let curr_log_month = parseInt(log.log_date.substring(4, 6));
             let curr_log_date = parseInt(log.log_date.substring(6, 8));
 
-            if(log_map.has(curr_log_date))
-                log_map.set(curr_log_date, [...log_map.get(curr_log_date), log]);
+            if(log_map.has(curr_log_time))
+                log_map.set(curr_log_time, [...log_map.get(curr_log_time), log]);
             else {
-                log_map.set(curr_log_date, [log]);
+                log_map.set(curr_log_time, [log]);
             }
         }
-
-        let number_of_days_listed = 7
 
         let day_in_milliseconds = 86400000;
 
         let listItems = []
 
-        for(let i = 0; i < number_of_days_listed; i++) {
+        for(let i = 0; i < this.state.number_of_days_listed; i++) {
             
             let curr_day_logs = []  
             // current date we are focused on
             let focus_date = new Date(new Date() - (day_in_milliseconds * i));
             // console.log((day_in_milliseconds * i))
+            let focus_date_year = (focus_date.getFullYear()) * 10000;
+            let focus_date_month = (focus_date.getMonth() + 1) * 100;
             let focus_date_num = focus_date.getDate();
+
+            let focus_date_full = focus_date_year + focus_date_month + focus_date_num;
+            // console.log(focus_date_full);
             let curr_day_of_week = focus_date.getDay();
 
             let curr_day_stool_type = []
             let curr_day_blood_pain = []
             
-            if(log_map.has(focus_date_num)) {
+            if(log_map.has(focus_date_full)) {
                 curr_day_stool_type = 
-                    log_map.get(focus_date_num)
+                    log_map.get(focus_date_full)
                            .map(({stool_type}) => {
                             return this.valueLabelStoolType(stool_type)
                     });
 
                 curr_day_blood_pain =  
-                    log_map.get(focus_date_num)
+                    log_map.get(focus_date_full)
                         .map(({bloodiness, pain_lvl}) => {
                             return this.valueLabelBloodPain(bloodiness, pain_lvl)
                     });
@@ -266,15 +273,15 @@ class LogList extends Component {
             }
             
             listItems.push(
-                <Grid container item xs={12} key={Math.random(1, 1000)} style={{borderBottom: '2px solid #000'}}>
+                <Grid container item xs={12} key={focus_date_full} style={{borderBottom: '2px solid #000'}}>
                     <ListItem >
-                        <Grid container item direction='row' item xs={2}>
+                        <Grid container item direction='column' item xs={3} justify='center' alignItems='center'>
                                 {this.state.dayMap.get(curr_day_of_week)[2]}                                
-                                <Typography variant='body1' className={this.props.classes.list_date}>{focus_date_num}</Typography>                          
+                                <Typography style={{marginLeft: '0px'}} variant='body1' align='center' className={this.props.classes.list_date}>{this.state.monthMap.get( (focus_date_month/100) - 1)[0]} - {focus_date_num}</Typography>                          
   
                         </Grid>
                         <Divider orientation="vertical" flexItem />
-                        <Grid container item xs={10}>
+                        <Grid container item xs={9}>
                             <Grid container item xs={12} justify='center' alignItems='center'>
                                 {curr_day_stool_type.length < 1 ? 'NO LOG' : curr_day_stool_type}
                             </Grid>
@@ -302,7 +309,7 @@ class LogList extends Component {
     valueLabelBloodPain(bloodiness, pain_lvl) {
         
         return(
-            <Grid container item xs={4} alignItems='center' justify='center'>
+            <Grid key={`bloodpain${Math.random() * 1000000}`} container item xs={4} alignItems='center' justify='center'>
                 <Grid item xs={2}>
                     {this.valueLabelBloodiness(bloodiness)}
                 </Grid>
@@ -346,25 +353,25 @@ class LogList extends Component {
     valueLabelStoolType(value){
         if(value === 1) {
             return (
-                <Grid container item xs={4} direction='column' alignItems='center' justify='center'>
-                    <Grid item xs={4}><span className={this.props.classes.valueLabelStool} >&#128166;</span></Grid>
-                    <Grid item xs={2}><span className={this.props.classes.valueLabel}>Wet</span></Grid>
+                <Grid key={`stoolType${Math.random() * 1000000}`} container item xs={4} direction='column' alignItems='center' justify='center'>
+                    <Grid key={`stoolType${Math.random() * 1000000}`} item xs={4}><span className={this.props.classes.valueLabelStool} >&#128166;</span></Grid>
+                    <Grid key={`stoolType${Math.random() * 1000000}`} item xs={2}><span className={this.props.classes.valueLabel}>Wet</span></Grid>
                 </Grid>
             )
         }
         else if(value === 3) {
             return (
-                <Grid container item xs={4} direction='column' alignItems='center' justify='center'>
-                    <Grid item xs={4}><span className={this.props.classes.valueLabelStool} >&#127761;</span></Grid>
-                    <Grid item xs={2}><span className={this.props.classes.valueLabel}>Dry</span></Grid>
+                <Grid key={`stoolType${Math.random() * 1000000}`} container item xs={4} direction='column' alignItems='center' justify='center'>
+                    <Grid key={`stoolType${Math.random() * 1000000}`} item xs={4}><span className={this.props.classes.valueLabelStool} >&#127761;</span></Grid>
+                    <Grid key={`stoolType${Math.random() * 1000000}`}item xs={2}><span className={this.props.classes.valueLabel}>Dry</span></Grid>
                 </Grid>
             )
         }
         else {
             return (
-                <Grid container item xs={4} direction='column' alignItems='center' justify='center'>
-                    <Grid xs={4}><span className={this.props.classes.valueLabelStool} >&#128169;</span></Grid>
-                    <Grid xs={2}><span className={this.props.classes.valueLabel}>Normal</span></Grid>
+                <Grid key={`stoolType${Math.random() * 1000000}`} container item xs={4} direction='column' alignItems='center' justify='center'>
+                    <Grid key={`stoolType${Math.random() * 1000000}`} item xs={4}><span className={this.props.classes.valueLabelStool} >&#128169;</span></Grid>
+                    <Grid key={`stoolType${Math.random() * 1000000}`} item xs={2}><span className={this.props.classes.valueLabel}>Normal</span></Grid>
                 </Grid>
             )
         }
