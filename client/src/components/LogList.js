@@ -104,7 +104,6 @@ const styles = theme => ({
     },
     root: {
         flexGrow: 1,
-        maxWidth: 752,
     },
     title: {
         margin: theme.spacing(4, 0, 2),
@@ -125,7 +124,7 @@ const styles = theme => ({
             minWidth: '90vw',
         },
         [theme.breakpoints.up('md')]: {
-            minWidth: `calc(60vw - ${drawerWidth}px)`,          
+            minWidth: `calc(90vw - ${drawerWidth}px)`,          
         },
     },
     log_list_svg: {
@@ -151,6 +150,12 @@ const styles = theme => ({
     valueLabel: {
         fontSize:'2rem',
         fontFamily: 'Raleway'
+    },
+    primary_log: {
+        borderRight: '2px solid #000',
+    },
+    secondary_log: {
+        borderRight: '2px solid #000',
     }
   });
 
@@ -282,10 +287,10 @@ class LogList extends Component {
                         </Grid>
                         <Divider orientation="vertical" flexItem />
                         <Grid container item xs={9}>
-                            <Grid container item xs={12} justify='center' alignItems='center'>
+                            <Grid container item xs={12} alignItems='center'>
                                 {curr_day_stool_type.length < 1 ? 'NO LOG' : curr_day_stool_type}
                             </Grid>
-                            <Grid container item xs={12} justify='center' alignItems='center'>
+                            <Grid container item xs={12} alignItems='center'>
                                 {this.state.secondary ? curr_day_blood_pain : null}
                             </Grid>
                         </Grid>
@@ -309,11 +314,11 @@ class LogList extends Component {
     valueLabelBloodPain(bloodiness, pain_lvl) {
         
         return(
-            <Grid key={`bloodpain${Math.random() * 1000000}`} container item xs={4} alignItems='center' justify='center'>
-                <Grid item xs={2}>
+            <Grid key={`bloodpain${Math.random() * 1000000}`} container item xs={5} md={3} alignItems='center' justify='center' className={this.props.classes.secondary_log}>
+                <Grid item >
                     {this.valueLabelBloodiness(bloodiness)}
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item >
                     {this.valueLabelPainLvl(pain_lvl)}
                 </Grid>
             </Grid>
@@ -353,25 +358,28 @@ class LogList extends Component {
     valueLabelStoolType(value){
         if(value === 1) {
             return (
-                <Grid key={`stoolType${Math.random() * 1000000}`} container item xs={4} direction='column' alignItems='center' justify='center'>
-                    <Grid key={`stoolType${Math.random() * 1000000}`} item xs={4}><span className={this.props.classes.valueLabelStool} >&#128166;</span></Grid>
-                    <Grid key={`stoolType${Math.random() * 1000000}`} item xs={2}><span className={this.props.classes.valueLabel}>Wet</span></Grid>
+                <Grid key={`stoolType${Math.random() * 1000000}`} container item xs={5} md={3} direction='column' alignItems='center' justify='center' className={this.props.classes.primary_log}>
+                    <Grid key={`stoolType${Math.random() * 1000000}`} item><span className={this.props.classes.valueLabelStool} >&#128166;</span></Grid>
+                    <Grid key={`stoolType${Math.random() * 1000000}`} item ><span className={this.props.classes.valueLabel}>Wet</span></Grid>
+                    <Divider orientation="vertical" flexItem />
                 </Grid>
             )
         }
         else if(value === 3) {
             return (
-                <Grid key={`stoolType${Math.random() * 1000000}`} container item xs={4} direction='column' alignItems='center' justify='center'>
-                    <Grid key={`stoolType${Math.random() * 1000000}`} item xs={4}><span className={this.props.classes.valueLabelStool} >&#127761;</span></Grid>
-                    <Grid key={`stoolType${Math.random() * 1000000}`}item xs={2}><span className={this.props.classes.valueLabel}>Dry</span></Grid>
+                <Grid key={`stoolType${Math.random() * 1000000}`} container item xs={5} md={3} direction='column' alignItems='center' justify='center' className={this.props.classes.primary_log}>
+                    <Grid key={`stoolType${Math.random() * 1000000}`} item ><span className={this.props.classes.valueLabelStool} >&#127761;</span></Grid>
+                    <Grid key={`stoolType${Math.random() * 1000000}`} item ><span className={this.props.classes.valueLabel}>Dry</span></Grid>
+                    <Divider orientation="vertical" flexItem />
                 </Grid>
             )
         }
         else {
             return (
-                <Grid key={`stoolType${Math.random() * 1000000}`} container item xs={4} direction='column' alignItems='center' justify='center'>
-                    <Grid key={`stoolType${Math.random() * 1000000}`} item xs={4}><span className={this.props.classes.valueLabelStool} >&#128169;</span></Grid>
-                    <Grid key={`stoolType${Math.random() * 1000000}`} item xs={2}><span className={this.props.classes.valueLabel}>Normal</span></Grid>
+                <Grid key={`stoolType${Math.random() * 1000000}`} container item xs={5} md={3} direction='column' alignItems='center' justify='center' className={this.props.classes.primary_log}>
+                    <Grid key={`stoolType${Math.random() * 1000000}`} item ><span className={this.props.classes.valueLabelStool} >&#128169;</span></Grid>
+                    <Grid key={`stoolType${Math.random() * 1000000}`} item ><span className={this.props.classes.valueLabel}>Norm</span></Grid>
+                    <Divider orientation="vertical" flexItem />
                 </Grid>
             )
         }
@@ -380,26 +388,26 @@ class LogList extends Component {
 
     renderDaysOfWeek(){
         return (
-            <div className={this.props.classes.root_content}>
-                <FormGroup row>
-                    <FormControlLabel
-                    control={
-                        <Checkbox
-                        checked={this.state.secondary}
-                        onChange={(event) => this.setSecondary(event.target.checked)}
+
+
+                <Grid container item xs={12} direction='column' className={this.props.classes.root_content}>
+                    <FormGroup row>
+                        <FormControlLabel
+                        control={
+                            <Checkbox
+                            checked={this.state.secondary}
+                            onChange={(event) => this.setSecondary(event.target.checked)}
+                            />
+                        }
+                        label="Enable secondary text"
                         />
-                    }
-                    label="Enable secondary text"
-                    />
-                </FormGroup>
-                <Grid container spacing={2}>
-                    <Grid item xs={12} md={6}>
+                    </FormGroup>
+                    <Grid item xs={12}>
                             <List dense={this.state.dense}>
                             {this.generate()}
                             </List>
                     </Grid>
                 </Grid>
-                </div>
         )
     }
 
@@ -417,8 +425,8 @@ class LogList extends Component {
                     justify="center"
                     key={i++}                    
                     >
-                        <Card className={this.props.classes.log_card}>        
-                            <Grid   container item
+                        <Card>        
+                            <Grid   container item xs={12}
                                 spacing={0}
                                 direction="column"
                                 alignItems="center"
