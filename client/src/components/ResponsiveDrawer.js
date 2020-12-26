@@ -98,7 +98,12 @@ const useStyles = makeStyles((theme) => ({
   },
   anchor_tag: {
     textDecoration: 'none',
-    padding: '0px 31px'
+    [theme.breakpoints.down('sm')]: {      
+      padding: '0px 16px',
+    },
+    [theme.breakpoints.up('sm')]: {        
+      padding: '0px 31px',
+    },
   },
   drawerIcon: {    
     display: 'flex',
@@ -284,7 +289,17 @@ function ResponsiveDrawer(props) {
                     <Insta_Form {...props} auth={auth} onSubmit={values => submit(values)} />
                   </ThemeProvider>
                 )}  />
-          <Route exact path='/log_list' component={LogList} />
+
+          <Route 
+                exact path='/log_list' 
+                render={(props) => (
+                  <ThemeProvider theme={theme} >
+                    <MenuDrawerContext.Provider value={{ mobileOpen, handleDrawerToggle }} >
+                      <LogList {...props} toggleSide={handleDrawerToggle} children={children} auth={auth} />
+                    </MenuDrawerContext.Provider>
+                  </ThemeProvider>
+                )}  />  
+
           <Route exact path='/log_cal' component={LogCal} />
         {/* <Route path='/tagLists/new' component={TagListWizard} /> */}
       </main>

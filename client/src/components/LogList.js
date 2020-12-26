@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchLogs, deleteLog } from '../actions/index';
 import { ReactSVG } from 'react-svg';
+import BottomNav from './BottomNav';
 
+import Hidden from '@material-ui/core/Hidden';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -34,6 +36,9 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { withStyles } from '@material-ui/styles';
 import { map } from 'lodash';
+
+import MenuDrawerContext from './contexts/menuDrawerContext';
+
 
 let drawerWidth = 240;
 
@@ -151,6 +156,11 @@ const styles = theme => ({
         fontSize:'2rem',
         fontFamily: 'Raleway'
     },
+    // log_day: {
+    //     textOverflow: 'ellipsis',
+    //     whiteSpace: 'nowrap',
+    //     overflowY: 'hidden'
+    // },
     primary_log: {
         borderRight: '2px solid #000',
     },
@@ -160,6 +170,7 @@ const styles = theme => ({
   });
 
 class LogList extends Component {
+    // static menuDrawer = MenuDrawerContext
 
     constructor(props){
         super(props)
@@ -171,6 +182,8 @@ class LogList extends Component {
             secondary: false,
             logs: this.props.logs,
             number_of_days_listed: 45,
+            children: this.props.children,
+
         }
         this.setDense = this.setDense.bind(this);
         this.setSecondary = this.setSecondary.bind(this);
@@ -184,6 +197,8 @@ class LogList extends Component {
 
     componentDidMount() {
         this.props.fetchLogs();
+        console.log(this.props)
+
     }
 
     componentDidUpdate(prevProps, prevState){
@@ -286,11 +301,11 @@ class LogList extends Component {
   
                         </Grid>
                         <Divider orientation="vertical" flexItem />
-                        <Grid container item xs={9}>
-                            <Grid container item xs={12} alignItems='center'>
+                        <Grid container item xs={9} className={this.props.classes.log_day}>
+                            <Grid container item xs={12} alignItems='center' wrap="nowrap"  >
                                 {curr_day_stool_type.length < 1 ? 'NO LOG' : curr_day_stool_type}
                             </Grid>
-                            <Grid container item xs={12} alignItems='center'>
+                            <Grid container item xs={12} alignItems='center' wrap="nowrap" >
                                 {this.state.secondary ? curr_day_blood_pain : null}
                             </Grid>
                         </Grid>
@@ -314,11 +329,11 @@ class LogList extends Component {
     valueLabelBloodPain(bloodiness, pain_lvl) {
         
         return(
-            <Grid key={`bloodpain${Math.random() * 1000000}`} container item xs={5} md={3} alignItems='center' justify='center' className={this.props.classes.secondary_log}>
-                <Grid item >
+            <Grid key={`bloodpain${Math.random() * 1000000}`} container item xs={6} alignItems='center' justify='center' className={this.props.classes.secondary_log}>
+                <Grid item xs={3}>
                     {this.valueLabelBloodiness(bloodiness)}
                 </Grid>
-                <Grid item >
+                <Grid item xs={3} >
                     {this.valueLabelPainLvl(pain_lvl)}
                 </Grid>
             </Grid>
@@ -358,7 +373,7 @@ class LogList extends Component {
     valueLabelStoolType(value){
         if(value === 1) {
             return (
-                <Grid key={`stoolType${Math.random() * 1000000}`} container item xs={5} md={3} direction='column' alignItems='center' justify='center' className={this.props.classes.primary_log}>
+                <Grid key={`stoolType${Math.random() * 1000000}`} container item xs={6} direction='column' alignItems='center' justify='center' className={this.props.classes.primary_log}>
                     <Grid key={`stoolType${Math.random() * 1000000}`} item><span className={this.props.classes.valueLabelStool} >&#128166;</span></Grid>
                     <Grid key={`stoolType${Math.random() * 1000000}`} item ><span className={this.props.classes.valueLabel}>Wet</span></Grid>
                     <Divider orientation="vertical" flexItem />
@@ -367,7 +382,7 @@ class LogList extends Component {
         }
         else if(value === 3) {
             return (
-                <Grid key={`stoolType${Math.random() * 1000000}`} container item xs={5} md={3} direction='column' alignItems='center' justify='center' className={this.props.classes.primary_log}>
+                <Grid key={`stoolType${Math.random() * 1000000}`} container item xs={6} direction='column' alignItems='center' justify='center' className={this.props.classes.primary_log}>
                     <Grid key={`stoolType${Math.random() * 1000000}`} item ><span className={this.props.classes.valueLabelStool} >&#127761;</span></Grid>
                     <Grid key={`stoolType${Math.random() * 1000000}`} item ><span className={this.props.classes.valueLabel}>Dry</span></Grid>
                     <Divider orientation="vertical" flexItem />
@@ -376,7 +391,7 @@ class LogList extends Component {
         }
         else {
             return (
-                <Grid key={`stoolType${Math.random() * 1000000}`} container item xs={5} md={3} direction='column' alignItems='center' justify='center' className={this.props.classes.primary_log}>
+                <Grid key={`stoolType${Math.random() * 1000000}`} container item xs={6} direction='column' alignItems='center' justify='center' className={this.props.classes.primary_log}>
                     <Grid key={`stoolType${Math.random() * 1000000}`} item ><span className={this.props.classes.valueLabelStool} >&#128169;</span></Grid>
                     <Grid key={`stoolType${Math.random() * 1000000}`} item ><span className={this.props.classes.valueLabel}>Norm</span></Grid>
                     <Divider orientation="vertical" flexItem />
@@ -467,6 +482,13 @@ class LogList extends Component {
                         {this.renderDaysOfWeek()}
                     </Grid>
                 </Grid>
+                <Hidden smUp>
+                    <MenuDrawerContext.Consumer>
+                        
+         {value => (<BottomNav toggleSide={ value.handleDrawerToggle } children={this.props.children}/>) }
+                        {/* <BottomNav toggleSide={ handle } children={this.state.children}/> */}
+                    </MenuDrawerContext.Consumer>
+               </Hidden> 
             </div>
         )
     }
@@ -482,3 +504,9 @@ function mapStateToProps(state) {
 
 export default withStyles(styles, { withTheme: true })
 (connect(mapStateToProps, { fetchLogs, deleteLog })(LogList));
+
+// export function Component() {
+//     let menuContext = useContext(MenuDrawerContext);
+  
+//     return <LogList appContext={appContext}></LogList>
+//   };
