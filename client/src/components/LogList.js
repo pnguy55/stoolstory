@@ -161,7 +161,7 @@ const styles = theme => ({
     },
     log_day: {
         whiteSpace: 'nowrap',
-        overflowY: 'scroll'
+        overflowX: 'scroll'
     },
     primary_log: {
         borderRight: '2px solid #000',
@@ -287,7 +287,7 @@ class LogList extends Component {
                     log_map.get(focus_date_full)
                            .map(({stool_type, bloodiness, pain_lvl}) => {
                             return (
-                                <Grid className={this.props.classes.single_log} container item xs={4} direction='column' alignItems='center'>
+                                <Grid className={this.props.classes.single_log} container item xs={5} direction='column' alignItems='center'>
                                     {this.valueLabelStoolType(stool_type)}
                                     {this.valueLabelBloodPain(bloodiness, pain_lvl)}
                                 </Grid>
@@ -312,10 +312,9 @@ class LogList extends Component {
                                 <Typography style={{marginLeft: '0px'}} variant='body1' align='center' className={this.props.classes.list_date}>{this.state.monthMap.get( (focus_date_month/100) - 1)[0]} - {focus_date_num}</Typography>                          
   
                         </Grid>
-                        <Divider orientation="vertical" flexItem />
-                        <Grid container item xs={9} className={this.props.classes.log_day} wrap="nowrap"  alignItems='center'>
+                        <Grid container item xs={9} className={this.props.classes.log_day}  alignItems='center'>
                             {/* <Grid container item xs={12} alignItems='center' wrap="nowrap"  > */}
-                                {curr_day_stool.length < 1 ? 'NO LOG' : curr_day_stool}
+                                {curr_day_stool.length < 1 ? <Grid item xs={12}>NO LOG</Grid> : curr_day_stool}
                             {/* </Grid>
                             <Grid container item xs={12} alignItems='center' wrap="nowrap" >
                                 {curr_day_blood_pain}
@@ -437,7 +436,7 @@ class LogList extends Component {
                     </FormGroup>
                     </Grid>
                     <Grid container item xs={12}>
-                            <List dense={this.state.dense}>
+                            <List dense={this.state.dense} style={{width: '100%'}}>
                             {this.generate()}
                             </List>
                     </Grid>
@@ -492,6 +491,7 @@ class LogList extends Component {
     render() {
 
         return (
+            this.props.auth === null ? 'Loading...' :
             <div className={this.props.root_content}>
                 <Grid container direction='column' justify='center' align='center'>
                     <Grid item xs={12}>
@@ -502,9 +502,8 @@ class LogList extends Component {
                     </Grid>
                 </Grid>
                 <Hidden smUp>
-                    <MenuDrawerContext.Consumer>
-                        
-         {value => (<BottomNav toggleSide={ value.handleDrawerToggle } children={this.props.children}/>) }
+                    <MenuDrawerContext.Consumer>                        
+                        {value => (<BottomNav toggleSide={ value.handleDrawerToggle } children={this.props.children}/>) }
                         {/* <BottomNav toggleSide={ handle } children={this.state.children}/> */}
                     </MenuDrawerContext.Consumer>
                </Hidden> 
