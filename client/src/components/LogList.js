@@ -285,9 +285,9 @@ class LogList extends Component {
             if(log_map.has(focus_date_full)) {
                 curr_day_stool = 
                     log_map.get(focus_date_full)
-                           .map(({stool_type, bloodiness, pain_lvl}) => {
+                           .map(({stool_type, bloodiness, pain_lvl}, index) => {
                             return (
-                                <Grid className={this.props.classes.single_log} container item xs={5} direction='column' alignItems='center'>
+                                <Grid key={index} className={this.props.classes.single_log} container item xs={5} direction='column' alignItems='center'>
                                     {this.valueLabelStoolType(stool_type)}
                                     {this.valueLabelBloodPain(bloodiness, pain_lvl)}
                                 </Grid>
@@ -305,14 +305,14 @@ class LogList extends Component {
             }
             
             listItems.push(
-                <Grid container item xs={12} key={focus_date_full} style={{borderBottom: '2px solid #000'}}>
+                <Grid container item xs={12} key={focus_date_full} style={{borderBottom: '2px solid #000', maxWidth: '100vw'}} wrap='wrap'>
                     <ListItem >
                         <Grid container item direction='column' item xs={3} justify='center' alignItems='center'>
                                 {this.state.dayMap.get(curr_day_of_week)[2]}                                
                                 <Typography style={{marginLeft: '0px'}} variant='body1' align='center' className={this.props.classes.list_date}>{this.state.monthMap.get( (focus_date_month/100) - 1)[0]} - {focus_date_num}</Typography>                          
   
                         </Grid>
-                        <Grid container item xs={9} className={this.props.classes.log_day}  alignItems='center'>
+                        <Grid container item xs={9} className={this.props.classes.log_day}  alignItems='center' wrap='nowrap'>
                             {/* <Grid container item xs={12} alignItems='center' wrap="nowrap"  > */}
                                 {curr_day_stool.length < 1 ? <Grid item xs={12}>NO LOG</Grid> : curr_day_stool}
                             {/* </Grid>
