@@ -299,8 +299,16 @@ function ResponsiveDrawer(props) {
                     </MenuDrawerContext.Provider>
                   </ThemeProvider>
                 )}  />  
-
-          <Route exact path='/log_cal' component={LogCal} />
+          <Route 
+                exact path='/log_cal' 
+                render={(props) => (
+                  <ThemeProvider theme={theme} >
+                    <MenuDrawerContext.Provider value={{ mobileOpen, handleDrawerToggle }} >
+                      <LogCal {...props} toggleSide={handleDrawerToggle} children={children} auth={auth} />
+                    </MenuDrawerContext.Provider>
+                  </ThemeProvider>
+                )}  /> 
+          {/* <Route exact path='/log_cal' component={LogCal} /> */}
         {/* <Route path='/tagLists/new' component={TagListWizard} /> */}
       </main>
     </div>

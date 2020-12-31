@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { fetchLogs, deleteLog } from '../actions/index';
 import { ReactSVG } from 'react-svg';
 import BottomNav from './BottomNav';
+import { BulletList } from 'react-content-loader'
 
 import Hidden from '@material-ui/core/Hidden';
 import List from '@material-ui/core/List';
@@ -23,7 +24,7 @@ import Typography from '@material-ui/core/Typography';
 import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import { Divider } from '@material-ui/core';
+import { ButtonGroup, Button } from '@material-ui/core';
 import { ReactComponent as Monday } from '../components/svg/days-of-week/monday.svg'
 import { ReactComponent as Tuesday } from '../components/svg/days-of-week/tuesday.svg'
 import { ReactComponent as Wednesday } from '../components/svg/days-of-week/wednesday.svg'
@@ -106,6 +107,8 @@ const styles = theme => ({
             minWidth: `calc(100vw - ${drawerWidth}px)`,                   
             minHeight: '90vh',
         },
+
+        overflowX: 'hidden',
     },
     root: {
         flexGrow: 1,
@@ -161,17 +164,27 @@ const styles = theme => ({
     },
     log_day: {
         whiteSpace: 'nowrap',
-        overflowX: 'scroll'
+        textOverflow: 'ellipsis',
+        overflowX: 'scroll',
+        scrollbarWidth: 'none', /* Firefox */
+        msOverflowStyle: 'none',
+        '&::-webkit-scrollbar': {
+            width: '0',
+            height: '0',
+        }
     },
     primary_log: {
-        borderRight: '2px solid #000',
+        borderRight: '2px solid #808080 ',
         padding: '0rem 1rem',
     },
     secondary_log: {
-        borderRight: '2px solid #000',
+        borderRight: '2px solid #808080 ',
         padding: '0rem 1rem',
     },
     single_log: {
+    },
+    btn_font: {
+        fontSize: '1.5rem',
     }
   });
 
@@ -434,7 +447,7 @@ class LogList extends Component {
                         />
                         </Grid>
                     </FormGroup>
-                    </Grid>
+                    </Grid>                    
                     <Grid container item xs={12}>
                             <List dense={this.state.dense} style={{width: '100%'}}>
                             {this.generate()}
@@ -491,13 +504,46 @@ class LogList extends Component {
     render() {
 
         return (
-            this.props.auth === null ? 'Loading...' :
+            this.props.logs.length < 1 ? <BulletList /> :
             <div className={this.props.root_content}>
                 <Grid container direction='column' justify='center' align='center'>
-                    <Grid item xs={12}>
-                        <Typography variant='h4' align='center'>Your Logs</Typography>
+                <Grid container item xs={12} justify='center'>
+                        <ButtonGroup
+                            color="default"
+                            variant="contained" 
+                            size="large"
+                            full-width='true'
+                            aria-label="vertical outline primary button group"
+                            style={{marginTop: '1rem'}}
+                            >
+                            <Button 
+                                key='1' 
+                                component={Link}
+                                to='/log_list'
+                                className={this.props.classes.btn_font}
+                                // startIcon={}
+                                color='primary'
+                                >                                       
+                                Weekly                                         
+                            </Button> 
+                            <Button 
+                                key='2' 
+                                component={Link}
+                                to='/log_cal'
+                                className={this.props.classes.btn_font}
+                                // startIcon={}
+                                >                                       
+                                Monthly                                          
+                            </Button> 
+
+                        </ButtonGroup>
+
                     </Grid>
-                    <Grid container item xs={12} direction='column' justify='center' align='center'>
+                    <Grid container item xs={12} 
+                            direction='column' 
+                            justify='center' 
+                            align='center' 
+                            style={{marginBottom: '3rem'}}>
                         {this.renderDaysOfWeek()}
                     </Grid>
                 </Grid>
