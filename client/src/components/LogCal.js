@@ -28,6 +28,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import InfoIcon from '@material-ui/icons/Info';
 
 import { ButtonGroup, Button } from '@material-ui/core';
 import { ReactComponent as Monday } from '../components/svg/days-of-week/monday.svg'
@@ -44,6 +49,44 @@ import { withStyles } from '@material-ui/styles';
 import { map } from 'lodash';
 
 import MenuDrawerContext from './contexts/menuDrawerContext';
+
+
+import image from './svg/days-of-week/stool-squad.png';
+
+
+const tileData = [
+  {
+    img: image,
+    title: 'Image',
+    author: 'author',
+  },
+  {
+    img: image,
+    title: 'Image',
+    author: 'author',
+  },  {
+    img: image,
+    title: 'Image',
+    author: 'author',
+  },  {
+    img: image,
+    title: 'Image',
+    author: 'author',
+  },  {
+    img: image,
+    title: 'Image',
+    author: 'author',
+  },  {
+    img: image,
+    title: 'Image',
+    author: 'author',
+  },  {
+    img: image,
+    title: 'Image',
+    author: 'author',
+  },
+
+];
 
 
 let drawerWidth = 240;
@@ -458,86 +501,115 @@ class LogList extends Component {
 
 
                 <Grid container item xs={12} direction='column' className={this.props.classes.root_content}>
-                    <Grid container justify='center' item xs={12}>
-                    <FormGroup row>
-                        <Grid item xs={12}>
-                        <FormControlLabel
-                        control={
-                            <Checkbox
-                            checked={this.state.secondary}
-                            onChange={(event) => this.setSecondary(event.target.checked)}
-                            />
-                        }
-                        label="Enable secondary text"
-                        />
-                        </Grid>
-                        <Grid item xs={12}>
-                                <Button 
-                                    key='1' 
-                                    onClick={() => {this.handleChangeDate('prev')}}
-                                    // component={Link}
-                                    // to='/log_list'
-                                    className={this.props.classes.btn_font}
-                                    // startIcon={}
-                                    // color='primary'
-                                    >                                       
-                                    Prev                                         
-                                </Button> 
-                                <FormControl>
-                                    <InputLabel id="cal-month">Month</InputLabel>
-                                    <Select
-                                    labelId="select-month-label"
-                                    id="select-month"
-                                    value={this.state.currMonth + 1}
-                                    onChange={this.handleChangeDate('month')}
-                                    >
-                                    <MenuItem value={1}>Jan</MenuItem>
-                                    <MenuItem value={2}>Feb</MenuItem>
-                                    <MenuItem value={3}>Mar</MenuItem>
-                                    <MenuItem value={4}>April</MenuItem>
-                                    <MenuItem value={5}>May</MenuItem>
-                                    <MenuItem value={6}>June</MenuItem>
-                                    <MenuItem value={7}>July</MenuItem>
-                                    <MenuItem value={8}>Aug</MenuItem>
-                                    <MenuItem value={9}>Sept</MenuItem>
-                                    <MenuItem value={10}>Oct</MenuItem>
-                                    <MenuItem value={11}>Nov</MenuItem>
-                                    <MenuItem value={12}>Dec</MenuItem>
-                                    </Select>
-                                </FormControl>
-                                <FormControl>
-                                    <InputLabel id="cal-years">Year</InputLabel>
-                                    <Select
-                                    labelId="select-years-label"
-                                    id="select-years"
-                                    value={this.state.currYear}
-                                    onChange={this.handleChangeDate('year')}
-                                    >
-                                    <MenuItem value={2019}>2019</MenuItem>
-                                    <MenuItem value={2020}>2020</MenuItem>
-                                    <MenuItem value={2021}>2021</MenuItem>
+                    <Grid container direction='column' alignItems='center' justify='center'>
+                            {/* <Grid item xs={12}>
+                                <FormControlLabel
+                                control={
+                                    <Checkbox
+                                    checked={this.state.secondary}
+                                    onChange={(event) => this.setSecondary(event.target.checked)}
+                                    />
+                                }
+                                label="Enable secondary text"
+                                />
+                            </Grid> */}
+                            <Grid container item xs={12} style={{margin:'1rem 0rem'}}>
+                                <Grid item xs={1}></Grid>
+                                <Grid item xs={3}>
+                                    <Button 
+                                        key='1' 
+                                        onClick={() => {this.handleChangeDate('prev')}}
+                                        // component={Link}
+                                        // to='/log_list'
+                                        className={this.props.classes.btn_font}
+                                        // startIcon={}
+                                        // color='primary'
+                                        >                                       
+                                        Prev                                         
+                                    </Button> 
+                                </Grid>
+                                <Grid item xs={2}>
+                                    <FormControl>
+                                        <InputLabel id="cal-month">Month</InputLabel>
+                                        <Select
+                                        labelId="select-month-label"
+                                        id="select-month"
+                                        value={this.state.currMonth + 1}
+                                        onChange={this.handleChangeDate('month')}
+                                        >
+                                        <MenuItem value={1}>Jan</MenuItem>
+                                        <MenuItem value={2}>Feb</MenuItem>
+                                        <MenuItem value={3}>Mar</MenuItem>
+                                        <MenuItem value={4}>April</MenuItem>
+                                        <MenuItem value={5}>May</MenuItem>
+                                        <MenuItem value={6}>June</MenuItem>
+                                        <MenuItem value={7}>July</MenuItem>
+                                        <MenuItem value={8}>Aug</MenuItem>
+                                        <MenuItem value={9}>Sept</MenuItem>
+                                        <MenuItem value={10}>Oct</MenuItem>
+                                        <MenuItem value={11}>Nov</MenuItem>
+                                        <MenuItem value={12}>Dec</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+                                <Grid item xs={2}>
+                                    <FormControl>
+                                        <InputLabel id="cal-years">Year</InputLabel>
+                                        <Select
+                                        labelId="select-years-label"
+                                        id="select-years"
+                                        value={this.state.currYear}
+                                        onChange={this.handleChangeDate('year')}
+                                        >
+                                        <MenuItem value={2019}>2019</MenuItem>
+                                        <MenuItem value={2020}>2020</MenuItem>
+                                        <MenuItem value={2021}>2021</MenuItem>
 
-                                    </Select>
-                                </FormControl>
-                                <Button 
-                                    key='2' 
-                                    color='primary'
-                                    onClick={() => {this.handleChangeDate('next')}}
-                                    // component={Link}
-                                    // to='/log_cal'
-                                    className={this.props.classes.btn_font}
-                                    // startIcon={}
-                                    >                                       
-                                    Next                                          
-                                </Button> 
-                        </Grid>
-                    </FormGroup>
-                    </Grid>                    
-                    <Grid container item xs={12}>
-                            <List dense={this.state.dense} style={{width: '100%'}}>
-                            {this.generate()}
-                            </List>
-                    </Grid>
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+                                <Grid item xs={3}>
+                                    <Button 
+                                        key='2' 
+                                        color='primary'
+                                        onClick={() => {this.handleChangeDate('next')}}
+                                        // component={Link}
+                                        // to='/log_cal'
+                                        className={this.props.classes.btn_font}
+                                        // startIcon={}
+                                        >                                       
+                                        Next                                          
+                                    </Button> 
+                                </Grid>
+                                <Grid item xs={1}></Grid>
+                            </Grid>
+                    </Grid>  
+
+                    
+                    <GridList cellHeight={'auto'} cols={7} style={{border: '1px solid #000', backgroundColor: '#fff'}}>
+                        <GridListTile key="Subheader" cols={7} style={{ height: 'auto' }}>
+                        <ListSubheader component="div" style={{color: '#000'}}>December</ListSubheader>
+                        </GridListTile>
+                        {tileData.map((tile, index) => (
+                        <GridListTile key={index} cols={1} style={{height:'auto'}}>
+                            <div style={{width: '100%', height:'auto'}}>    
+                                <img src={tile.img} alt={tile.title} style={{backgroundColor: '#fff', width: '100%', height:'auto'}} />
+                            </div>
+                            <GridListTileBar
+                            style={{height: '20%'}}
+                            titlePosition='top'
+                            // title={tile.title}
+                            title={index}
+                            // subtitle={<span>by: {tile.author}</span>}
+                            // actionIcon={
+                            //     // <Typography variant='button'>{index}</Typography>
+                            // }
+                            />
+                        </GridListTile>
+                        ))}
+                    </GridList>        
+
+
                 </Grid>
         )
     }
