@@ -80,16 +80,27 @@ function createMonthMap(year) {
 
     for(let i = 1; i < 13; i++) {
         if((i === 2) && (year % 4 === 0) ) {
-            map.set(i, [months[i], 29]);
+            map.set(i, [months[i - 1], 29]);
         }
         else if( i === 2 ) {
-            map.set(i, [months[i], 28]);
+            map.set(i, [months[i - 1], 28]);
         }
-        else if( ((i % 2) !== 0) || (i === 8) ){
-            map.set(i, [months[i], 31]);
+        
+        else if(i <= 7){
+            if( ((i % 2) !== 0) ){
+                map.set(i, [months[i - 1], 31]);
+            }
+            else {
+                map.set(i, [months[i - 1], 30]);
+            }
         }
-        else {
-            map.set(i, [months[i], 30]);
+        else if(i > 7) {
+            if( ((i % 2) === 0) ){
+                map.set(i, [months[i - 1], 31]);
+            }
+            else {
+                map.set(i, [months[i - 1], 30]);
+            }
         }
     }
 
@@ -322,7 +333,7 @@ class LogList extends Component {
                     <ListItem >
                         <Grid container item direction='column' item xs={3} justify='center' alignItems='center'>
                                 {this.state.dayMap.get(curr_day_of_week)[2]}                                
-                                <Typography style={{marginLeft: '0px'}} variant='body1' align='center' className={this.props.classes.list_date}>{this.state.monthMap.get( (focus_date_month/100) - 1)[0]} - {focus_date_num}</Typography>                          
+                                <Typography style={{marginLeft: '0px'}} variant='body1' align='center' className={this.props.classes.list_date}>{this.state.monthMap.get( (focus_date_month/100))[0]} - {focus_date_num}</Typography>                          
   
                         </Grid>
                         <Grid container item xs={9} className={this.props.classes.log_day}  alignItems='center' wrap='nowrap'>

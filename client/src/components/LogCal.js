@@ -93,6 +93,7 @@ let drawerWidth = 240;
 
 let date = new Date();
 let year = date.getFullYear();
+let month = date.getMonth() + 1;
 let currDay = date.getDay();
 
 
@@ -128,16 +129,27 @@ function createMonthMap(year) {
 
     for(let i = 1; i < 13; i++) {
         if((i === 2) && (year % 4 === 0) ) {
-            map.set(i, [months[i], 29]);
+            map.set(i, [months[i - 1], 29]);
         }
         else if( i === 2 ) {
-            map.set(i, [months[i], 28]);
+            map.set(i, [months[i - 1], 28]);
         }
-        else if( ((i % 2) !== 0) || (i === 8) ){
-            map.set(i, [months[i], 31]);
+        
+        else if(i <= 7){
+            if( ((i % 2) !== 0) ){
+                map.set(i, [months[i - 1], 31]);
+            }
+            else {
+                map.set(i, [months[i - 1], 30]);
+            }
         }
-        else {
-            map.set(i, [months[i], 30]);
+        else if(i > 7) {
+            if( ((i % 2) === 0) ){
+                map.set(i, [months[i - 1], 31]);
+            }
+            else {
+                map.set(i, [months[i - 1], 30]);
+            }
         }
     }
 
@@ -248,16 +260,19 @@ class LogList extends Component {
             currDate: new Date().getDate(),
             currMonth: new Date().getMonth(),
             currYear: new Date().getFullYear(),
+            focusYear: year,
+            focusMonth: month,
             dense: false,
             secondary: false,
             logs: this.props.logs,
             number_of_days_listed: 45,
             children: this.props.children,
+            year_state: {}
 
         }
         this.setDense = this.setDense.bind(this);
         this.setSecondary = this.setSecondary.bind(this);
-        this.generate = this.generate.bind(this);
+        this.generate_year = this.generate_year.bind(this);
         this.valueLabelBloodPain = this.valueLabelBloodPain.bind(this);
         this.valueLabelPainLvl = this.valueLabelPainLvl.bind(this);
         this.valueLabelBloodiness = this.valueLabelBloodiness.bind(this);
@@ -269,16 +284,20 @@ class LogList extends Component {
     componentDidMount() {
         this.props.fetchLogs();
         console.log(this.props)
+        
 
     }
 
     componentDidUpdate(prevProps, prevState){
         if(prevState.logs !== this.props.logs) {
             this.setState({
-                logs: this.props.logs
+                logs: this.props.logs,
+                year_state: this.generate_year()
             }, () => {
                 console.log(this.state)
             })
+
+
         }
         
     }
@@ -316,106 +335,60 @@ class LogList extends Component {
                 break;
         }
     }
-    generate = () => {
 
 
-        let logs_list = _.cloneDeep(this.state.logs);
-        let logs_count = logs_list.length > 100 ? 100 : logs_list.length;
+    generate_year() {
         
+        let logs_of_year = {}
 
-        let log_map = new Map();
+        if(this.state.logs.length > 0) {
+        
+            for(let y = -1; y < 2; y++) {
+                logs_of_year[this.state.focusYear + y] = {};
 
+                for(let i = 1; i < 13; i++) {
+                    logs_of_year[this.state.focusYear + y][i] = {};
 
-        // iterates through logs until there are none left
-        for(let curr_log = logs_count - 1; curr_log >= 0; curr_log--) {
-            console.log('NEXT DAY')
-            let log = logs_list[curr_log];
-            let curr_log_time = parseInt(log.log_date, 10);
-            let curr_log_year = parseInt(log.log_date.substring(0, 4));
-            let curr_log_month = parseInt(log.log_date.substring(4, 6));
-            let curr_log_date = parseInt(log.log_date.substring(6, 8));
+                    let month_start = new Date(this.state.focusYear + y,i - 1, 1).getDay();
 
-            if(log_map.has(curr_log_time))
-                log_map.set(curr_log_time, [...log_map.get(curr_log_time), log]);
-            else {
-                log_map.set(curr_log_time, [log]);
+                    for(let j = 0; j < 43; j++) {
+                        
+                        if(j < month_start) {
+                            logs_of_year[this.state.focusYear + y][i][`j-${i === 1 ? this.state.focusYear + y - 1 : this.state.focusYear + y}${i === 1 ? 12 : i - 1}${monthMap.get( (i - 1) < 1 ? 12 : i - 1)[1] - ( (month_start - 1) - j)}`] = {year: i === 1 ? this.state.focusYear + y - 1 : this.state.focusYear + y, date: monthMap.get( (i - 1) < 1 ? 12 : i - 1)[1] - ( (month_start - 1) - j), start: month_start, logs: []}
+                        }
+                        else if(j > month_start && j <= (monthMap.get(i)[1] + month_start) ) {
+                            logs_of_year[this.state.focusYear + y][i][`j-${this.state.focusYear + y}${i}${monthMap.get(i)[1] - ( monthMap.get(i)[1] - (j - month_start) )}`] = {year: this.state.focusYear + y, date: monthMap.get(i)[1] - ( monthMap.get(i)[1] - (j - month_start) ), start: month_start, logs: []}
+                        }
+                        else if( j > (monthMap.get(i)[1] + month_start) ) {
+                            logs_of_year[this.state.focusYear + y][i][`j-${i === 12 ? this.state.focusYear + y + 1 : this.state.focusYear + y}${i === 12 ? 1 : i}${(43 - (43 - (j - monthMap.get(i)[1] - month_start)) )}`] = {year: i === 12 ? this.state.focusYear + y + 1 : this.state.focusYear + y, date: (43 - (43 - (j - monthMap.get(i)[1] - month_start)) ), start: month_start, logs: []}
+                        }
+
+                        // console.log(month_start)
+                        // console.log(logs_of_year[this.state.focusYear][i][j])
+
+                        // calendar_day = {}
+
+                    }
+ 
+                }   
+            }
+
+            console.log(logs_of_year)
+            for(let log of this.state.logs) {
+                let log_date = log.log_date;
+                let log_year = parseInt(log.log_date.substring(0,4), 10);
+                let log_month = parseInt(log.log_date.substring(4,6), 10);
+                // let log_date = log.log_date.substring(6,8);
+                // console.log(logs_of_year[log_year]['12'])
+                // set logs to an array for each month by date
+                if( logs_of_year[log_year][log_month][`j-${log_date}`] !== undefined){
+                    logs_of_year[log_year][log_month][`j-${log_date}`]['logs'].push(log);
+                }
             }
         }
 
-        let day_in_milliseconds = 86400000;
+        return logs_of_year;
 
-        let listItems = []
-
-        for(let i = 0; i < this.state.number_of_days_listed; i++) {
-            
-            let curr_day_logs = []  
-            // current date we are focused on
-            let focus_date = new Date(new Date() - (day_in_milliseconds * i));
-            // console.log((day_in_milliseconds * i))
-            let focus_date_year = (focus_date.getFullYear()) * 10000;
-            let focus_date_month = (focus_date.getMonth() + 1) * 100;
-            let focus_date_num = focus_date.getDate();
-
-            let focus_date_full = focus_date_year + focus_date_month + focus_date_num;
-            // console.log(focus_date_full);
-            let curr_day_of_week = focus_date.getDay();
-
-            let curr_day_stool = []
-            let curr_day_blood_pain = []
-            
-            if(log_map.has(focus_date_full)) {
-                curr_day_stool = 
-                    log_map.get(focus_date_full)
-                           .map(({stool_type, bloodiness, pain_lvl}, index) => {
-                            return (
-                                <Grid key={index} className={this.props.classes.single_log} container item xs={5} direction='column' alignItems='center'>
-                                    {this.valueLabelStoolType(stool_type)}
-                                    {this.valueLabelBloodPain(bloodiness, pain_lvl)}
-                                </Grid>
-
-                            )
-                    });
-
-                // curr_day_blood_pain =  
-                //     log_map.get(focus_date_full)
-                //         .map(({bloodiness, pain_lvl}) => {
-                //             return this.valueLabelBloodPain(bloodiness, pain_lvl)
-                //     });
-
-
-            }
-            
-            listItems.push(
-                <Grid container item xs={12} key={focus_date_full} style={{borderBottom: '2px solid #000', maxWidth: '100vw'}} wrap='wrap'>
-                    <ListItem >
-                        <Grid container item direction='column' item xs={3} justify='center' alignItems='center'>
-                                {this.state.dayMap.get(curr_day_of_week)[2]}                                
-                                <Typography style={{marginLeft: '0px'}} variant='body1' align='center' className={this.props.classes.list_date}>{this.state.monthMap.get( (focus_date_month/100) - 1)[0]} - {focus_date_num}</Typography>                          
-  
-                        </Grid>
-                        <Grid container item xs={9} className={this.props.classes.log_day}  alignItems='center' wrap='nowrap'>
-                            {/* <Grid container item xs={12} alignItems='center' wrap="nowrap"  > */}
-                                {/* {curr_day_stool.length < 1 ? <Grid item xs={12}>NO LOG</Grid> : curr_day_stool} */}
-                            {/* </Grid>
-                            <Grid container item xs={12} alignItems='center' wrap="nowrap" >
-                                {curr_day_blood_pain}
-                            </Grid> */}
-                        </Grid>
-                        {/* <ListItemSecondaryAction>
-                            <IconButton edge="end" aria-label="delete">
-                            <DeleteIcon />
-                            </IconButton>
-                        </ListItemSecondaryAction> */}
-                    </ListItem>
-                </Grid>
-            )
-            //push to main list items end
-            
-
-
-
-        }
-            return listItems;
     }
 
     valueLabelBloodPain(bloodiness, pain_lvl) {
@@ -588,25 +561,33 @@ class LogList extends Component {
                     
                     <GridList cellHeight={'auto'} cols={7} style={{border: '1px solid #000', backgroundColor: '#fff'}}>
                         <GridListTile key="Subheader" cols={7} style={{ height: 'auto' }}>
-                        <ListSubheader component="div" style={{color: '#000'}}>December</ListSubheader>
+                            <ListSubheader component="div" style={{color: '#000'}}>December</ListSubheader>
                         </GridListTile>
-                        {tileData.map((tile, index) => (
-                        <GridListTile key={index} cols={1} style={{height:'auto'}}>
-                            <div style={{width: '100%', height:'auto'}}>    
-                                <img src={tile.img} alt={tile.title} style={{backgroundColor: '#fff', width: '100%', height:'auto'}} />
-                            </div>
-                            <GridListTileBar
-                            style={{height: '20%'}}
-                            titlePosition='top'
-                            // title={tile.title}
-                            title={index}
-                            // subtitle={<span>by: {tile.author}</span>}
-                            // actionIcon={
-                            //     // <Typography variant='button'>{index}</Typography>
-                            // }
-                            />
-                        </GridListTile>
-                        ))}
+                        {
+                            this.state.year_state[this.state.focusYear] === undefined ? [] : 
+                                Object.keys(this.state.year_state[this.state.focusYear][this.state.focusMonth])
+                                    .map((key, index) => {
+                                        let log = this.state.year_state[this.state.focusYear][this.state.focusMonth][key];
+
+                                        return (
+                                            <GridListTile key={index} cols={1} style={{height:'auto'}}>
+                                                <div style={{width: '100%', height:'auto'}}>    
+                                                    <img src={image} alt={key} style={{backgroundColor: '#fff', width: '100%', height:'auto'}} />
+                                                </div>
+                                                <GridListTileBar
+                                                    style={{height: '20%'}}
+                                                    titlePosition='top'
+                                                    // title={tile.title}
+                                                    title={log.date}
+                                                    // subtitle={<span>by: {tile.author}</span>}
+                                                    // actionIcon={
+                                                    //     // <Typography variant='button'>{index}</Typography>
+                                                    // }
+                                                />
+                                            </GridListTile>
+                                        )
+                                    })
+                        }
                     </GridList>        
 
 
@@ -637,7 +618,6 @@ class LogList extends Component {
                                 to='/log_list'
                                 className={this.props.classes.btn_font}
                                 // startIcon={}
-                                color='primary'
                                 >                                       
                                 Weekly                                         
                             </Button> 
@@ -647,6 +627,7 @@ class LogList extends Component {
                                 to='/log_cal'
                                 className={this.props.classes.btn_font}
                                 // startIcon={}
+                                color='primary'
                                 >                                       
                                 Monthly                                          
                             </Button> 
