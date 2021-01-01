@@ -181,7 +181,7 @@ const styles = theme => ({
     valueLabelStool: {
 
         [theme.breakpoints.down('sm')]: {
-            fontSize:'1rem',
+            fontSize:'.75rem',
         },
         [theme.breakpoints.up('md')]: {
             fontSize:'1.75rem',
@@ -603,7 +603,7 @@ class LogList extends Component {
                                                     {
                                                         this.state.year_state[this.state.focusYear][this.state.focusMonth][key]['logs'].length < 1 ? [] :
                                                         (                                                            
-                                                            <GridList cols={4} style={{backgroundColor: '#fff', width: '100%', height:'100%', display: 'flex', alignItems: 'flex-end'}} >
+                                                            <GridList cols={3} style={{backgroundColor: '#fff', width: '100%', height:'100%', display: 'flex', alignItems: 'flex-end'}} >
                                                             {
                                                                 this.state.year_state[this.state.focusYear][this.state.focusMonth][key]['logs']
                                                                 .map((log, index) => {
