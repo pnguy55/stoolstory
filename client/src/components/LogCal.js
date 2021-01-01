@@ -346,7 +346,7 @@ class LogList extends Component {
                 if(this.state.focusMonth === 1) {
                     this.setState((prevState) => {return {
                         focusYear: prevState.focusYear - 1,
-                        focusMonth: 11
+                        focusMonth: 12
                     }})
                     
                 }
