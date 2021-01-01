@@ -328,10 +328,36 @@ class LogList extends Component {
 
                 break;
             case 'next':
-
+                if(this.state.focusMonth === 12) {
+                    this.setState((prevState) => {return {
+                        focusYear: prevState.focusYear + 1,
+                        focusMonth: 1
+                    }}, () => {
+                        console.log(this.state.focusMonth)
+                    })
+                    
+                }
+                else {
+                    this.setState((prevState) => {return {
+                        focusMonth: prevState.focusMonth + 1
+                    }}, () => {
+                        console.log(this.state.focusMonth)
+                    })
+                }
                 break;
             default:
-                
+                if(this.state.focusMonth === 1) {
+                    this.setState((prevState) => {return {
+                        focusYear: prevState.focusYear - 1,
+                        focusMonth: 11
+                    }})
+                    
+                }
+                else {
+                    this.setState((prevState) => {return {
+                        focusMonth: prevState.focusMonth - 1
+                    }})
+                }
                 break;
         }
     }
@@ -491,7 +517,10 @@ class LogList extends Component {
                                 <Grid item xs={3}>
                                     <Button 
                                         key='1' 
+                                        color='primary'
                                         onClick={() => {this.handleChangeDate('prev')}}
+                                        variant="contained" 
+                                        size="large"
                                         // component={Link}
                                         // to='/log_list'
                                         className={this.props.classes.btn_font}
@@ -507,7 +536,7 @@ class LogList extends Component {
                                         <Select
                                         labelId="select-month-label"
                                         id="select-month"
-                                        value={this.state.currMonth + 1}
+                                        value={this.state.focusMonth}
                                         onChange={this.handleChangeDate('month')}
                                         >
                                         <MenuItem value={1}>Jan</MenuItem>
@@ -531,7 +560,7 @@ class LogList extends Component {
                                         <Select
                                         labelId="select-years-label"
                                         id="select-years"
-                                        value={this.state.currYear}
+                                        value={this.state.focusYear}
                                         onChange={this.handleChangeDate('year')}
                                         >
                                         <MenuItem value={2019}>2019</MenuItem>
@@ -544,8 +573,9 @@ class LogList extends Component {
                                 <Grid item xs={3}>
                                     <Button 
                                         key='2' 
-                                        color='primary'
                                         onClick={() => {this.handleChangeDate('next')}}
+                                        variant="contained" 
+                                        size="large"
                                         // component={Link}
                                         // to='/log_cal'
                                         className={this.props.classes.btn_font}
@@ -559,10 +589,10 @@ class LogList extends Component {
                     </Grid>  
 
                     
-                    <GridList cellHeight={'auto'} cols={7} style={{border: '1px solid #000', backgroundColor: '#fff'}}>
-                        <GridListTile key="Subheader" cols={7} style={{ height: 'auto' }}>
+                    <GridList cellHeight={'auto'} cols={7} style={{border: '1px solid #000', height: '66vh', backgroundColor: '#fff'}}>
+                        {/* <GridListTile key="Subheader" cols={7} style={{ height: 'auto' }}>
                             <ListSubheader component="div" style={{color: '#000'}}>December</ListSubheader>
-                        </GridListTile>
+                        </GridListTile> */}
                         {
                             this.state.year_state[this.state.focusYear] === undefined ? [] : 
                                 Object.keys(this.state.year_state[this.state.focusYear][this.state.focusMonth])
@@ -570,9 +600,27 @@ class LogList extends Component {
                                         let log = this.state.year_state[this.state.focusYear][this.state.focusMonth][key];
 
                                         return (
-                                            <GridListTile key={index} cols={1} style={{height:'auto'}}>
-                                                <div style={{width: '100%', height:'auto'}}>    
-                                                    <img src={image} alt={key} style={{backgroundColor: '#fff', width: '100%', height:'auto'}} />
+                                            <GridListTile key={index} cols={1} style={{height:'11vh', width:'14.28%', border:'1px solid #000'}}>
+                                                <div style={{width: '100%', height:'100%'}}>    
+                                                    {/* <img src={image} alt={key} style={{backgroundColor: '#fff', width: '100%', height:'auto'}} /> */}
+                                                    {
+                                                        this.state.year_state[this.state.focusYear][this.state.focusMonth][key]['logs'].length < 1 ? [] :
+                                                        (                                                            
+                                                            <GridList cellHeight={'200'} cols={4} style={{backgroundColor: '#fff', width: '100%', height:'100%', display: 'flex', alignItems: 'flex-end'}} >
+                                                            {
+                                                                this.state.year_state[this.state.focusYear][this.state.focusMonth][key]['logs']
+                                                                .map((log, index) => {
+
+                                                                    return (
+                                                                        <GridListTile cols={1} key={index} style={{backgroundColor: '#fff', maxHeight:'25%', background:`url(${image}) no-repeat center`, backgroundSize: 'auto 60%' }}>
+                                                                            {/* <img src={image} alt={key} style={{backgroundColor: '#fff', width: '100%', height:'auto'}} /> */}
+                                                                        </GridListTile>
+                                                                    )
+                                                                })
+                                                            }
+                                                            </GridList>
+                                                        )
+                                                    }
                                                 </div>
                                                 <GridListTileBar
                                                     style={{height: '20%'}}
