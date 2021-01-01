@@ -32,7 +32,7 @@ import PlusOneRoundedIcon from '@material-ui/icons/PlusOneRounded';
 
 import MenuDrawerContext from '../components/contexts/menuDrawerContext';
 
-import { makeStyles, useTheme, ThemeProvider } from '@material-ui/core/styles';
+import { makeStyles, useTheme, ThemeProvider, MuiThemeProvider  } from '@material-ui/core/styles';
 
 const drawerWidth = 240;
 
@@ -302,11 +302,11 @@ function ResponsiveDrawer(props) {
           <Route 
                 exact path='/log_cal' 
                 render={(props) => (
-                  <ThemeProvider theme={theme} >
+                  <MuiThemeProvider  theme={theme} >
                     <MenuDrawerContext.Provider value={{ mobileOpen, handleDrawerToggle }} >
                       <LogCal {...props} toggleSide={handleDrawerToggle} children={children} auth={auth} />
                     </MenuDrawerContext.Provider>
-                  </ThemeProvider>
+                  </MuiThemeProvider >
                 )}  /> 
           {/* <Route exact path='/log_cal' component={LogCal} /> */}
         {/* <Route path='/tagLists/new' component={TagListWizard} /> */}

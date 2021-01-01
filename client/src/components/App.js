@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 import Header from './Header';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider, MuiThemeProvider } from '@material-ui/core/styles';
 import theme from './style/theme'
 import { CssBaseline } from '@material-ui/core';
 
@@ -20,7 +20,7 @@ class App extends Component {
             
             <HashRouter basename='/'>
                 
-                <ThemeProvider theme={theme}>
+                <MuiThemeProvider  theme={theme}>
                     <CssBaseline>
                         {/* the exact makes sure that it only shows up on that path */}
                         <Header/>
@@ -34,7 +34,7 @@ class App extends Component {
 
                         {/* <Route path='/tagLists/new' component={TagListWizard} /> */}
                     </CssBaseline>
-                </ThemeProvider>
+                </MuiThemeProvider >
 
             </HashRouter>
         );

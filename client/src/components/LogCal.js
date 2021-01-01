@@ -53,41 +53,13 @@ import MenuDrawerContext from './contexts/menuDrawerContext';
 
 import image from './svg/days-of-week/stool-squad.png';
 
-
-const tileData = [
-  {
-    img: image,
-    title: 'Image',
-    author: 'author',
-  },
-  {
-    img: image,
-    title: 'Image',
-    author: 'author',
-  },  {
-    img: image,
-    title: 'Image',
-    author: 'author',
-  },  {
-    img: image,
-    title: 'Image',
-    author: 'author',
-  },  {
-    img: image,
-    title: 'Image',
-    author: 'author',
-  },  {
-    img: image,
-    title: 'Image',
-    author: 'author',
-  },  {
-    img: image,
-    title: 'Image',
-    author: 'author',
-  },
-
-];
-
+const Stool_Tile = withStyles({
+    tile: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  })(GridListTile);
 
 let drawerWidth = 240;
 
@@ -207,7 +179,13 @@ const styles = theme => ({
         marginLeft: '1rem',
     },
     valueLabelStool: {
-        fontSize:'2rem',
+
+        [theme.breakpoints.down('sm')]: {
+            fontSize:'1rem',
+        },
+        [theme.breakpoints.up('md')]: {
+            fontSize:'1.75rem',
+        },
     },
     valueLabelBlood: {
         fontSize:'1.5rem',
@@ -245,6 +223,17 @@ const styles = theme => ({
     },
     btn_font: {
         fontSize: '1.5rem',
+    },
+    btn_cal_controls: {
+        fontSize: '1rem',
+        border: '5px solid #CFB08D',
+    },
+    li : {
+        '&>stool_div>div': {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        }
     }
   });
 
@@ -278,6 +267,7 @@ class LogList extends Component {
         this.valueLabelBloodiness = this.valueLabelBloodiness.bind(this);
         this.valueLabelStoolType = this.valueLabelStoolType.bind(this);
         this.handleChangeDate = this.handleChangeDate.bind(this);
+        this.handleDateSelect = this.handleDateSelect.bind(this);
 
     }
 
@@ -318,15 +308,22 @@ class LogList extends Component {
             })
         });
     }
-
+    handleDateSelect(value) {
+        if(value > 1000) {
+            this.setState((prevState) => {return {
+                focusYear: value
+                }}
+            )
+        }
+        else {
+            this.setState((prevState) => {return {
+                focusMonth: value
+                }}
+            )
+        }
+    }
     handleChangeDate(changeType) {
         switch(changeType) {
-            case 'month':
-
-                break;
-            case 'year':
-
-                break;
             case 'next':
                 if(this.state.focusMonth === 12) {
                     this.setState((prevState) => {return {
@@ -376,18 +373,27 @@ class LogList extends Component {
                     logs_of_year[this.state.focusYear + y][i] = {};
 
                     let month_start = new Date(this.state.focusYear + y,i - 1, 1).getDay();
-
+                    let next_month_beginning = 1;
                     for(let j = 0; j < 43; j++) {
-                        
+                                       
                         if(j < month_start) {
-                            logs_of_year[this.state.focusYear + y][i][`j-${i === 1 ? this.state.focusYear + y - 1 : this.state.focusYear + y}${i === 1 ? 12 : i - 1}${monthMap.get( (i - 1) < 1 ? 12 : i - 1)[1] - ( (month_start - 1) - j)}`] = {year: i === 1 ? this.state.focusYear + y - 1 : this.state.focusYear + y, date: monthMap.get( (i - 1) < 1 ? 12 : i - 1)[1] - ( (month_start - 1) - j), start: month_start, logs: []}
+                            // console.log(`Year: ${this.state.focusYear + y} Month: ${i} Date: ${monthMap.get( (i - 1) < 1 ? 12 : i - 1)[1] - ( (month_start - 1) - j)}`)
+
+                            logs_of_year[this.state.focusYear + y][i][`j-${i === 1 ? this.state.focusYear + y - 1 : this.state.focusYear + y}${i === 1 ? 12 : i - 1}${monthMap.get( (i - 1) < 1 ? 12 : i - 1)[1] - ( (month_start - 1) - j)}`] = {year: i === 1 ? this.state.focusYear + y - 1 : this.state.focusYear + y, date: monthMap.get( (i - 1) < 1 ? 12 : i - 1)[1] - ( (month_start - 1) - j), month: (i - 1) < 1 ? 12 : i - 1 , logs: []}
                         }
                         else if(j > month_start && j <= (monthMap.get(i)[1] + month_start) ) {
-                            logs_of_year[this.state.focusYear + y][i][`j-${this.state.focusYear + y}${i}${monthMap.get(i)[1] - ( monthMap.get(i)[1] - (j - month_start) )}`] = {year: this.state.focusYear + y, date: monthMap.get(i)[1] - ( monthMap.get(i)[1] - (j - month_start) ), start: month_start, logs: []}
+                            // console.log(`Year: ${this.state.focusYear + y} Month: ${i} Date: ${monthMap.get(i)[1] - ( monthMap.get(i)[1] - (j - month_start) )}`)
+
+                            logs_of_year[this.state.focusYear + y][i][`j-${this.state.focusYear + y}${i}${monthMap.get(i)[1] - ( monthMap.get(i)[1] - (j - month_start) )}`] = {year: this.state.focusYear + y, date: monthMap.get(i)[1] - ( monthMap.get(i)[1] - (j - month_start) ), month: i, logs: []}
                         }
                         else if( j > (monthMap.get(i)[1] + month_start) ) {
-                            logs_of_year[this.state.focusYear + y][i][`j-${i === 12 ? this.state.focusYear + y + 1 : this.state.focusYear + y}${i === 12 ? 1 : i}${(43 - (43 - (j - monthMap.get(i)[1] - month_start)) )}`] = {year: i === 12 ? this.state.focusYear + y + 1 : this.state.focusYear + y, date: (43 - (43 - (j - monthMap.get(i)[1] - month_start)) ), start: month_start, logs: []}
+                            // console.log(`Year: ${this.state.focusYear + y} Month: ${i} Date: ${(43 - (43 - (j - monthMap.get(i)[1] - month_start)) )} : ${next_month_beginning}`)
+
+                            logs_of_year[this.state.focusYear + y][i][`j-${i === 12 ? this.state.focusYear + y + 1 : this.state.focusYear + y}${i === 12 ? 1 : i + 1}${next_month_beginning}`] = {year: i === 12 ? this.state.focusYear + y + 1 : this.state.focusYear + y, date: next_month_beginning, month: (i + 1) > 12 ? 1 : i + 1, logs: []}
+                        
+                            next_month_beginning++;
                         }
+
 
                         // console.log(month_start)
                         // console.log(logs_of_year[this.state.focusYear][i][j])
@@ -470,26 +476,17 @@ class LogList extends Component {
     valueLabelStoolType(value){
         if(value === 1) {
             return (
-                <Grid key={`stoolType${Math.random() * 1000000}`} container item xs={12} direction='column' alignItems='center' justify='center' className={this.props.classes.primary_log}>
-                    <Grid key={`stoolType${Math.random() * 1000000}`} item xs={12}><span className={this.props.classes.valueLabelStool} >&#128166;</span></Grid>
-                    <Grid key={`stoolType${Math.random() * 1000000}`} item xs={12} ><span className={this.props.classes.valueLabel}>Wet</span></Grid>
-                </Grid>
+                <span className={this.props.classes.valueLabelStool} >&#128166;</span>
             )
         }
         else if(value === 3) {
             return (
-                <Grid key={`stoolType${Math.random() * 1000000}`} container item xs={12} direction='column' alignItems='center' justify='center' className={this.props.classes.primary_log}>
-                    <Grid key={`stoolType${Math.random() * 1000000}`} item xs={12} ><span className={this.props.classes.valueLabelStool} >&#127761;</span></Grid>
-                    <Grid key={`stoolType${Math.random() * 1000000}`} item xs={12} ><span className={this.props.classes.valueLabel}>Dry</span></Grid>
-                </Grid>
+                <span className={this.props.classes.valueLabelStool} >&#127761;</span>
             )
         }
         else {
             return (
-                <Grid key={`stoolType${Math.random() * 1000000}`} container item xs={12} direction='column' alignItems='center' justify='center' className={this.props.classes.primary_log}>
-                    <Grid key={`stoolType${Math.random() * 1000000}`} item xs={12} ><span className={this.props.classes.valueLabelStool} >&#128169;</span></Grid>
-                    <Grid key={`stoolType${Math.random() * 1000000}`} item xs={12} ><span className={this.props.classes.valueLabel}>Norm</span></Grid>
-                </Grid>
+                <span className={this.props.classes.valueLabelStool} >&#128169;</span>
             )
         }
     }
@@ -517,13 +514,13 @@ class LogList extends Component {
                                 <Grid item xs={3}>
                                     <Button 
                                         key='1' 
-                                        color='primary'
                                         onClick={() => {this.handleChangeDate('prev')}}
-                                        variant="contained" 
-                                        size="large"
+                                        variant="outlined" 
+                                        size="medium"
                                         // component={Link}
                                         // to='/log_list'
-                                        className={this.props.classes.btn_font}
+                                        className={this.props.classes.btn_cal_controls}
+
                                         // startIcon={}
                                         // color='primary'
                                         >                                       
@@ -537,7 +534,7 @@ class LogList extends Component {
                                         labelId="select-month-label"
                                         id="select-month"
                                         value={this.state.focusMonth}
-                                        onChange={this.handleChangeDate('month')}
+                                        onChange={(event) => {this.handleDateSelect(event.target.value)}}
                                         >
                                         <MenuItem value={1}>Jan</MenuItem>
                                         <MenuItem value={2}>Feb</MenuItem>
@@ -561,7 +558,7 @@ class LogList extends Component {
                                         labelId="select-years-label"
                                         id="select-years"
                                         value={this.state.focusYear}
-                                        onChange={this.handleChangeDate('year')}
+                                        onChange={(event) => { this.handleDateSelect(event.target.value)}}
                                         >
                                         <MenuItem value={2019}>2019</MenuItem>
                                         <MenuItem value={2020}>2020</MenuItem>
@@ -574,11 +571,11 @@ class LogList extends Component {
                                     <Button 
                                         key='2' 
                                         onClick={() => {this.handleChangeDate('next')}}
-                                        variant="contained" 
-                                        size="large"
+                                        variant="outlined" 
+                                        size="medium"
                                         // component={Link}
                                         // to='/log_cal'
-                                        className={this.props.classes.btn_font}
+                                        className={this.props.classes.btn_cal_controls}
                                         // startIcon={}
                                         >                                       
                                         Next                                          
@@ -606,15 +603,17 @@ class LogList extends Component {
                                                     {
                                                         this.state.year_state[this.state.focusYear][this.state.focusMonth][key]['logs'].length < 1 ? [] :
                                                         (                                                            
-                                                            <GridList cellHeight={'200'} cols={4} style={{backgroundColor: '#fff', width: '100%', height:'100%', display: 'flex', alignItems: 'flex-end'}} >
+                                                            <GridList cols={4} style={{backgroundColor: '#fff', width: '100%', height:'100%', display: 'flex', alignItems: 'flex-end'}} >
                                                             {
                                                                 this.state.year_state[this.state.focusYear][this.state.focusMonth][key]['logs']
                                                                 .map((log, index) => {
 
                                                                     return (
-                                                                        <GridListTile cols={1} key={index} style={{backgroundColor: '#fff', maxHeight:'25%', background:`url(${image}) no-repeat center`, backgroundSize: 'auto 60%' }}>
-                                                                            {/* <img src={image} alt={key} style={{backgroundColor: '#fff', width: '100%', height:'auto'}} /> */}
-                                                                        </GridListTile>
+                                                                        <Stool_Tile cols={1} key={index}  style={{maxHeight: '40%', display: 'flex', textAlign: 'center'}}>
+
+                                                                        {/* <GridListTile cols={1} key={index} style={{backgroundColor: '#fff', maxHeight:'25%', background:`url(${image}) no-repeat center`, backgroundSize: 'auto 60%' }}> */}
+                                                                            {this.valueLabelStoolType(log.stool_type)}
+                                                                        </Stool_Tile>
                                                                     )
                                                                 })
                                                             }
