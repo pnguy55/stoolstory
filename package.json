@@ -42,6 +42,7 @@
     "globalize": "^1.6.0",
     "http-proxy-middleware": "^0.20.0",
     "invariant": "^2.2.4",
+    "json-as-xlsx": "^1.1.8",
     "lodash": "^4.17.15",
     "moment": "^2.29.1",
     "mongoose": "^5.11.8",

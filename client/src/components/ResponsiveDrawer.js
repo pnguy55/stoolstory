@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as actions from '../actions/index'
+import * as actions from '../actions/index';
+import xlsx from 'json-as-xlsx';
+
+import { fetchLogs, deleteLog } from '../actions/index';
 
 import Landing from './Landing';
 import LogList from './LogList';
@@ -29,6 +32,7 @@ import FormatListNumberedRoundedIcon from '@material-ui/icons/FormatListNumbered
 import DateRangeRoundedIcon from '@material-ui/icons/DateRangeRounded';
 import MeetingRoomRoundedIcon from '@material-ui/icons/MeetingRoomRounded';
 import PlusOneRoundedIcon from '@material-ui/icons/PlusOneRounded';
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 
 import MenuDrawerContext from '../components/contexts/menuDrawerContext';
 
@@ -122,12 +126,71 @@ function ResponsiveDrawer(props) {
   const theme = useTheme();
 
 
+  const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  const [mobileOpen, setMobileOpen] = React.useState(false);
 
+
+  useEffect(() => {
+    if(props.logs < 1) {
+      props.fetchLogs();
+    }
+    return () => {
+      console.log(props.logs)
+    }
+  }, [props.logs])
+
+  
+  // console.log(props)
+
+  function downloadXLSX(content) {
+
+    let stool_map = new Map([
+      [1, 'Wet'],
+      [2, 'Normal'],
+      [3, 'Dry'],
+    ]);
+
+    let pain_map = new Map([
+      [1, 'Painful'],
+      [2, 'Uncomfortable'],
+      [3, 'Normal'],
+    ])
+
+    let blood_map = new Map([
+      [1, 'No blood'],
+      [2, 'A little blood'],
+      [3, 'Quite Bloody'],
+    ])
+
+
+    var columns = [
+      { label: 'Stool Type', value: row => ( stool_map.get(row.stool_type) )},
+      { label: 'Bloodiness', value: row => ( blood_map.get(row.bloodiness) )},
+      { label: 'Pain level', value: row => ( pain_map.get(row.pain_lvl) )},
+      { label: 'Log Date', value: row => ( `${row.log_date.substring(4,6)}-${row.log_date.substring(6,8)}-${row.log_date.substring(0,4)}` )},
+      { label: 'Log Time', value: row => ( `${row.log_time.substring(0,2)}:${row.log_time.substring(2,4)}` )},
+      { label: 'Stool Average Frequency', 
+                value: row => (row.business_analysis ? 
+                            row.business_analysis.stool_average_freq || '' : '' ) },
+      { label: 'Recommendations', 
+                value: row => (row.business_analysis ? 
+                            row.business_analysis.recommendations || '' : '' ) }, // Deep props
+    ]
+     
+    var settings = {
+      sheetName: `${Date().substring(0,15)}`, // The name of the sheet
+      fileName: `${props.auth.firstName}'s Stool Story for ${Date().substring(0,15)}`, // The name of the spreadsheet
+      extraLength: 3, // A bigger number means that columns should be wider
+      writeOptions: {} // Style options from https://github.com/SheetJS/sheetjs#writing-options
+    }
+     
+    var download = true // If true will download the xlsx file, otherwise will return a buffer
+     
+    xlsx(columns, content, settings, download)
+  }
 
   // function hasBottomNav(){
   //   switch()
@@ -146,6 +209,15 @@ function ResponsiveDrawer(props) {
       </div>
         <Divider />
         <List>
+            {
+              <ListItem className={`${classes.anchor_tag} ${classes.drawerBtn}`} button={true} onClick={() => {downloadXLSX(props.logs)}} >
+                  
+                  <ListItemIcon className={`stool-btn-icon link ${classes.drawerIcon}`}>
+                    <CloudDownloadIcon />
+                  </ListItemIcon>    
+                  
+                  <ListItemText className={classes.drawerText} color='primary' primary= 'Download' />                                     
+              </ListItem>}
             {
              typeof children !== 'object' ? <span className={classes.loading_msg}>{children}</span> : children.map(({to, text, link, img}, index) => {
               
@@ -315,4 +387,11 @@ function ResponsiveDrawer(props) {
   );
 }
 
-export default ResponsiveDrawer;
+function mapStateToProps(state) {
+  // we declared the state piece's name in auth reducer
+  return { 
+    logs: [...state.logs]
+  }
+}
+
+export default connect(mapStateToProps, { fetchLogs, deleteLog })(ResponsiveDrawer);
