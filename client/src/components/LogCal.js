@@ -379,17 +379,17 @@ class LogList extends Component {
                         if(j < month_start) {
                             // console.log(`Year: ${this.state.focusYear + y} Month: ${i} Date: ${monthMap.get( (i - 1) < 1 ? 12 : i - 1)[1] - ( (month_start - 1) - j)}`)
 
-                            logs_of_year[this.state.focusYear + y][i][`j-${i === 1 ? this.state.focusYear + y - 1 : this.state.focusYear + y}${i === 1 ? 12 : i - 1}${monthMap.get( (i - 1) < 1 ? 12 : i - 1)[1] - ( (month_start - 1) - j)}`] = {year: i === 1 ? this.state.focusYear + y - 1 : this.state.focusYear + y, date: monthMap.get( (i - 1) < 1 ? 12 : i - 1)[1] - ( (month_start - 1) - j), month: (i - 1) < 1 ? 12 : i - 1 , logs: []}
+                            logs_of_year[this.state.focusYear + y][i][`j-${i === 1 ? this.state.focusYear + y - 1 : this.state.focusYear + y}${i === 1 ? 12 : (i - 1) < 10 ? `0${i - 1}` : (i - 1)}${monthMap.get( (i - 1) < 1 ? 12 : i - 1)[1] - ( (month_start - 1) - j) < 10 ? `0${monthMap.get( (i - 1) < 1 ? 12 : i - 1)[1] - ( (month_start - 1) - j)}` : monthMap.get( (i - 1) < 1 ? 12 : i - 1)[1] - ( (month_start - 1) - j)}`] = {year: i === 1 ? this.state.focusYear + y - 1 : this.state.focusYear + y, date: monthMap.get( (i - 1) < 1 ? 12 : i - 1)[1] - ( (month_start - 1) - j), month: (i - 1) < 1 ? 12 : i - 1 , logs: []}
                         }
                         else if(j > month_start && j <= (monthMap.get(i)[1] + month_start) ) {
                             // console.log(`Year: ${this.state.focusYear + y} Month: ${i} Date: ${monthMap.get(i)[1] - ( monthMap.get(i)[1] - (j - month_start) )}`)
 
-                            logs_of_year[this.state.focusYear + y][i][`j-${this.state.focusYear + y}${i}${monthMap.get(i)[1] - ( monthMap.get(i)[1] - (j - month_start) )}`] = {year: this.state.focusYear + y, date: monthMap.get(i)[1] - ( monthMap.get(i)[1] - (j - month_start) ), month: i, logs: []}
+                            logs_of_year[this.state.focusYear + y][i][`j-${this.state.focusYear + y}${i < 10 ? `0${i}` : (i)}${monthMap.get(i)[1] - ( monthMap.get(i)[1] - (j - month_start) ) < 10 ? `0${monthMap.get(i)[1] - ( monthMap.get(i)[1] - (j - month_start) )}` : monthMap.get(i)[1] - ( monthMap.get(i)[1] - (j - month_start) )}`] = {year: this.state.focusYear + y, date: monthMap.get(i)[1] - ( monthMap.get(i)[1] - (j - month_start) ), month: i, logs: []}
                         }
                         else if( j > (monthMap.get(i)[1] + month_start) ) {
                             // console.log(`Year: ${this.state.focusYear + y} Month: ${i} Date: ${(43 - (43 - (j - monthMap.get(i)[1] - month_start)) )} : ${next_month_beginning}`)
 
-                            logs_of_year[this.state.focusYear + y][i][`j-${i === 12 ? this.state.focusYear + y + 1 : this.state.focusYear + y}${i === 12 ? 1 : i + 1}${next_month_beginning}`] = {year: i === 12 ? this.state.focusYear + y + 1 : this.state.focusYear + y, date: next_month_beginning, month: (i + 1) > 12 ? 1 : i + 1, logs: []}
+                            logs_of_year[this.state.focusYear + y][i][`j-${i === 12 ? this.state.focusYear + y + 1 : this.state.focusYear + y}${i === 12 ? 1 : (i + 1) < 10 ? `0${i + 1}` : (i + 1)}${next_month_beginning < 10 ? `0${next_month_beginning}` : next_month_beginning}`] = {year: i === 12 ? this.state.focusYear + y + 1 : this.state.focusYear + y, date: next_month_beginning, month: (i + 1) > 12 ? 1 : i + 1, logs: []}
                         
                             next_month_beginning++;
                         }
