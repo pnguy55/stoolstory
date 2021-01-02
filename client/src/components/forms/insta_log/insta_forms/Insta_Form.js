@@ -117,10 +117,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                     // console.log(ownProps)
                     if(ownProps.auth.pro){
                         // console.log('Form', ownProps)
-                        ownProps.history.push('/submitted/pro');
+                        ownProps.history.push('/business_analysis/p');
                     }
                     else {
-                        ownProps.history.push('/submitted/reg');
+                        ownProps.history.push('/business_analysis/r');
                     }
 
 

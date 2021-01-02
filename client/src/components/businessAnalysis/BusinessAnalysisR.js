@@ -3,12 +3,12 @@ import {connect } from 'react-redux';
 import { PieChart } from 'react-minimal-pie-chart';
 import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid';
-import BottomNav from '../../BottomNav'
+import BottomNav from '../BottomNav'
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 
-import MenuDrawerContext from '../../contexts/menuDrawerContext';
+import MenuDrawerContext from '../contexts/menuDrawerContext';
 
 const drawerWidth = 240;
 
@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-function SubmittedReg(props) {
+function BusinessAnalysisR(props) {
     const classes = useStyles();
     const theme = useTheme();
 
@@ -59,6 +59,9 @@ function SubmittedReg(props) {
     let [stool_type, set_stool_type] = useState(new Map([[1, 0],[2, 0],[3, 0]]));
     let [pain_lvl, set_pain_lvl] = useState(new Map([[1, 0],[2, 0],[3, 0]]));
     let [spottiness, set_spottiness] = useState(new Map([[1, 0],[2, 0],[3, 0]]));
+    
+    const [selected, setSelected] = useState(0);
+    const [hovered, setHovered] = useState(undefined);
 
     // console.log(props);
 
@@ -111,6 +114,19 @@ function SubmittedReg(props) {
                                     { title: 'Norm', value: stool_type.get(2), color: '#C13C37' },
                                     { title: 'Dry', value: stool_type.get(3), color: '#6A2135' },
                                 ]}
+                                animate
+                                animationDuration={500}
+                                animationEasing="ease-out"
+                                center={[50, 50]}
+                                
+                                label={( {dataEntry} ) => `${dataEntry.title} ${Math.round(dataEntry.percentage) + '%'}`   }
+                                labelPosition={100 - 70 / 2}
+                                labelStyle={{
+                                fill: '#fff',
+                                opacity: 0.75,
+                                pointerEvents: 'none',
+                                fontSize: '.5rem'
+                                }}
                                 />
                         </Grid>
                     </Grid>
@@ -118,11 +134,23 @@ function SubmittedReg(props) {
                         <Grid item><Typography variant='h4'>Pain Lvls</Typography></Grid>
                         <Grid item>
                             <PieChart
+                            
                                     data={[
                                         { title: 'None', value: pain_lvl.get(3), color: '#E38627' },
                                         { title: 'Slight', value: pain_lvl.get(2), color: '#C13C37' },
                                         { title: 'Painful', value: pain_lvl.get(1), color: '#6A2135' },
                                     ]}
+                                    radius={PieChart.defaultProps.radius - 6}
+                                    lineWidth={60}
+                                    animate
+                                    label={( data ) => data.dataEntry.title }
+                                    labelPosition={100 - 60 / 2}
+                                    labelStyle={{
+                                    fill: '#fff',
+                                    opacity: 0.75,
+                                    pointerEvents: 'none',
+                                    fontSize: '.5rem'
+                                    }}
                                     />
                         </Grid>
                     </Grid>
@@ -135,6 +163,17 @@ function SubmittedReg(props) {
                                         { title: 'Little', value: spottiness.get(2), color: '#C13C37' },
                                         { title: 'Very', value: spottiness.get(3), color: '#6A2135' },
                                     ]}
+                                    radius={PieChart.defaultProps.radius - 6}
+                                    lineWidth={60}
+                                    animate
+                                    label={( data ) => data.dataEntry.title }
+                                    labelPosition={100 - 60 / 2}
+                                    labelStyle={{
+                                    fill: '#fff',
+                                    opacity: 0.75,
+                                    pointerEvents: 'none',
+                                    fontSize: '.5rem'
+                                    }}
                                     />
                         </Grid>
                     </Grid>
@@ -206,4 +245,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(SubmittedReg);
+export default connect(mapStateToProps)(BusinessAnalysisR);

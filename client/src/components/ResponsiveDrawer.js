@@ -11,8 +11,8 @@ import LogCal from './LogCal';
 // import Full_Form from './forms/full_log/full_forms/Full_Form_Wizard';
 import InstaForm from './forms/insta_log/insta_forms/Insta_Form';
 // import BottomNav from './BottomNav';
-import SubmittedReg from './submission/instaComplete/SubmittedReg';
-import SubmittedPro from './submission/instaComplete/SubmittedPro';
+import BusinessAnalysisR from './businessAnalysis/BusinessAnalysisR';
+import BusinessAnalysisP from './businessAnalysis/BusinessAnalysisP';
 
 import { Link } from 'react-router-dom';
 import Drawer from '@material-ui/core/Drawer';
@@ -256,7 +256,7 @@ function ResponsiveDrawer(props) {
               }
               
               return (
-                  <Link to={to} key={index} onClick={( () => {handleDrawerToggle()} )}>
+                  <Link to={to} key={index}>
                    <ListItem button className= {classes.drawerBtn}>
                         
                         <ListItemIcon className='stool-btn-icon link '>
@@ -389,20 +389,20 @@ function ResponsiveDrawer(props) {
                 )}  /> 
           
           <Route 
-                exact path='/submitted/reg' 
+                exact path='/business_analysis/r' 
                 render={(props) => (
                   <MuiThemeProvider  theme={theme} >
                     <MenuDrawerContext.Provider value={{ mobileOpen, handleDrawerToggle }} >
-                      <SubmittedReg {...props} toggleSide={handleDrawerToggle} children={children} logs={props.logs ? props.logs : []} auth={auth} />
+                      <BusinessAnalysisR {...props} toggleSide={handleDrawerToggle} children={children} logs={props.logs ? props.logs : []} auth={auth} />
                     </MenuDrawerContext.Provider>
                   </MuiThemeProvider >
                 )}  /> 
           <Route 
-              exact path='/submitted/pro' 
+              exact path='/business_analysis/p' 
               render={(props) => (
                 <MuiThemeProvider  theme={theme} >
                   <MenuDrawerContext.Provider value={{ mobileOpen, handleDrawerToggle }} >
-                    <SubmittedPro {...props} toggleSide={handleDrawerToggle} children={children} logs={props.logs ? props.logs : []} auth={auth} />
+                    <BusinessAnalysisP {...props} toggleSide={handleDrawerToggle} children={children} logs={props.logs ? props.logs : []} auth={auth} />
                   </MenuDrawerContext.Provider>
                 </MuiThemeProvider >
               )}  /> 
