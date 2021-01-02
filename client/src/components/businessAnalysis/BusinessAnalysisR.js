@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-function BusinessAnalysisP(props) {
+function BusinessAnalysisR(props) {
     const classes = useStyles();
     const theme = useTheme();
 
@@ -245,4 +245,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(BusinessAnalysisP);
+export default connect(mapStateToProps)(BusinessAnalysisR);

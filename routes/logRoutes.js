@@ -82,7 +82,15 @@ module.exports = app => {
                     throw new Error(err);
                 } 
             })               
-            res.status(200).send(log);
+
+            
+            const logs = await Log.find(function(err) {
+                if(err) {
+                    throw new Error(err)
+                }
+            })
+
+            res.status(200).send(logs);
 
         } catch(error) {
             res.status(500).send(error)

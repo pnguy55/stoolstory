@@ -8,7 +8,7 @@ export const fetchUser = () => async dispatch => {
 };
 
 
-export const submitLog = (formValues, log_type) => async dispatch => {
+export const submitLog = (formValues, log_type, history) => async dispatch => {
 
     let { date_time, stool_type, pain_lvl, bloodiness } = formValues;
 
@@ -20,9 +20,11 @@ export const submitLog = (formValues, log_type) => async dispatch => {
         log_type,
     });
 
-    // console.log(res)
+    console.log(res)
+    dispatch({ type: FETCH_LOGS, payload: res.data });
+    
+    history.push('/business_analysis/p')
     // pushing to history for redirect purposes
-    // dispatch({ type: FETCH_LOG, payload: res.data });
 };
 
 export const fetchLog = () => async dispatch => {
@@ -33,7 +35,7 @@ export const fetchLog = () => async dispatch => {
 
 export const fetchLogs = () => async dispatch => {
     const res = await axios.get('/api/stool/logs');
-
+    console.log(res.data)
     dispatch({ type: FETCH_LOGS, payload: res.data});
 }
 

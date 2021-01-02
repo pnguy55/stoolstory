@@ -113,18 +113,20 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         submit: (values, dispatch) => {
             return new Promise(() => {
-                dispatch(actions.submitLog(values, 1)).then(() => {
+                dispatch(actions.submitLog(values, 1, ownProps.history))
+                // .then(
+                    // () => {actions.fetchLogs()
+                    
+                    // }).then(() => {
                     // console.log(ownProps)
-                    if(ownProps.auth.pro){
-                        // console.log('Form', ownProps)
-                        ownProps.history.push('/business_analysis/p');
-                    }
-                    else {
-                        ownProps.history.push('/business_analysis/r');
-                    }
-
-
-                })
+                    // if(ownProps.auth.pro){
+                    //     // console.log('Form', ownProps)
+                    //     ownProps.history.push('/business_analysis/p');
+                    // }
+                    // else {
+                    //     ownProps.history.push('/business_analysis/r');
+                    // }
+                    // })
             })
           }
     }
