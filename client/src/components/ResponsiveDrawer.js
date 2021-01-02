@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import xlsx from 'json-as-xlsx';
@@ -134,11 +134,15 @@ function ResponsiveDrawer(props) {
     setMobileOpen(!mobileOpen);
   };
 
+    // In a callback Hook to prevent unnecessary re-renders 
+    const handleFetchItems = useCallback(() => {      
+      fetchLogs();
+      // fetchItemsFromApi().then(setItems);
+    }, []);
+  
 
   useEffect(() => {
-    if(logs) {
-      fetchLogs();
-    }
+      handleFetchItems();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     // disables this warning
     //React Hook useEffect has missing dependencies: 'fetchLogs' and 'logs'. Either include them or remove the dependency array react-hooks/exhaustive-deps

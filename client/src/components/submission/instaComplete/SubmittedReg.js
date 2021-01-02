@@ -1,14 +1,9 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import {connect } from 'react-redux';
+import { PieChart } from 'react-minimal-pie-chart';
 import Hidden from '@material-ui/core/Hidden';
-import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Grid from '@material-ui/core/Grid';
 import BottomNav from '../../BottomNav'
-import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
-import FormatListNumberedRoundedIcon from '@material-ui/icons/FormatListNumberedRounded';
-import PlusOneRoundedIcon from '@material-ui/icons/PlusOneRounded';
-import DateRangeRoundedIcon from '@material-ui/icons/DateRangeRounded';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
@@ -56,12 +51,46 @@ function SubmittedReg(props) {
     const theme = useTheme();
 
     const menuDrawer = useContext(MenuDrawerContext);
+    const { auth, children, toggleSide, logs } = props;
 
-    const { auth, children, toggleSide } = props;
+    let [list, setList] = useState();
+    let [stool_type, set_stool_type] = useState(new Map([[1, 0],[2, 0],[3, 0]]));
+    let [pain_lvl, set_pain_lvl] = useState(new Map([[1, 0],[2, 0],[3, 0]]));
+    let [spottiness, set_spottiness] = useState(new Map([[1, 0],[2, 0],[3, 0]]));
 
-    const list = (
-        // this auth object actually has our user data
-            auth === null ? <span className={classes.loading_msg}> 'Loading'</span>:
+    console.log(children);
+
+    function logAnalysis(logs){
+        if(logs.length > 0)  {
+            console.log('hi', logs)
+            for(let log of logs) {
+                set_stool_type(stool_type.set(log.stool_type, stool_type.get(log.stool_type) + 1));
+                set_pain_lvl(pain_lvl.set(log.pain_lvl, pain_lvl.get(log.pain_lvl) + 1));
+                set_spottiness(spottiness.set(log.bloodiness, spottiness.get(log.bloodiness) + 1));
+                
+            }
+            console.log(stool_type)
+            console.log(pain_lvl)
+            console.log(spottiness)
+        }
+    }
+
+    useEffect((prevProps) => {
+        logAnalysis(logs);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // disables this warning
+        //React Hook useEffect has missing dependencies: 'fetchLogs' and 'logs'. Either include them or remove the dependency array react-hooks/exhaustive-deps
+        setListHandler()
+
+
+
+    },[auth,pain_lvl, stool_type, spottiness, logs])
+
+    function setListHandler() {
+        
+        setList(
+            // this auth object actually has our user data
+            auth === null ? <span className={classes.loading_msg}> 'Please log in an submit a log'</span>:
             !auth ? [    
                 <Grid className={theme.root_content} container spacing={0} direction="column" alignItems="center" justify="center">          
                     <Grid item xs={12} key='1'><img alt="Scroll depicting the use of Stool Story, a place to log your logs." className={classes.landing_img} src='./assets/landing-scroll.png'/></Grid>
@@ -70,44 +99,85 @@ function SubmittedReg(props) {
                 </Grid>  
              ] :
             [
-                //satify the react key requirement    
-                <Grid key={1} item xs={12}><h3 className={classes.landing_greeting}>Welcome back, {auth.firstName}</h3></Grid>,            
-                <Grid key={2} item xs={12}>
-                        <ButtonGroup
-                            orientation='vertical'
-                            color="primary"
-                            variant="contained" 
-                            size="large"
-                            full-width='true'
-                            aria-label="vertical outline primary button group"
-                            >                               
-                            {
-                                children.map(({to, text, link}, index) => {
-                                    if(!link) {return ''}
+                //if logged in 
+                <Grid key={1} container item xs={12}>
+                    
+                    <Grid container item xs={12} direction='column' alignItems='center'>
+                        <Grid item><Typography variant='h4' style={{height:'fit-content'}}>Log Types</Typography></Grid>
+                        <Grid item>
+                            <PieChart
+                                data={[
+                                    { title: 'Wet', value: stool_type.get(1), color: '#E38627' },
+                                    { title: 'Norm', value: stool_type.get(2), color: '#C13C37' },
+                                    { title: 'Dry', value: stool_type.get(3), color: '#6A2135' },
+                                ]}
+                                />
+                        </Grid>
+                    </Grid>
+                    <Grid container item xs={6} direction='column' alignItems='center'>
+                        <Grid item><Typography variant='h4'>Pain Lvls</Typography></Grid>
+                        <Grid item>
+                            <PieChart
+                                    data={[
+                                        { title: 'None', value: pain_lvl.get(3), color: '#E38627' },
+                                        { title: 'Slight', value: pain_lvl.get(2), color: '#C13C37' },
+                                        { title: 'Painful', value: pain_lvl.get(1), color: '#6A2135' },
+                                    ]}
+                                    />
+                        </Grid>
+                    </Grid>
+                    <Grid container item xs={6} direction='column' alignItems='center'>
+                        <Grid item><Typography variant='h4'>Spottiness?</Typography></Grid>
+                        <Grid item>
+                            <PieChart
+                                    data={[
+                                        { title: 'No', value: spottiness.get(1), color: '#E38627' },
+                                        { title: 'Little', value: spottiness.get(2), color: '#C13C37' },
+                                        { title: 'Very', value: spottiness.get(3), color: '#6A2135' },
+                                    ]}
+                                    />
+                        </Grid>
+                    </Grid>
+                </Grid>,
+                <Grid key={2} item xs={12}><Typography variant='h4' className={classes.landing_greeting}>{auth.firstName}, your story is growing!</Typography></Grid>,            
+                // <Grid key={3} item xs={12}>
+                //         <ButtonGroup
+                //             orientation='vertical'
+                //             color="primary"
+                //             variant="contained" 
+                //             size="large"
+                //             full-width='true'
+                //             aria-label="vertical outline primary button group"
+                //             >                               
+                //             {
+                //                 children.map(({to, text, link}, index) => {
+                //                     if(!link) {return ''}
 
-                                    return (                                                                    
-                                        <Button 
-                                            key={index} 
-                                            component={link ? Link : 'a'} 
-                                            to={to} href={to} 
-                                            className={classes.btn_font}
-                                            startIcon={
-                                                    to.includes('full_log') ? <AddCircleRoundedIcon /> : 
-                                                    to.includes('log_list') ? <FormatListNumberedRoundedIcon /> :
-                                                    to.includes('insta_log') ? <PlusOneRoundedIcon /> : <DateRangeRoundedIcon />                                          
-                                            }
-                                            >                                       
-                                            {text}                                             
-                                        </Button> 
-                                    )
-                                })
-                            }
-                        </ButtonGroup>  
-                </Grid>   
+                //                     return (                                                                    
+                //                         <Button 
+                //                             key={index} 
+                //                             component={link ? Link : 'a'} 
+                //                             to={to} href={to} 
+                //                             className={classes.btn_font}
+                //                             startIcon={
+                //                                     to.includes('full_log') ? <AddCircleRoundedIcon /> : 
+                //                                     to.includes('log_list') ? <FormatListNumberedRoundedIcon /> :
+                //                                     to.includes('insta_log') ? <PlusOneRoundedIcon /> : <DateRangeRoundedIcon />                                          
+                //                             }
+                //                             >                                       
+                //                             {text}                                             
+                //                         </Button> 
+                //                     )
+                //                 })
+                //             }
+                //         </ButtonGroup>  
+                // </Grid>   
             ]
             
 
     )
+    }
+    
 
     return (    
         <Grid  container
@@ -129,5 +199,11 @@ function SubmittedReg(props) {
     
 }
 
+function mapStateToProps(state) {
+    // we declared the state piece's name in auth reducer
+    return { 
+        logs: [...state.logs]
+    }
+}
 
-export default SubmittedReg;
+export default connect(mapStateToProps)(SubmittedReg);

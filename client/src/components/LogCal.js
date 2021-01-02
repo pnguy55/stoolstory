@@ -212,7 +212,7 @@ const styles = theme => ({
     }
   });
 
-class LogList extends Component {
+class LogCal extends Component {
     // static menuDrawer = MenuDrawerContext
 
     constructor(props){
@@ -699,9 +699,9 @@ function mapStateToProps(state) {
     }
 }
 
-export default withStyles(styles, { withTheme: true })(connect(mapStateToProps, { fetchLogs, deleteLog })(LogList));
+export default withStyles(styles, { withTheme: true })(connect(mapStateToProps, { fetchLogs, deleteLog })(LogCal));
 // export function Component() {
 //     let menuContext = useContext(MenuDrawerContext);
   
-//     return <LogList appContext={appContext}></LogList>
+//     return <LogCal appContext={appContext}></LogCal>
 //   };

@@ -52,6 +52,7 @@
     "prop-types": "^15.7.2",
     "react-big-calendar": "^0.30.0",
     "react-content-loader": "^5.1.4",
+    "react-minimal-pie-chart": "^8.1.0",
     "react-svg": "^11.2.1",
     "unescape": "^1.0.1"
   },
