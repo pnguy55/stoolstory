@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-function SubmittedPro(props) {
+function SubmittedReg(props) {
     const classes = useStyles();
     const theme = useTheme();
 
@@ -206,4 +206,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(SubmittedPro);
+export default connect(mapStateToProps)(SubmittedReg);
