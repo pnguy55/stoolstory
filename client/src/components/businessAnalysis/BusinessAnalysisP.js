@@ -119,7 +119,7 @@ function BusinessAnalysisP(props) {
                                 animationEasing="ease-out"
                                 center={[50, 50]}
                                 
-                                label={( {dataEntry} ) => `${dataEntry.title} ${Math.round(dataEntry.percentage) + '%'}`   }
+                                label={( {dataEntry} ) => Math.round(dataEntry.percentage) > 0 ? `${dataEntry.title} ${Math.round(dataEntry.percentage) + '%'}` : ''   }
                                 labelPosition={100 - 70 / 2}
                                 labelStyle={{
                                 fill: '#fff',
@@ -143,7 +143,7 @@ function BusinessAnalysisP(props) {
                                     radius={PieChart.defaultProps.radius - 6}
                                     lineWidth={60}
                                     animate
-                                    label={( data ) => data.dataEntry.title }
+                                    label={( {dataEntry} ) => Math.round(dataEntry.percentage) > 0 ?  dataEntry.title : '' }
                                     labelPosition={100 - 60 / 2}
                                     labelStyle={{
                                     fill: '#fff',
@@ -166,7 +166,7 @@ function BusinessAnalysisP(props) {
                                     radius={PieChart.defaultProps.radius - 6}
                                     lineWidth={60}
                                     animate
-                                    label={( data ) => data.dataEntry.title }
+                                    label={( {dataEntry} ) => Math.round(dataEntry.percentage) > 0 ?  dataEntry.title : '' }
                                     labelPosition={100 - 60 / 2}
                                     labelStyle={{
                                     fill: '#fff',
