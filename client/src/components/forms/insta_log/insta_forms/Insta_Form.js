@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import renderFields from '../insta_renders/insta_render_fields';
 import { reduxForm } from 'redux-form';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import * as actions from '../../../../actions/index';
 
 import Button from '@material-ui/core/Button';
@@ -109,12 +109,21 @@ let Insta_Form = props => {
     )
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         submit: (values, dispatch) => {
-            return new Promise((resolve, reject) => {
-                dispatch(actions.submitLog(values, 1))
-                resolve();  
+            return new Promise(() => {
+                dispatch(actions.submitLog(values, 1)).then(() => {
+                    console.log(ownProps)
+                    if(ownProps.auth.pro){
+                        ownProps.history.push('/submitted/pro');
+                    }
+                    else {
+                        ownProps.history.push('/submitted/reg');
+                    }
+
+
+                })
             })
           }
     }
@@ -124,7 +133,7 @@ const mapDispatchToProps = dispatch => {
     mapDispatchToProps
 )(Insta_Form);
 
-export default reduxForm({
+export default withRouter(reduxForm({
     form: 'Insta_Log_Form',
     initialValues: {
         date_time: `${formatMMDDYY(new Date)}T${formatAMPM(new Date)}`,
@@ -133,5 +142,5 @@ export default reduxForm({
         bloodiness: 1
     }
     
-  })(Insta_Form)
+  })(Insta_Form))
   

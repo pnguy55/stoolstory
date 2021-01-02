@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index';
 import xlsx from 'json-as-xlsx';
@@ -12,6 +12,8 @@ import LogCal from './LogCal';
 import Full_Form from './forms/full_log/full_forms/Full_Form_Wizard';
 import Insta_Form from './forms/insta_log/insta_forms/Insta_Form';
 import BottomNav from './BottomNav';
+import SubmittedReg from './submission/instaComplete/SubmittedReg';
+import SubmittedPro from './submission/instaComplete/SubmittedPro';
 
 import { Link } from 'react-router-dom';
 import Drawer from '@material-ui/core/Drawer';
@@ -37,6 +39,7 @@ import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import MenuDrawerContext from '../components/contexts/menuDrawerContext';
 
 import { makeStyles, useTheme, ThemeProvider, MuiThemeProvider  } from '@material-ui/core/styles';
+
 
 const drawerWidth = 240;
 
@@ -134,13 +137,10 @@ function ResponsiveDrawer(props) {
 
 
   useEffect(() => {
-    if(props.logs < 1) {
+    if(props.logs) {
       props.fetchLogs();
     }
-    return () => {
-      console.log(props.logs)
-    }
-  }, [props.logs])
+  }, [])
 
   
   // console.log(props)
@@ -337,7 +337,7 @@ function ResponsiveDrawer(props) {
         <div className={classes.toolbar} />  
         {/* the exact makes sure that it only shows up on that path */}      
             
-          
+        <Switch>
           <Route 
                 exact path='/' 
                 render={(props) => (
@@ -376,10 +376,30 @@ function ResponsiveDrawer(props) {
                 render={(props) => (
                   <MuiThemeProvider  theme={theme} >
                     <MenuDrawerContext.Provider value={{ mobileOpen, handleDrawerToggle }} >
-                      <LogCal {...props} toggleSide={handleDrawerToggle} children={children} auth={auth} />
+                      <LogCal {...props} toggleSide={handleDrawerToggle} children={children} logs={props.logs ? props.logs : []} auth={auth} />
                     </MenuDrawerContext.Provider>
                   </MuiThemeProvider >
                 )}  /> 
+          
+          <Route 
+                exact path='/submitted/reg' 
+                render={(props) => (
+                  <MuiThemeProvider  theme={theme} >
+                    <MenuDrawerContext.Provider value={{ mobileOpen, handleDrawerToggle }} >
+                      <SubmittedReg {...props} toggleSide={handleDrawerToggle} children={children} logs={props.logs ? props.logs : []} auth={auth} />
+                    </MenuDrawerContext.Provider>
+                  </MuiThemeProvider >
+                )}  /> 
+          <Route 
+              exact path='/submitted/pro' 
+              render={(props) => (
+                <MuiThemeProvider  theme={theme} >
+                  <MenuDrawerContext.Provider value={{ mobileOpen, handleDrawerToggle }} >
+                    <SubmittedPro {...props} toggleSide={handleDrawerToggle} children={children} logs={props.logs ? props.logs : []} auth={auth} />
+                  </MenuDrawerContext.Provider>
+                </MuiThemeProvider >
+              )}  /> 
+        </Switch>
           {/* <Route exact path='/log_cal' component={LogCal} /> */}
         {/* <Route path='/tagLists/new' component={TagListWizard} /> */}
       </main>

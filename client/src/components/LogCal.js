@@ -243,6 +243,7 @@ class LogList extends Component {
     constructor(props){
         super(props)
         this.state = {
+            auth: this.props.auth,
             monthMap: monthMap,
             dayMap: dayMap,
             currDay: currDay,
@@ -288,6 +289,14 @@ class LogList extends Component {
             })
 
 
+        }
+
+        if(prevState.auth !== this.props.auth) {
+            this.setState({
+                auth: this.props.auth
+            }, () => {
+                console.log(this.state)
+            })
         }
         
     }
