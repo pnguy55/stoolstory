@@ -1,28 +1,19 @@
-import React, { Component, useContext } from 'react';
+import React, { Component } from 'react';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchLogs, deleteLog } from '../actions/index';
-import { ReactSVG } from 'react-svg';
 import BottomNav from './BottomNav';
 import { BulletList } from 'react-content-loader'
 
 import Hidden from '@material-ui/core/Hidden';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import FolderIcon from '@material-ui/icons/Folder';
-import DeleteIcon from '@material-ui/icons/Delete';
 
 import { ButtonGroup, Button } from '@material-ui/core';
 import { ReactComponent as Monday } from '../components/svg/days-of-week/monday.svg'
@@ -36,7 +27,6 @@ import { ReactComponent as Sunday } from '../components/svg/days-of-week/sunday.
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { withStyles } from '@material-ui/styles';
-import { map } from 'lodash';
 
 import MenuDrawerContext from './contexts/menuDrawerContext';
 
@@ -227,7 +217,7 @@ class LogList extends Component {
 
     componentDidMount() {
         this.props.fetchLogs();
-        console.log(this.props)
+        // console.log(this.props)
 
     }
 
@@ -236,7 +226,7 @@ class LogList extends Component {
             this.setState({
                 logs: this.props.logs
             }, () => {
-                console.log(this.state)
+                // console.log(this.state)
             })
         }
         
@@ -271,12 +261,12 @@ class LogList extends Component {
 
         // iterates through logs until there are none left
         for(let curr_log = logs_count - 1; curr_log >= 0; curr_log--) {
-            console.log('NEXT DAY')
+            // console.log('NEXT DAY')
             let log = logs_list[curr_log];
             let curr_log_time = parseInt(log.log_date, 10);
-            let curr_log_year = parseInt(log.log_date.substring(0, 4));
-            let curr_log_month = parseInt(log.log_date.substring(4, 6));
-            let curr_log_date = parseInt(log.log_date.substring(6, 8));
+            // let curr_log_year = parseInt(log.log_date.substring(0, 4));
+            // let curr_log_month = parseInt(log.log_date.substring(4, 6));
+            // let curr_log_date = parseInt(log.log_date.substring(6, 8));
 
             if(log_map.has(curr_log_time))
                 log_map.set(curr_log_time, [...log_map.get(curr_log_time), log]);
@@ -291,7 +281,7 @@ class LogList extends Component {
 
         for(let i = 0; i < this.state.number_of_days_listed; i++) {
             
-            let curr_day_logs = []  
+            // let curr_day_logs = []  
             // current date we are focused on
             let focus_date = new Date(new Date() - (day_in_milliseconds * i));
             // console.log((day_in_milliseconds * i))
@@ -304,7 +294,7 @@ class LogList extends Component {
             let curr_day_of_week = focus_date.getDay();
 
             let curr_day_stool = []
-            let curr_day_blood_pain = []
+            // let curr_day_blood_pain = []
             
             if(log_map.has(focus_date_full)) {
                 curr_day_stool = 
@@ -331,7 +321,7 @@ class LogList extends Component {
             listItems.push(
                 <Grid container item xs={12} key={focus_date_full} style={{borderBottom: '2px solid #000', maxWidth: '100vw'}} wrap='wrap'>
                     <ListItem >
-                        <Grid container item direction='column' item xs={3} justify='center' alignItems='center'>
+                        <Grid container item xs={3} direction='column' justify='center' alignItems='center'>
                                 {this.state.dayMap.get(curr_day_of_week)[2]}                                
                                 <Typography style={{marginLeft: '0px'}} variant='body1' align='center' className={this.props.classes.list_date}>{this.state.monthMap.get( (focus_date_month/100))[0]} - {focus_date_num}</Typography>                          
   
@@ -380,42 +370,42 @@ class LogList extends Component {
         if(value === 1) {
             return (
                 <Grid container item xs={12} justify='center'>
-                    {this.state.secondary ? <img className={this.props.classes.slider_img} src='/assets/bloodiness/NoBlood.png'/> : null }
+                    {this.state.secondary ? <img className={this.props.classes.slider_img} src='/assets/bloodiness/NoBlood.png' alt='toilet paper - no blood'/> : null }
                 </Grid>
             )
         }
         else if(value === 2) {
             return (                
                 <Grid container item xs={12} justify='center'>
-                    {this.state.secondary ? <img className={this.props.classes.slider_img} src='/assets/bloodiness/Bloody.png'/> : null }
+                    {this.state.secondary ? <img className={this.props.classes.slider_img} src='/assets/bloodiness/Bloody.png' alt='toilet paper - a little blood'/> : null }
                 </Grid>
             )
         }
         else {
             return (                
                 <Grid container item xs={12} justify='center'>
-                    {this.state.secondary ? <img className={this.props.classes.slider_img} src='/assets/bloodiness/SuperBloody.png'/> : null }
+                    {this.state.secondary ? <img className={this.props.classes.slider_img} src='/assets/bloodiness/SuperBloody.png' alt='toilet paper - quite bloody'/> : null }
                 </Grid>
             )
         }
     }
     valueLabelPainLvl(value){
         if(value === 1) {
-            return <span className={this.props.classes.valueLabelPain}> { this.state.secondary ? String.fromCodePoint(0x1F62D): null } </span>
+            return <span className={this.props.classes.valueLabelPain} role='img' aria-label='pain - painful'> { this.state.secondary ? String.fromCodePoint(0x1F62D): null } </span>
         }
         else if(value === 2) {
-            return <span className={this.props.classes.valueLabelPain}> { this.state.secondary ? String.fromCodePoint(0x1F61E) : null }</span>
+            return <span className={this.props.classes.valueLabelPain} role='img' aria-label='pain - uncomfortable'> { this.state.secondary ? String.fromCodePoint(0x1F61E) : null }</span>
 
         }
         else {
-            return <span className={this.props.classes.valueLabelPain}> { this.state.secondary ? String.fromCodePoint(0x1F60A) : null }</span>
+            return <span className={this.props.classes.valueLabelPain} role='img' aria-label='pain - no pain'> { this.state.secondary ? String.fromCodePoint(0x1F60A) : null }</span>
         }
     }
     valueLabelStoolType(value){
         if(value === 1) {
             return (
                 <Grid key={`stoolType${Math.random() * 1000000}`} container item xs={12} direction='column' alignItems='center' justify='center' className={this.props.classes.primary_log}>
-                    <Grid key={`stoolType${Math.random() * 1000000}`} item xs={12}><span className={this.props.classes.valueLabelStool} >&#128166;</span></Grid>
+                    <Grid key={`stoolType${Math.random() * 1000000}`} item xs={12}><span className={this.props.classes.valueLabelStool} role='img' aria-label='stool - wet' >&#128166;</span></Grid>
                     <Grid key={`stoolType${Math.random() * 1000000}`} item xs={12} ><span className={this.props.classes.valueLabel}>Wet</span></Grid>
                 </Grid>
             )
@@ -423,7 +413,7 @@ class LogList extends Component {
         else if(value === 3) {
             return (
                 <Grid key={`stoolType${Math.random() * 1000000}`} container item xs={12} direction='column' alignItems='center' justify='center' className={this.props.classes.primary_log}>
-                    <Grid key={`stoolType${Math.random() * 1000000}`} item xs={12} ><span className={this.props.classes.valueLabelStool} >&#127761;</span></Grid>
+                    <Grid key={`stoolType${Math.random() * 1000000}`} item xs={12} ><span className={this.props.classes.valueLabelStool} role='img' aria-label='stool - dry' >&#127761;</span></Grid>
                     <Grid key={`stoolType${Math.random() * 1000000}`} item xs={12} ><span className={this.props.classes.valueLabel}>Dry</span></Grid>
                 </Grid>
             )
@@ -431,7 +421,7 @@ class LogList extends Component {
         else {
             return (
                 <Grid key={`stoolType${Math.random() * 1000000}`} container item xs={12} direction='column' alignItems='center' justify='center' className={this.props.classes.primary_log}>
-                    <Grid key={`stoolType${Math.random() * 1000000}`} item xs={12} ><span className={this.props.classes.valueLabelStool} >&#128169;</span></Grid>
+                    <Grid key={`stoolType${Math.random() * 1000000}`} item xs={12} ><span className={this.props.classes.valueLabelStool} role='img' aria-label='stool - normal' >&#128169;</span></Grid>
                     <Grid key={`stoolType${Math.random() * 1000000}`} item xs={12} ><span className={this.props.classes.valueLabel}>Norm</span></Grid>
                 </Grid>
             )
@@ -577,8 +567,7 @@ function mapStateToProps(state) {
     }
 }
 
-export default withStyles(styles, { withTheme: true })
-(connect(mapStateToProps, { fetchLogs, deleteLog })(LogList));
+export default withStyles(styles, { withTheme: true })(connect(mapStateToProps, { fetchLogs, deleteLog })(LogList));
 
 // export function Component() {
 //     let menuContext = useContext(MenuDrawerContext);

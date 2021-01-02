@@ -1,38 +1,19 @@
-import React, { Component, useContext } from 'react';
-import _ from 'lodash';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchLogs, deleteLog } from '../actions/index';
-import { ReactSVG } from 'react-svg';
 import BottomNav from './BottomNav';
 import { BulletList } from 'react-content-loader'
 
 import Hidden from '@material-ui/core/Hidden';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import FolderIcon from '@material-ui/icons/Folder';
-import DeleteIcon from '@material-ui/icons/Delete';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import InfoIcon from '@material-ui/icons/Info';
 
 import { ButtonGroup, Button } from '@material-ui/core';
 import { ReactComponent as Monday } from '../components/svg/days-of-week/monday.svg'
@@ -43,17 +24,11 @@ import { ReactComponent as Friday } from '../components/svg/days-of-week/friday.
 import { ReactComponent as Saturday } from '../components/svg/days-of-week/saturday.svg'
 import { ReactComponent as Sunday } from '../components/svg/days-of-week/sunday.svg'
 
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import { withStyles } from '@material-ui/styles';
-import { map } from 'lodash';
 
 import MenuDrawerContext from './contexts/menuDrawerContext';
 
-
-import image from './svg/days-of-week/stool-squad.png';
-
-const Stool_Tile = withStyles({
+const StoolTile = withStyles({
     tile: {
       display: 'flex',
       justifyContent: 'center',
@@ -274,7 +249,7 @@ class LogList extends Component {
 
     componentDidMount() {
         this.props.fetchLogs();
-        console.log(this.props)
+        // console.log(this.props)
         
 
     }
@@ -285,7 +260,7 @@ class LogList extends Component {
                 logs: this.props.logs,
                 year_state: this.generate_year()
             }, () => {
-                console.log(this.state)
+                // console.log(this.state)
             })
 
 
@@ -295,7 +270,7 @@ class LogList extends Component {
             this.setState({
                 auth: this.props.auth
             }, () => {
-                console.log(this.state)
+                // console.log(this.state)
             })
         }
         
@@ -339,7 +314,7 @@ class LogList extends Component {
                         focusYear: prevState.focusYear + 1,
                         focusMonth: 1
                     }}, () => {
-                        console.log(this.state.focusMonth)
+                        // console.log(this.state.focusMonth)
                     })
                     
                 }
@@ -347,7 +322,7 @@ class LogList extends Component {
                     this.setState((prevState) => {return {
                         focusMonth: prevState.focusMonth + 1
                     }}, () => {
-                        console.log(this.state.focusMonth)
+                        // console.log(this.state.focusMonth)
                     })
                 }
                 break;
@@ -414,7 +389,7 @@ class LogList extends Component {
                 }   
             }
 
-            console.log(logs_of_year)
+            // console.log(logs_of_year)
             for(let log of this.state.logs) {
                 let log_date = log.log_date;
                 let log_year = parseInt(log.log_date.substring(0,4), 10);
@@ -424,6 +399,12 @@ class LogList extends Component {
                 // set logs to an array for each month by date
                 if( logs_of_year[log_year][log_month][`j-${log_date}`] !== undefined){
                     logs_of_year[log_year][log_month][`j-${log_date}`]['logs'].push(log);
+                }
+                if( logs_of_year[log_month + 1 > 12 ? log_year + 1 : log_year][log_month + 1 > 12 ? 1 : log_month + 1][`j-${log_date}`] !== undefined){
+                    logs_of_year[log_month + 1 > 12 ? log_year + 1 : log_year][log_month + 1 > 12 ? 1 : log_month + 1][`j-${log_date}`]['logs'].push(log);
+                }
+                if( logs_of_year[log_month - 1 < 1 ? log_year - 1 : log_year][log_month - 1 < 1 ? 12 : log_month - 1][`j-${log_date}`] !== undefined){
+                    logs_of_year[log_month - 1 < 1 ? log_year - 1 : log_year][log_month - 1 < 1 ? 12 : log_month - 1][`j-${log_date}`]['logs'].push(log);
                 }
             }
         }
@@ -451,51 +432,51 @@ class LogList extends Component {
         if(value === 1) {
             return (
                 <Grid container item xs={12} justify='center'>
-                    {this.state.secondary ? <img className={this.props.classes.slider_img} src='/assets/bloodiness/NoBlood.png'/> : null }
+                    {this.state.secondary ? <img className={this.props.classes.slider_img} src='/assets/bloodiness/NoBlood.png' alt='toilet paper - no blood'/> : null }
                 </Grid>
             )
         }
         else if(value === 2) {
             return (                
                 <Grid container item xs={12} justify='center'>
-                    {this.state.secondary ? <img className={this.props.classes.slider_img} src='/assets/bloodiness/Bloody.png'/> : null }
+                    {this.state.secondary ? <img className={this.props.classes.slider_img} src='/assets/bloodiness/Bloody.png' alt='toilet paper - a little bloody'/> : null }
                 </Grid>
             )
         }
         else {
             return (                
                 <Grid container item xs={12} justify='center'>
-                    {this.state.secondary ? <img className={this.props.classes.slider_img} src='/assets/bloodiness/SuperBloody.png'/> : null }
+                    {this.state.secondary ? <img className={this.props.classes.slider_img} src='/assets/bloodiness/SuperBloody.png' alt='toilet paper - quite bloody'/> : null }
                 </Grid>
             )
         }
     }
     valueLabelPainLvl(value){
         if(value === 1) {
-            return <span className={this.props.classes.valueLabelPain}> { this.state.secondary ? String.fromCodePoint(0x1F62D): null } </span>
+            return <span className={this.props.classes.valueLabelPain} role='img' aria-label='pain - painful'> { this.state.secondary ? String.fromCodePoint(0x1F62D): null } </span>
         }
         else if(value === 2) {
-            return <span className={this.props.classes.valueLabelPain}> { this.state.secondary ? String.fromCodePoint(0x1F61E) : null }</span>
+            return <span className={this.props.classes.valueLabelPain} role='img' aria-label='pain - uncomfortable'> { this.state.secondary ? String.fromCodePoint(0x1F61E) : null }</span>
 
         }
         else {
-            return <span className={this.props.classes.valueLabelPain}> { this.state.secondary ? String.fromCodePoint(0x1F60A) : null }</span>
+            return <span className={this.props.classes.valueLabelPain} role='img' aria-label='pain - no pain'> { this.state.secondary ? String.fromCodePoint(0x1F60A) : null }</span>
         }
     }
     valueLabelStoolType(value){
         if(value === 1) {
             return (
-                <span className={this.props.classes.valueLabelStool} >&#128166;</span>
+                <span className={this.props.classes.valueLabelStool} role='img' aria-label='stool - wet' >&#128166;</span>
             )
         }
         else if(value === 3) {
             return (
-                <span className={this.props.classes.valueLabelStool} >&#127761;</span>
+                <span className={this.props.classes.valueLabelStool} role='img' aria-label='stool - dry' >&#127761;</span>
             )
         }
         else {
             return (
-                <span className={this.props.classes.valueLabelStool} >&#128169;</span>
+                <span className={this.props.classes.valueLabelStool} role='img' aria-label='stool - normal' >&#128169;</span>
             )
         }
     }
@@ -618,11 +599,11 @@ class LogList extends Component {
                                                                 .map((log, index) => {
 
                                                                     return (
-                                                                        <Stool_Tile cols={1} key={index}  style={{maxHeight: '40%', display: 'flex', textAlign: 'center'}}>
+                                                                        <StoolTile cols={1} key={index}  style={{maxHeight: '40%', display: 'flex', textAlign: 'center'}}>
 
                                                                         {/* <GridListTile cols={1} key={index} style={{backgroundColor: '#fff', maxHeight:'25%', background:`url(${image}) no-repeat center`, backgroundSize: 'auto 60%' }}> */}
                                                                             {this.valueLabelStoolType(log.stool_type)}
-                                                                        </Stool_Tile>
+                                                                        </StoolTile>
                                                                     )
                                                                 })
                                                             }
@@ -718,9 +699,7 @@ function mapStateToProps(state) {
     }
 }
 
-export default withStyles(styles, { withTheme: true })
-(connect(mapStateToProps, { fetchLogs, deleteLog })(LogList));
-
+export default withStyles(styles, { withTheme: true })(connect(mapStateToProps, { fetchLogs, deleteLog })(LogList));
 // export function Component() {
 //     let menuContext = useContext(MenuDrawerContext);
   

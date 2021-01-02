@@ -57,7 +57,7 @@ function Landing(props) {
 
     const menuDrawer = useContext(MenuDrawerContext);
 
-    const { auth, children, toggleSide } = props;
+    const { auth, children } = props;
 
     const list = (
         // this auth object actually has our user data
@@ -66,7 +66,7 @@ function Landing(props) {
                 <Grid className={theme.root_content} container spacing={0} direction="column" alignItems="center" justify="center">          
                     <Grid item xs={12} key='1'><img alt="Scroll depicting the use of Stool Story, a place to log your logs." className={classes.landing_img} src='./assets/landing-scroll.png'/></Grid>
                     <Grid item xs={12} key='2'><Typography variant='h3' style={{textAlign: 'center'}}>Log your logs</Typography></Grid>
-                    <Grid item xs={12} key='3'><Hidden mdDown><a alt='Sign in with Google button' className='log-in-btn' href='/auth/google'><img src='/assets/sign-in-images/btn_google_signin_dark_normal_web@2x.png'/></a></Hidden></Grid>
+                    <Grid item xs={12} key='3'><Hidden mdDown><a className='log-in-btn' href='/auth/google'><img src='/assets/sign-in-images/btn_google_signin_dark_normal_web@2x.png' alt='Sign in with Google button'/></a></Hidden></Grid>
                 </Grid>  
              ] :
             [

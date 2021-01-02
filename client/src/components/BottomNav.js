@@ -76,7 +76,7 @@ function SimpleBottomNavigation({children, toggleSide}) {
                         icon={
                                 to.includes('full_log') ? <AddCircleRoundedIcon /> : 
                                 to.includes('log_list') ? <FormatListNumberedRoundedIcon /> :
-                                to.includes('insta_log') ? <PlusOneRoundedIcon /> : <img className={classes.bottom_nav_img} src={img} />
+                                to.includes('insta_log') ? <PlusOneRoundedIcon /> : <img className={classes.bottom_nav_img} alt='Google sign-in' src={img} />
                         } > 
                                             
                 </BottomNavigationAction>

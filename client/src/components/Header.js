@@ -45,7 +45,7 @@ class Header extends Component {
     }
     
     render() {
-        const { auth, match } = this.props;
+        const { auth } = this.props;
         return (
             <div>
                 <ResponsiveDrawer auth={auth}>

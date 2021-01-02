@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 
-import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/core/Slider'
-import theme from '../../../style/theme'
+import Slider from '@material-ui/core/Slider';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -71,7 +69,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-let Insta_Slider = withStyles(theme => ({
+let InstaSlider = withStyles(theme => ({
     root: {
       color: "#CFB08D",
       height: 8,
@@ -112,7 +110,7 @@ let Insta_Slider = withStyles(theme => ({
     }
   }))(Slider);
 
-  let Insta_label = withStyles({
+  let InstaLabel = withStyles({
     root: {
         fontSize: '2rem',
     },
@@ -124,7 +122,6 @@ let Insta_Slider = withStyles(theme => ({
 
 export default ({input, name, label, input: { onChange }, meta: { error, touched }}) => {
     const classes = useStyles();
-    const insta_slider = Insta_Slider;
 
     const [slider_val, set_slider_val] = useState(input.value);
 
@@ -137,55 +134,55 @@ export default ({input, name, label, input: { onChange }, meta: { error, touched
         if(value === 1) {
             return (
                 <div className={classes.valueLabelBlood}>
-                    <img className={classes.slider_img} src='/assets/bloodiness/NoBlood.png'/>
+                    <img className={classes.slider_img} src='/assets/bloodiness/NoBlood.png' alt='toilet paper - no blood'/>
                     <span>&nbsp;No</span>
                 </div>)
         }
         else if(value === 2) {
             return (
                 <div className={classes.valueLabelBlood}>
-                    <img className={classes.slider_img} src='/assets/bloodiness/Bloody.png' />
+                    <img className={classes.slider_img} src='/assets/bloodiness/Bloody.png' alt='toilet paper - a little blood' />
                     <span>&nbsp;A Little</span>
                 </div>)
         }
         else {
             return (
                 <div className={classes.valueLabelBlood}>
-                    <img className={classes.slider_img} src='/assets/bloodiness/SuperBloody.png' />
+                    <img className={classes.slider_img} src='/assets/bloodiness/SuperBloody.png' alt='toilet paper - quite bloody' />
                     <span>&nbsp;Lots</span>
                 </div>)
         }
     }
     function valueLabelStoolType(value){
         if(value === 1) {
-            return <span className={classes.valueLabelStool} >&#128166; Wet</span>
+            return <span role='img' aria-label='stool - wet' className={classes.valueLabelStool} >&#128166; Wet</span>
         }
         else if(value === 3) {
-            return <span className={classes.valueLabelStool} >&#127761; Dry</span>
+            return <span role='img' aria-label='stool - dry' className={classes.valueLabelStool} >&#127761; Dry</span>
         }
         else {
-            return <span className={classes.valueLabelStool} >&#128169; Normal</span>
+            return <span role='img' aria-label='stool - normal' className={classes.valueLabelStool} >&#128169; Normal</span>
         }
     }
     function valueLabelPainLvl(value){
         if(value === 1) {
-            return <span className={classes.valueLabelPain} >&#128557; Painful</span>
+            return <span role='img' aria-label='pain - painful' className={classes.valueLabelPain} >&#128557; Painful</span>
         }
         else if(value === 2) {
-            return <span className={classes.valueLabelPain} >&#128577; A little</span>
+            return <span role='img' aria-label='pain - uncomfortable' className={classes.valueLabelPain} >&#128577; A little</span>
 
         }
         else {
-            return <span className={classes.valueLabelPain} >&#128522; No</span>
+            return <span role='img' aria-label='pain - no pain' className={classes.valueLabelPain} >&#128522; No</span>
         }
     }
 
     return (
         <div className={classes.form_question}>
-            <Insta_label id="discrete-slider" gutterBottom>
+            <InstaLabel id="discrete-slider" gutterBottom>
                 {label}
-            </Insta_label>
-            <Insta_Slider
+            </InstaLabel>
+            <InstaSlider
                 {...input}
                 value={slider_val}
                 onChangeCommitted={(e, val) => handleChange(val)}                

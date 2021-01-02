@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import renderFields from '../insta_renders/insta_render_fields';
 import { reduxForm } from 'redux-form';
-import { Link, Redirect, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import * as actions from '../../../../actions/index';
 
 import Button from '@material-ui/core/Button';
@@ -63,7 +63,7 @@ const useStyles = makeStyles(theme => ({
 let Insta_Form = props => {
 
     const classes = useStyles();
-    const { onSubmit, handleSubmit, pristine, reset, submit, submitLog } = props;
+    const { handleSubmit, submit } = props;
 
     console.log(props)
 
@@ -136,7 +136,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 export default withRouter(reduxForm({
     form: 'Insta_Log_Form',
     initialValues: {
-        date_time: `${formatMMDDYY(new Date)}T${formatAMPM(new Date)}`,
+        date_time: `${formatMMDDYY(new Date())}T${formatAMPM(new Date())}`,
         pain_lvl: 3,
         stool_type: 2,
         bloodiness: 1

@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as actions from '../actions/index';
 import xlsx from 'json-as-xlsx';
 
 import { fetchLogs, deleteLog } from '../actions/index';
@@ -9,9 +8,9 @@ import { fetchLogs, deleteLog } from '../actions/index';
 import Landing from './Landing';
 import LogList from './LogList';
 import LogCal from './LogCal';
-import Full_Form from './forms/full_log/full_forms/Full_Form_Wizard';
-import Insta_Form from './forms/insta_log/insta_forms/Insta_Form';
-import BottomNav from './BottomNav';
+// import Full_Form from './forms/full_log/full_forms/Full_Form_Wizard';
+import InstaForm from './forms/insta_log/insta_forms/Insta_Form';
+// import BottomNav from './BottomNav';
 import SubmittedReg from './submission/instaComplete/SubmittedReg';
 import SubmittedPro from './submission/instaComplete/SubmittedPro';
 
@@ -123,7 +122,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ResponsiveDrawer(props) {
-  const { window, children, auth, submit } = props;
+  const { window, children, auth, submit, logs, fetchLogs } = props;
   
   const classes = useStyles();
   const theme = useTheme();
@@ -137,10 +136,14 @@ function ResponsiveDrawer(props) {
 
 
   useEffect(() => {
-    if(props.logs) {
-      props.fetchLogs();
+    if(logs) {
+      fetchLogs();
     }
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // disables this warning
+    //React Hook useEffect has missing dependencies: 'fetchLogs' and 'logs'. Either include them or remove the dependency array react-hooks/exhaustive-deps
+
+  },[])
 
   
   // console.log(props)
@@ -358,7 +361,7 @@ function ResponsiveDrawer(props) {
                 exact path='/insta_log/' 
                 render={(props) => (
                   <ThemeProvider theme={theme} >
-                    <Insta_Form {...props} auth={auth} onSubmit={values => submit(values)} />
+                    <InstaForm {...props} auth={auth} onSubmit={values => submit(values)} />
                   </ThemeProvider>
                 )}  />
 

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 import Header from './Header';
-import { ThemeProvider, MuiThemeProvider } from '@material-ui/core/styles';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import theme from './style/theme'
 import { CssBaseline } from '@material-ui/core';
 
