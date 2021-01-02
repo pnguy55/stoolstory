@@ -113,7 +113,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         submit: (values, dispatch) => {
             return new Promise(() => {
-                dispatch(actions.submitLog(values, 1, ownProps.history))
+                dispatch(actions.submitLog(values, 1, ownProps.history, ownProps.auth.pro))
                 // .then(
                     // () => {actions.fetchLogs()
                     

@@ -8,7 +8,7 @@ export const fetchUser = () => async dispatch => {
 };
 
 
-export const submitLog = (formValues, log_type, history) => async dispatch => {
+export const submitLog = (formValues, log_type, history, pro_status) => async dispatch => {
 
     let { date_time, stool_type, pain_lvl, bloodiness } = formValues;
 
@@ -23,7 +23,7 @@ export const submitLog = (formValues, log_type, history) => async dispatch => {
     console.log(res)
     dispatch({ type: FETCH_LOGS, payload: res.data });
     
-    history.push('/business_analysis/p')
+    pro_status ? history.push('/business_analysis/p') : history.push('/business_analysis/r');
     // pushing to history for redirect purposes
 };
 
