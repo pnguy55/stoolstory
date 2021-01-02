@@ -150,7 +150,7 @@ function ResponsiveDrawer(props) {
   },[])
 
   
-  // console.log(props)
+  // console.log('Drawer',props)
 
   function downloadXLSX(content) {
 
@@ -256,7 +256,7 @@ function ResponsiveDrawer(props) {
               }
               
               return (
-                  <Link to={to} key={index}>
+                  <Link to={to} key={index} onClick={( () => {handleDrawerToggle()} )}>
                    <ListItem button className= {classes.drawerBtn}>
                         
                         <ListItemIcon className='stool-btn-icon link '>
@@ -416,6 +416,7 @@ function ResponsiveDrawer(props) {
 
 function mapStateToProps(state) {
   // we declared the state piece's name in auth reducer
+  // console.log(state);
   return { 
     logs: [...state.logs]
   }

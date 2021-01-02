@@ -65,7 +65,7 @@ let Insta_Form = props => {
     const classes = useStyles();
     const { handleSubmit, submit } = props;
 
-    console.log(props)
+    // console.log(props)
 
 
     return (
@@ -114,8 +114,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         submit: (values, dispatch) => {
             return new Promise(() => {
                 dispatch(actions.submitLog(values, 1)).then(() => {
-                    console.log(ownProps)
+                    // console.log(ownProps)
                     if(ownProps.auth.pro){
+                        // console.log('Form', ownProps)
                         ownProps.history.push('/submitted/pro');
                     }
                     else {

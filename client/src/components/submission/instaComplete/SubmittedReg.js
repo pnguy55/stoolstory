@@ -46,45 +46,45 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-function SubmittedReg(props) {
+function SubmittedPro(props) {
     const classes = useStyles();
     const theme = useTheme();
 
     const menuDrawer = useContext(MenuDrawerContext);
-    const { auth, children, toggleSide, logs } = props;
+    const { children, toggleSide, logs, auth } = props;
+
+    // let [auth, setAuth] = useState(props.auth);
 
     let [list, setList] = useState();
     let [stool_type, set_stool_type] = useState(new Map([[1, 0],[2, 0],[3, 0]]));
     let [pain_lvl, set_pain_lvl] = useState(new Map([[1, 0],[2, 0],[3, 0]]));
     let [spottiness, set_spottiness] = useState(new Map([[1, 0],[2, 0],[3, 0]]));
 
-    console.log(children);
+    // console.log(props);
 
     function logAnalysis(logs){
         if(logs.length > 0)  {
-            console.log('hi', logs)
+            // console.log('hi', logs)
             for(let log of logs) {
                 set_stool_type(stool_type.set(log.stool_type, stool_type.get(log.stool_type) + 1));
                 set_pain_lvl(pain_lvl.set(log.pain_lvl, pain_lvl.get(log.pain_lvl) + 1));
                 set_spottiness(spottiness.set(log.bloodiness, spottiness.get(log.bloodiness) + 1));
                 
             }
-            console.log(stool_type)
-            console.log(pain_lvl)
-            console.log(spottiness)
+            // console.log(stool_type)
+            // console.log(pain_lvl)
+            // console.log(spottiness)
         }
     }
 
     useEffect((prevProps) => {
-        logAnalysis(logs);
+        
+            logAnalysis(logs);
         // eslint-disable-next-line react-hooks/exhaustive-deps
         // disables this warning
         //React Hook useEffect has missing dependencies: 'fetchLogs' and 'logs'. Either include them or remove the dependency array react-hooks/exhaustive-deps
-        setListHandler()
-
-
-
-    },[auth,pain_lvl, stool_type, spottiness, logs])
+            setListHandler()
+    },[auth, pain_lvl, stool_type, spottiness, logs])
 
     function setListHandler() {
         
@@ -206,4 +206,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(SubmittedReg);
+export default connect(mapStateToProps)(SubmittedPro);

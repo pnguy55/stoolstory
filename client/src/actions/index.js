@@ -20,9 +20,9 @@ export const submitLog = (formValues, log_type) => async dispatch => {
         log_type,
     });
 
-    console.log(res)
+    // console.log(res)
     // pushing to history for redirect purposes
-    dispatch({ type: FETCH_USER, payload: res.config.data });
+    // dispatch({ type: FETCH_LOG, payload: res.data });
 };
 
 export const fetchLog = () => async dispatch => {
