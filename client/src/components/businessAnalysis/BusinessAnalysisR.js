@@ -15,7 +15,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
     root_content: {
         [theme.breakpoints.down('sm')]: {
-            minHeight: '90vh',
+            minHeight: '80vh',
             minWidth: '100vw',
         },
         [theme.breakpoints.up('md')]: {
@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-function BusinessAnalysisR(props) {
+function BusinessAnalysisP(props) {
     const classes = useStyles();
     const theme = useTheme();
 
@@ -119,7 +119,7 @@ function BusinessAnalysisR(props) {
                                 animationEasing="ease-out"
                                 center={[50, 50]}
                                 
-                                label={( {dataEntry} ) => `${dataEntry.title} ${Math.round(dataEntry.percentage) + '%'}`   }
+                                label={( {dataEntry} ) => Math.round(dataEntry.percentage) > 0 ? `${dataEntry.title} ${Math.round(dataEntry.percentage) + '%'}` : ''   }
                                 labelPosition={100 - 70 / 2}
                                 labelStyle={{
                                 fill: '#fff',
@@ -143,7 +143,7 @@ function BusinessAnalysisR(props) {
                                     radius={PieChart.defaultProps.radius - 6}
                                     lineWidth={60}
                                     animate
-                                    label={( data ) => data.dataEntry.title }
+                                    label={( {dataEntry} ) => Math.round(dataEntry.percentage) > 0 ?  dataEntry.title : '' }
                                     labelPosition={100 - 60 / 2}
                                     labelStyle={{
                                     fill: '#fff',
@@ -155,7 +155,7 @@ function BusinessAnalysisR(props) {
                         </Grid>
                     </Grid>
                     <Grid container item xs={6} direction='column' alignItems='center'>
-                        <Grid item><Typography variant='h4'>Spottiness?</Typography></Grid>
+                        <Grid item><Typography variant='h4'>Spottiness</Typography></Grid>
                         <Grid item>
                             <PieChart
                                     data={[
@@ -166,7 +166,7 @@ function BusinessAnalysisR(props) {
                                     radius={PieChart.defaultProps.radius - 6}
                                     lineWidth={60}
                                     animate
-                                    label={( data ) => data.dataEntry.title }
+                                    label={( {dataEntry} ) => Math.round(dataEntry.percentage) > 0 ?  dataEntry.title : '' }
                                     labelPosition={100 - 60 / 2}
                                     labelStyle={{
                                     fill: '#fff',
@@ -245,4 +245,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(BusinessAnalysisR);
+export default connect(mapStateToProps)(BusinessAnalysisP);

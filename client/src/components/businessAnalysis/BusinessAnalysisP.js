@@ -15,7 +15,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
     root_content: {
         [theme.breakpoints.down('sm')]: {
-            minHeight: '90vh',
+            minHeight: '80vh',
             minWidth: '100vw',
         },
         [theme.breakpoints.up('md')]: {
@@ -155,7 +155,7 @@ function BusinessAnalysisP(props) {
                         </Grid>
                     </Grid>
                     <Grid container item xs={6} direction='column' alignItems='center'>
-                        <Grid item><Typography variant='h4'>Spottiness?</Typography></Grid>
+                        <Grid item><Typography variant='h4'>Spottiness</Typography></Grid>
                         <Grid item>
                             <PieChart
                                     data={[
